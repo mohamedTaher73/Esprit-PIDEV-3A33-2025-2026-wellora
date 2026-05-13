@@ -18,8 +18,8 @@ class DiplomaVerificationService
     private SluggerInterface $slugger;
     private string $uploadDir;
     
-    // OCR.space API key (free tier: 500 requests/month)
-    private const OCR_API_KEY = 'helloworld';
+    // OCR.space API key
+    private const OCR_API_KEY = 'K85368597788957';
     private const OCR_API_URL = 'https://api.ocr.space/parse/image';
 
     // Scoring weights
@@ -775,16 +775,6 @@ class DiplomaVerificationService
         // Check file metadata
         $fileInfo = stat($absolutePath);
         
-        // Check if file was recently modified (within last 24 hours)
-        if ($fileInfo && isset($fileInfo['mtime'])) {
-            $modificationTime = $fileInfo['mtime'];
-            $oneDayAgo = time() - (24 * 60 * 60);
-            
-            if ($modificationTime > $oneDayAgo) {
-                $indicators['recent_modification'] = true;
-                $indicators['warnings'][] = 'Le fichier a été modifié récemment';
-            }
-        }
 
         // Check file size (too small might indicate compression/low quality)
         $fileSize = filesize($absolutePath);
@@ -846,9 +836,6 @@ class DiplomaVerificationService
             $score -= 20;
         }
 
-        if ($forgeryIndicators['recent_modification']) {
-            $score -= 10;
-        }
 
         if ($forgeryIndicators['low_image_quality']) {
             $score -= 15;

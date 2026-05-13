@@ -9,11 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Url;
 
 class ProfileEditFormType extends AbstractType
 {
@@ -21,70 +19,42 @@ class ProfileEditFormType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'First Name',
-                'constraints' => [
-                    new NotBlank(['message' => 'First name is required']),
-                    new Length([
-                        'min' => 2,
-                        'max' => 100,
-                        'minMessage' => 'First name must be at least {{ limit }} characters',
-                        'maxMessage' => 'First name cannot be longer than {{ limit }} characters',
-                    ]),
-                ],
+                'label' => 'Prénom',
+                'required' => true,
+                'attr' => ['placeholder' => 'Votre prénom'],
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Last Name',
-                'constraints' => [
-                    new NotBlank(['message' => 'Last name is required']),
-                    new Length([
-                        'min' => 2,
-                        'max' => 100,
-                        'minMessage' => 'Last name must be at least {{ limit }} characters',
-                        'maxMessage' => 'Last name cannot be longer than {{ limit }} characters',
-                    ]),
-                ],
+                'label' => 'Nom',
+                'required' => true,
+                'attr' => ['placeholder' => 'Votre nom'],
             ])
             ->add('phone', TelType::class, [
-                'label' => 'Phone Number',
+                'label' => 'Téléphone',
                 'required' => false,
-                'constraints' => [
-                    new Length([
-                        'max' => 20,
-                        'maxMessage' => 'Phone number cannot be longer than {{ limit }} characters',
-                    ]),
-                ],
+                'attr' => ['placeholder' => '+216 XX XXX XXX'],
             ])
             ->add('address', TextType::class, [
-                'label' => 'Address',
+                'label' => 'Adresse',
                 'required' => false,
-                'constraints' => [
-                    new Length([
-                        'max' => 255,
-                        'maxMessage' => 'Address cannot be longer than {{ limit }} characters',
-                    ]),
-                ],
+                'attr' => ['placeholder' => 'Votre adresse'],
             ])
             ->add('avatarUrl', UrlType::class, [
-                'label' => 'Avatar URL',
+                'label' => 'URL de l\'avatar',
                 'required' => false,
-                'constraints' => [
-                    new Url(['message' => 'Please enter a valid URL']),
-                ],
+                'attr' => ['placeholder' => 'https://...'],
             ])
         ;
 
-        // Add birthDate only for Patient role
-        $builder->addEventListener(\Symfony\Component\Form\FormEvents::PRE_SET_DATA, function (\Symfony\Component\Form\FormEvent $event) {
+        // Add birthdate field only for Patient role
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $user = $event->getData();
             $form = $event->getForm();
-            
-            if ($user && $user->hasRole('ROLE_PATIENT')) {
-                $form->add('birthDate', DateType::class, [
-                    'label' => 'Birth Date',
+
+            if ($user && in_array('ROLE_PATIENT', $user->getRoles(), true)) {
+                $form->add('birthdate', DateType::class, [
+                    'label' => 'Date de naissance',
                     'widget' => 'single_text',
-                    'constraints' => [
-                        new Date(),
-                    ],
+                    'required' => false,
                 ]);
             }
         });

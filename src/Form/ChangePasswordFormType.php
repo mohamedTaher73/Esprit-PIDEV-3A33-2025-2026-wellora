@@ -2,18 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
 
 class ChangePasswordFormType extends AbstractType
 {
@@ -27,48 +24,60 @@ class ChangePasswordFormType extends AbstractType
 
         $builder
             ->add('currentPassword', PasswordType::class, [
-                'label' => 'Current Password',
+                'label' => 'Mot de passe actuel',
                 'mapped' => false,
-                'constraints' => [
-                    new NotBlank(['message' => 'Current password is required']),
-                ],
+                'attr' => ['placeholder' => '••••••••'],
             ])
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
                 'first_options' => [
-                    'label' => 'New Password',
-                    'constraints' => [
-                        new NotBlank(['message' => 'New password is required']),
-                        new Length([
-                            'min' => 8,
-                            'max' => 255,
-                            'minMessage' => 'Password must be at least {{ limit }} characters',
-                            'maxMessage' => 'Password cannot be longer than {{ limit }} characters',
-                        ]),
-                        new Regex([
-                            'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/',
-                            'message' => 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)',
-                        ]),
-                    ],
+                    'label' => 'Nouveau mot de passe',
+                    'attr' => ['placeholder' => '••••••••'],
                 ],
                 'second_options' => [
-                    'label' => 'Confirm New Password',
+                    'label' => 'Confirmer le nouveau mot de passe',
+                    'attr' => ['placeholder' => '••••••••'],
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les mots de passe doivent correspondre.',
             ])
         ;
 
-        // Add validation for current password
+        // Validate in the event listener to avoid requiring ValidatorExtension on PasswordType
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($currentUser) {
             $form = $event->getForm();
             $data = $event->getData();
-            $currentPassword = $data['currentPassword'] ?? null;
 
-            if ($currentUser && $currentPassword) {
+            $currentPassword = $data['currentPassword'] ?? null;
+            $newPassword = $data['newPassword'] ?? null;
+
+            // Check current password is not empty
+            if (empty($currentPassword)) {
+                $form->get('currentPassword')->addError(
+                    new FormError('Le mot de passe actuel est obligatoire.')
+                );
+            }
+
+            // Check new password is not empty
+            if (empty($newPassword)) {
+                $form->get('newPassword')->addError(
+                    new FormError('Le nouveau mot de passe est obligatoire.')
+                );
+            } elseif (strlen($newPassword) < 8) {
+                $form->get('newPassword')->addError(
+                    new FormError('Le mot de passe doit contenir au moins 8 caractères.')
+                );
+            } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/', $newPassword)) {
+                $form->get('newPassword')->addError(
+                    new FormError('Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (@$!%*?&).')
+                );
+            }
+
+            // Verify current password against user record
+            if ($currentUser && !empty($currentPassword)) {
                 if (!$this->passwordHasher->isPasswordValid($currentUser, $currentPassword)) {
                     $form->get('currentPassword')->addError(
-                        new \Symfony\Component\Form\FormError('Current password is incorrect')
+                        new FormError('Le mot de passe actuel est incorrect.')
                     );
                 }
             }

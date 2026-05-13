@@ -37,10 +37,6 @@ security:
             access_denied_handler: App\Security\AccessDeniedHandler
             access_denied_url: /access-denied
             
-        # 2FA verification firewall
-        two_factor:
-            pattern: ^/2fa/
-            provider: app_user_provider
     
             
     # Access Control - Role-Based Authorization
@@ -57,7 +53,7 @@ security:
         - { path: ^/access-denied, roles: PUBLIC_ACCESS }
         - { path: ^/api/, roles: PUBLIC_ACCESS }
         - { path: ^/connect/google, roles: PUBLIC_ACCESS }
-        - { path: ^/2fa/, roles: IS_AUTHENTICATED_PARTIALLY }
+        - { path: ^/2fa/, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/$, roles: PUBLIC_ACCESS }
         - { path: ^/health/accessible, roles: PUBLIC_ACCESS }
         

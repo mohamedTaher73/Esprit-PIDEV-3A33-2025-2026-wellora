@@ -467,7 +467,7 @@ class AuthController extends AbstractController
             
             // Validate license number uniqueness (for professionals)
             $licenseNumber = $request->request->get('license_number');
-            if (!empty($licenseNumber) && in_array($type, ['medecin', 'coach', 'nutritionist'])) {
+            if (!empty($licenseNumber) && in_array($type, ['medecin', 'coach', 'nutritionist', 'professional'])) {
                 $existingLicenseUser = $this->entityManager->getRepository(User::class)->findOneBy(['licenseNumber' => $licenseNumber]);
                 if ($existingLicenseUser) {
                     $this->addFlash('error', 'Ce numéro de licence est déjà utilisé par un autre professionnel.');
@@ -605,7 +605,7 @@ class AuthController extends AbstractController
                 error_log("[DEBUG] User saved to database - id: " . $user->getId());
                 
                 // Create professional verification record if applicable
-                if ($this->diplomaVerificationService && in_array($type, ['medecin', 'coach', 'nutritionist'])) {
+                if ($this->diplomaVerificationService && in_array($type, ['medecin', 'coach', 'nutritionist', 'professional'])) {
                     try {
                         $diplomaPath = null;
                         

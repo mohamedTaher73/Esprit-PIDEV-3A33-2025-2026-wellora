@@ -32,6 +32,7 @@
       emailCheckLoading: false,
       firstName: '',
       lastName: '',
+      birthdate: '',
       specialization: '',
       licenseNumber: '',
       licenseAvailable: null,
@@ -43,6 +44,7 @@
       fileError: '',
       isDragging: false,
       touched: {},
+      agreeTerms: false,
       userType: '{{ type }}',
       async checkEmailAvailability() {
         if (!this.validateEmail(this.email)) {
@@ -107,10 +109,10 @@
         const colors = ['text-red-500', 'text-red-500', 'text-yellow-600', 'text-wellcare-600', 'text-green-600'];
         return colors[this.strength];
       },
-      get pct() { return Math.round(((this.step - 1) / 2) * 100); },
+      pct() { return Math.round(((this.step - 1) / 2) * 100); },
       get canProceed() {
         if (this.step === 1) {
-          const hasRequired = this.firstName && this.lastName && this.email && this.validateEmail(this.email);
+          const hasRequired = this.firstName && this.lastName && this.email && this.birthdate && this.validateEmail(this.email);
           const isEmailAvailable = this.emailAvailable === true || this.emailAvailable === null;
           return hasRequired && isEmailAvailable;
         }
@@ -118,14 +120,18 @@
           const hasSpecialization = this.specialization;
           const hasDiploma = this.diplomaFile && !this.fileError;
           // All professionals need license number and it must be available
-          if (this.userType === 'medecin' || this.userType === 'coach' || this.userType === 'nutritionist') {
+          if (this.userType === 'medecin' || this.userType === 'coach' || this.userType === 'nutritionist' || this.userType === 'professional') {
             const isLicenseAvailable = this.licenseAvailable === true || this.licenseAvailable === null;
             return hasSpecialization && this.licenseNumber && hasDiploma && isLicenseAvailable;
           }
           // Other professionals can optionally provide years of experience
           return hasSpecialization && hasDiploma;
         }
-        if (this.step === 3) return this.pw && this.confirmPw && this.pw === this.confirmPw && this.strength >= 2;
+        if (this.step === 3) {
+          const passwordsMatch = this.pw && this.confirmPw && this.pw === this.confirmPw;
+          const hasStrength = this.strength >= 2;
+          return this.pw && this.confirmPw && passwordsMatch && hasStrength && this.agreeTerms;
+        }
         return false;
       },
       get passwordsMatch() {
@@ -155,15 +161,15 @@
         
         const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
         if (!allowedTypes.includes(file.type)) {
-          this.fileError = 'Please upload a PDF, JPG, or PNG file';
+          this.fileError = 'Veuillez télécharger un fichier PDF, JPG ou PNG';
           this.diplomaFile = null;
           this.diplomaName = '';
           return;
         }
         
-        const maxSize = 5 * 1024 * 1024;
+        const maxSize = 2 * 1024 * 1024;
         if (file.size > maxSize) {
-          this.fileError = 'File size must be less than 5MB';
+          this.fileError = 'La taille du fichier doit être inférieure à 2 Mo';
           this.diplomaFile = null;
           this.diplomaName = '';
           return;
@@ -171,6 +177,14 @@
         
         this.diplomaFile = file;
         this.diplomaName = file.name;
+
+        // Sync with hidden input for form submission (especially important for drag-and-drop)
+        const fileInput = document.getElementById('diploma');
+        if (fileInput && file !== fileInput.files[0]) {
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(file);
+          fileInput.files = dataTransfer.files;
+        }
       },
       removeFile() {
         this.diplomaFile = null;
@@ -436,6 +450,21 @@
               </p>
               <p class="helper-text">Use your professional email associated with your practice.</p>
             </div>
+
+            <div class="space-y-1.5">
+              <label for="birthdate" class="label">Date of birth <span class="text-red-500">*</span></label>
+              <input 
+                id="birthdate" 
+                name="birthdate" 
+                type="text" 
+                required 
+                class="input"
+                placeholder="YYYY-MM-DD"
+                x-model="birthdate"
+                pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+              >
+              <p class="helper-text">Format: 1990-05-15</p>
+            </div>
           </div>
 
           {# Step 2: Professional Details #}
@@ -578,7 +607,6 @@
                   name="diploma" 
                   type="file" 
                   accept=".pdf,.jpg,.jpeg,.png"
-                  required
                   class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   @change="handleFileSelect($event)"
                 >
@@ -777,7 +805,7 @@
 
             {# Terms agreement #}
             <div class="flex items-start gap-3 p-4 border rounded-xl bg-wellcare-dark-50 dark:bg-wellcare-dark-900/20 border-wellcare-dark-200 dark:border-wellcare-dark-800">
-              <input id="terms" name="agreeTerms" type="checkbox" required class="w-4 h-4 mt-0.5 text-wellcare-dark-600 border-gray-300 rounded focus:ring-wellcare-dark-500">
+              <input id="terms" name="agreeTerms" type="checkbox" required x-model="agreeTerms" class="w-4 h-4 mt-0.5 text-wellcare-dark-600 border-gray-300 rounded focus:ring-wellcare-dark-500">
               <label for="terms" class="text-xs text-gray-600 dark:text-gray-400">
                 I confirm that I am a licensed healthcare professional and agree to the <a href="/terms" class="text-wellcare-dark-600 hover:text-wellcare-700 dark:text-wellcare-dark-400 dark:hover:text-wellcare-300 hover:underline">Terms of Service</a> and <a href="/privacy" class="text-wellcare-dark-600 hover:text-wellcare-700 dark:text-wellcare-dark-400 dark:hover:text-wellcare-300 hover:underline">Privacy Policy</a>. I understand that my credentials will be verified before account activation.
               </label>

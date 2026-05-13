@@ -13,7 +13,7 @@ class ProfessionalVerificationEmailService
 {
     private MailerInterface $mailer;
     private EntityManagerInterface $entityManager;
-    private string $noreplyAddress = 'zeidimohamedtaher13@gmail.com';
+    private string $noreplyAddress = 'zeidimohamedtaher@gmail.com';
     private string $appUrl = 'http://localhost:8000';
 
     public function __construct(
