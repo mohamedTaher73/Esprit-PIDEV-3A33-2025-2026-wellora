@@ -607,16 +607,66 @@ class AppointmentController extends AbstractController
     #[Route('/delete/{id}', name: 'appointment_delete', methods: ['DELETE'])]
     public function deleteAppointment(int $id, ConsultationRepository $consultationRepository, EntityManagerInterface $entityManager): JsonResponse
     {
+        try {
+            $consultation = $consultationRepository->find($id);
+
+            if (!$consultation) {
+                return $this->json(['success' => false, 'message' => 'Rendez-vous non trouvé'], 404);
+            }
+
+            // Verify user permission (patient can only delete their own appointments)
+            $user = $this->getUser();
+            if ($user && $consultation->getPatient() && $consultation->getPatient() !== $user && !in_array('ROLE_ADMIN', $user->getRoles())) {
+                return $this->json(['success' => false, 'message' => 'Vous n\'avez pas la permission de supprimer ce rendez-vous'], 403);
+            }
+
+            // Delete the consultation (all related records will be cascade deleted by the database)
+            $entityManager->remove($consultation);
+            $entityManager->flush();
+
+            return $this->json(['success' => true, 'message' => 'Rendez-vous supprimé avec succès']);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            error_log('Error deleting appointment: ' . $e->getMessage());
+            return $this->json(
+                ['success' => false, 'message' => 'Erreur lors de la suppression du rendez-vous: ' . $e->getMessage()],
+                500
+            );
+        }
+    }
+
+    /**
+     * Patient review after a completed appointment (stored on consultation notes).
+     */
+    #[Route('/{id}/review', name: 'appointment_review_submit', methods: ['POST'], requirements: ['id' => '\d+'])]
+    public function submitAppointmentReview(int $id, Request $request, ConsultationRepository $consultationRepository, EntityManagerInterface $entityManager): JsonResponse
+    {
         $consultation = $consultationRepository->find($id);
 
         if (!$consultation) {
-            return $this->json(['success' => false, 'message' => 'Rendez-vous non trouvé'], 404);
+            return $this->json(['success' => false, 'message' => 'Appointment not found'], 404);
         }
 
-        $entityManager->remove($consultation);
+        $data = json_decode($request->getContent(), true) ?? [];
+        $rating = isset($data['rating']) ? (int) $data['rating'] : 0;
+        $comment = isset($data['comment']) ? trim((string) $data['comment']) : '';
+
+        if ($rating < 1 || $rating > 5) {
+            return $this->json(['success' => false, 'message' => 'Rating must be between 1 and 5'], 400);
+        }
+
+        $line = sprintf(' | Patient review: %d/5 — %s', $rating, $comment !== '' ? $comment : '(no comment)');
+        $existing = (string) ($consultation->getNotes() ?? '');
+        $merged = $existing.$line;
+        if (strlen($merged) > 500) {
+            $merged = substr($merged, 0, 497).'…';
+        }
+        $consultation->setNotes($merged);
+        $consultation->setUpdatedAt(new \DateTime());
+
         $entityManager->flush();
 
-        return $this->json(['success' => true, 'message' => 'Rendez-vous supprimé avec succès']);
+        return $this->json(['success' => true, 'message' => 'Thank you for your feedback']);
     }
 
     // ============== PATIENT DASHBOARD API ==============

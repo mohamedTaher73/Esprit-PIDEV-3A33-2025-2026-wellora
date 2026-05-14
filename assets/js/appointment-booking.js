@@ -961,7 +961,7 @@ function patientDashboard() {
         
         // View appointment details
         viewDetails(appointment) {
-            window.location.href = `/appointment/details/${appointment.id}`;
+            window.location.href = `/appointment/confirmation/${appointment.id}`;
         },
         
         // Reschedule appointment
@@ -981,7 +981,7 @@ function patientDashboard() {
             if (!this.selectedAppointment) return;
             
             try {
-                const response = await fetch(`/appointment/${this.selectedAppointment.id}/cancel`, {
+                const response = await fetch(`/appointment/cancel/${this.selectedAppointment.id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1011,14 +1011,23 @@ function patientDashboard() {
             if (!confirm('Are you sure you want to delete this appointment?')) return;
             
             try {
-                const response = await fetch(`/appointment/${appointment.id}`, {
+                const response = await fetch(`/appointment/delete/${appointment.id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
-                    }
+                        Accept: 'application/json',
+                    },
                 });
-                
-                const result = await response.json();
+
+                const raw = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(raw);
+                } catch {
+                    console.error('Delete: non-JSON response', raw.slice(0, 200));
+                    alert('Delete failed: server returned an unexpected response.');
+                    return;
+                }
                 
                 if (result.success) {
                     await this.loadAppointments();

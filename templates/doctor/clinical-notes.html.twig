@@ -1,7 +1,7 @@
 {# templates/doctor/clinical-notes.html.twig #}
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Notes Cliniques'|trans }} - WellCare Connect{% endblock %}
+{% block title %}Clinical notes - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -132,7 +132,7 @@
         .note-date { font-size: 12px; color: var(--gray-500); }
         .dark .note-date { color: #9ca3af; }
         
-        /* Style de la croix de suppression */
+        /* Delete button on note items */
         .note-delete-btn {
             background: none; border: none; color: var(--danger); cursor: pointer;
             padding: 4px; width: 24px; height: 24px; display: flex; align-items: center;
@@ -405,7 +405,7 @@
                         {% if patientData is defined and patientData %}
                             {{ patientData.name }}
                         {% else %}
-                            Sélectionner un patient
+                            Select a patient
                         {% endif %}
                     </h2>
                     <p class="patient-id" id="patientId">
@@ -415,53 +415,53 @@
                             --
                         {% endif %}
                     </p>
-                    <span class="status-badge">Actif</span>
+                    <span class="status-badge">Active</span>
                 </div>
             </div>
             <div class="form-group chief-complaint-section">
-                <label class="form-label">Motif de consultation</label>
-                <input type="text" class="form-control" id="chiefComplaint" placeholder="Motif principal...">
+                <label class="form-label">Reason for visit</label>
+                <input type="text" class="form-control" id="chiefComplaint" placeholder="Chief complaint...">
             </div>
         </div>
 
         <div class="notes-history">
             <div class="notes-history-header">
-                <h3 class="section-title">Historique des notes</h3>
-                <button class="clear-history-btn" onclick="clearAllHistory()"><i class="fas fa-trash"></i> Tout effacer</button>
+                <h3 class="section-title">Note history</h3>
+                <button class="clear-history-btn" onclick="clearAllHistory()"><i class="fas fa-trash"></i> Clear all</button>
             </div>
             <div class="notes-list" id="notesList">
-                <!-- Les notes seront injectées ici par le script -->
+                <!-- Notes injected by script -->
             </div>
             <div id="emptyNotes" class="empty-state" style="display: none;">
                 <i class="fas fa-notes-medical"></i>
-                <p>Aucune note dans l'historique</p>
+                <p>No notes in history</p>
             </div>
         </div>
 
         <div class="quick-actions">
-            <h3 class="section-title">Actions rapides</h3>
+            <h3 class="section-title">Quick actions</h3>
             <div class="quick-actions-list">
                 <button class="quick-action-btn" onclick="resetForm()">
-                    <i class="fas fa-plus"></i><span>Nouvelle note</span>
+                    <i class="fas fa-plus"></i><span>New note</span>
                 </button>
                 <button class="quick-action-btn" onclick="scrollToMedications()">
-                    <i class="fas fa-prescription"></i><span>Nouvelle ordonnance</span>
+                    <i class="fas fa-prescription"></i><span>New prescription</span>
                 </button>
             </div>
         </div>
 
         <div class="chatbot-card" id="preconsultChatbot">
             <div class="chatbot-header">
-                <h3 class="section-title">Préconsultation</h3>
-                <span class="chatbot-subtitle">Orientation rapide</span>
+                <h3 class="section-title">Pre-consultation</h3>
+                <span class="chatbot-subtitle">Quick triage</span>
             </div>
             <div class="chatbot-messages" id="chatbotMessages" aria-live="polite"></div>
             <div class="chatbot-choices" id="chatbotChoices"></div>
             <div class="chatbot-actions">
-                <button class="chatbot-reset" onclick="resetChatbot()">Recommencer</button>
+                <button class="chatbot-reset" onclick="resetChatbot()">Start over</button>
             </div>
             <div class="chatbot-disclaimer">
-                Cet outil ne remplace pas un avis mÃ©dical. En cas de doute ou d'urgence, contactez les services d'urgence.
+                This tool does not replace medical advice. If in doubt or in an emergency, contact emergency services.
             </div>
         </div>
     </div>
@@ -469,9 +469,9 @@
     <!-- Right Column - Editor -->
     <div class="right-column" id="editorContainer">
         <div class="editor-header">
-            <h1 class="editor-title" id="mainEditorTitle">Nouvelle Note SOAP</h1>
+            <h1 class="editor-title" id="mainEditorTitle">New SOAP note</h1>
             <div class="editor-meta">
-                <span>{{ "now"|date("d/m/Y") }}</span>
+                <span>{{ "now"|date("M j, Y") }}</span>
                 <span>• Dr. {{ app.user.firstName }} {{ app.user.lastName }}</span>
             </div>
         </div>
@@ -480,48 +480,48 @@
         <div class="soap-section">
             <div class="section-header">
                 <div class="section-badge badge-s">S</div>
-                <h2 class="section-label">Subjectif</h2>
+                <h2 class="section-label">Subjective</h2>
             </div>
-            <textarea class="form-control" id="subjective" placeholder="Symptômes rapportés..."></textarea>
+            <textarea class="form-control" id="subjective" placeholder="Reported symptoms..."></textarea>
         </div>
 
         <!-- Objective (O) -->
         <div class="soap-section">
             <div class="section-header">
                 <div class="section-badge badge-o">O</div>
-                <h2 class="section-label">Objectif</h2>
+                <h2 class="section-label">Objective</h2>
             </div>
             <div class="vitals-grid">
                 <div class="vital-input">
-                    <label>Tension (mmHg)</label>
+                    <label>Blood pressure (mmHg)</label>
                     <div class="bp-input-group">
                         <input type="text" class="form-control bp-input" id="bpSystolic" value="120">
                         <span class="bp-separator">/</span>
                         <input type="text" class="form-control bp-input" id="bpDiastolic" value="80">
                     </div>
                 </div>
-                <div class="vital-input"><label>Pouls (bpm)</label><input type="text" class="form-control" id="pulse" value="72"></div>
-                <div class="vital-input"><label>Température (°C)</label><input type="text" class="form-control" id="temperature" value="37"></div>
+                <div class="vital-input"><label>Pulse (bpm)</label><input type="text" class="form-control" id="pulse" value="72"></div>
+                <div class="vital-input"><label>Temperature (°C)</label><input type="text" class="form-control" id="temperature" value="37"></div>
                 <div class="vital-input"><label>SpO2 (%)</label><input type="text" class="form-control" id="spo2" value="99"></div>
             </div>
-            <textarea class="form-control" id="objective" placeholder="Examen physique..."></textarea>
+            <textarea class="form-control" id="objective" placeholder="Physical exam..."></textarea>
         </div>
 
         <!-- Assessment (A) -->
         <div class="soap-section">
             <div class="section-header">
                 <div class="section-badge badge-a">A</div>
-                <h2 class="section-label">Évaluation</h2>
+                <h2 class="section-label">Assessment</h2>
             </div>
             <div class="diagnoses-section">
-                <label class="form-label">Diagnostics (CIM-10)</label>
+                <label class="form-label">Diagnoses (ICD-10)</label>
                 <div class="diagnoses-tags" id="diagnosesTags"></div>
                 <div class="diagnosis-input-group">
-                    <input type="text" class="form-control diagnosis-input" id="newDiagnosis" placeholder="Code CIM-10...">
-                    <button class="btn-add" onclick="addDiagnosis()">Ajouter</button>
+                    <input type="text" class="form-control diagnosis-input" id="newDiagnosis" placeholder="ICD-10 code...">
+                    <button class="btn-add" onclick="addDiagnosis()">Add</button>
                 </div>
             </div>
-            <textarea class="form-control" id="assessment" placeholder="Interprétation..."></textarea>
+            <textarea class="form-control" id="assessment" placeholder="Clinical impression..."></textarea>
         </div>
 
         <!-- Plan (P) -->
@@ -533,42 +533,42 @@
 
             <!-- Medications -->
             <div class="medications-section" id="medicationsSection">
-                <h3 class="section-title-large"><i class="fas fa-prescription"></i> Ordonnance Médicamenteuse</h3>
-                <button class="btn-add-large" onclick="addMedicationCard(true)"><i class="fas fa-plus"></i> Ajouter un médicament</button>
+                <h3 class="section-title-large"><i class="fas fa-prescription"></i> Prescription</h3>
+                <button class="btn-add-large" onclick="addMedicationCard(true)"><i class="fas fa-plus"></i> Add medication</button>
                 <div id="medicationsContainer"></div>
                 <div id="emptyMedications" class="empty-state" style="display: block;">
-                    <i class="fas fa-prescription-bottle-alt"></i><p>Aucun médicament prescrit</p>
+                    <i class="fas fa-prescription-bottle-alt"></i><p>No medications prescribed</p>
                 </div>
             </div>
 
             <!-- Lab Tests -->
             <div class="lab-tests-section" id="examsSection">
-                <h3 class="section-title-large"><i class="fas fa-flask"></i> Examens Complémentaires</h3>
-                <button class="btn-add-large" onclick="addExamCard(true)"><i class="fas fa-plus"></i> Ajouter un examen</button>
+                <h3 class="section-title-large"><i class="fas fa-flask"></i> Additional tests</h3>
+                <button class="btn-add-large" onclick="addExamCard(true)"><i class="fas fa-plus"></i> Add test</button>
                 <div id="examsContainer"></div>
                 <div id="emptyExams" class="empty-state" style="display: block;">
-                    <i class="fas fa-flask"></i><p>Aucun examen demandé</p>
+                    <i class="fas fa-flask"></i><p>No tests ordered</p>
                 </div>
             </div>
 
             <div class="treatment-plan-section">
-                <label class="form-label">Plan de traitement général</label>
-                <textarea class="form-control" id="plan" placeholder="Recommandations..."></textarea>
+                <label class="form-label">Overall treatment plan</label>
+                <textarea class="form-control" id="plan" placeholder="Recommendations..."></textarea>
             </div>
 
             <div class="followup-section">
-                <h3>Prochain rendez-vous</h3>
+                <h3>Next appointment</h3>
                 <div class="followup-grid">
                     <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-control" id="followUpDate"></div>
                     <div class="form-group">
                         <label class="form-label">Type</label>
                         <select class="form-control" id="followUpType">
                             <option value="consultation">Consultation</option>
-                            <option value="control" selected>Contrôle</option>
+                            <option value="control" selected>Follow-up</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Priorité</label>
+                        <label class="form-label">Priority</label>
                         <select class="form-control" id="followUpPriority">
                             <option value="routine">Routine</option>
                             <option value="urgent" selected>Urgent</option>
@@ -580,31 +580,28 @@
 
         <div class="action-buttons">
             <button class="btn btn-primary" onclick="saveNoteToServer()">
-                <i class="fas fa-save"></i> <span id="saveBtnText">Enregistrer</span>
+                <i class="fas fa-save"></i> <span id="saveBtnText">Save</span>
             </button>
             <button class="btn btn-secondary" onclick="resetForm()">
-                <i class="fas fa-redo"></i> Réinitialiser
+                <i class="fas fa-redo"></i> Reset
             </button>
         </div>
     </div>
 </div>
 
 <script>
-    // ÉTAT GLOBAL
-    let currentEditingId = null; 
+    // Global state
+    let currentEditingId = null;
     let medCounter = 0;
     let examCounter = 0;
-    
-    // Données du patient
+
     const patientData = {{ patientData|default(null)|json_encode|raw }};
-    
-    // Historique depuis la base
+
     let notesData = {{ historyData|default([])|json_encode|raw }};
 
     const currentNote = {{ currentNoteData|default(null)|json_encode|raw }};
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Afficher les informations du patient si disponibles
         if (patientData && patientData.name) {
             document.getElementById('patientName').textContent = patientData.name;
             document.getElementById('patientAvatar').textContent = patientData.name.substring(0, 2).toUpperCase();
@@ -616,21 +613,18 @@
         renderHistory();
         updateDiagnosisSelects();
         
-        // Charger les données de la note existante
         if (currentNote && currentNote.id) {
             console.log('Loading current note:', currentNote);
             currentEditingId = currentNote.id;
-            document.getElementById('mainEditorTitle').textContent = `Modifier la Note #${currentNote.id}`;
-            document.getElementById('saveBtnText').textContent = "Mettre à jour";
+            document.getElementById('mainEditorTitle').textContent = `Edit note #${currentNote.id}`;
+            document.getElementById('saveBtnText').textContent = "Update";
             
-            // Remplir le formulaire avec les données existantes
             document.getElementById('chiefComplaint').value = currentNote.chiefComplaint || '';
             document.getElementById('subjective').value = currentNote.subjective || '';
             document.getElementById('objective').value = currentNote.objective || '';
             document.getElementById('assessment').value = currentNote.assessment || '';
             document.getElementById('plan').value = currentNote.plan || '';
             
-            // Remplir les signes vitaux
             const vitals = currentNote.vitals || {};
             const bp = vitals.bloodPressure || {};
             document.getElementById('bpSystolic').value = bp.systolic ?? vitals.bloodPressureSystolic ?? '';
@@ -639,12 +633,10 @@
             document.getElementById('temperature').value = vitals.temperature ?? '';
             document.getElementById('spo2').value = vitals.spo2 ?? vitals.oxygenSaturation ?? '';
             
-            // Remplir les diagnostics
             if (currentNote.diagnoses && currentNote.diagnoses.length > 0) {
                 currentNote.diagnoses.forEach(dx => addDiagnosis(dx));
             }
             
-            // Remplir les médicaments
             if (currentNote.medications && currentNote.medications.length > 0) {
                 document.getElementById('emptyMedications').style.display = 'none';
                 currentNote.medications.forEach(m => {
@@ -662,7 +654,6 @@
                 });
             }
             
-            // Remplir les examens
             if (currentNote.labTests && currentNote.labTests.length > 0) {
                 document.getElementById('emptyExams').style.display = 'none';
                 currentNote.labTests.forEach(e => {
@@ -678,7 +669,6 @@
                 });
             }
             
-            // Remplir le suivi
             if (currentNote.followUp) {
                 document.getElementById('followUpDate').value = currentNote.followUp.date || '';
                 document.getElementById('followUpType').value = currentNote.followUp.type || 'control';
@@ -687,7 +677,6 @@
         }
     });
 
-    // --- MISE À JOUR (UPDATE) ---
     function selectNote(id) {
         const note = notesData.find(n => n.id === id);
         if (!note) return;
@@ -698,8 +687,8 @@
         const activeItem = document.querySelector(`[data-note-id="${id}"]`);
         if(activeItem) activeItem.classList.add('active');
         
-        document.getElementById('mainEditorTitle').textContent = `Modifier la Note #${id}`;
-        document.getElementById('saveBtnText').textContent = "Mettre à jour";
+        document.getElementById('mainEditorTitle').textContent = `Edit note #${id}`;
+        document.getElementById('saveBtnText').textContent = "Update";
 
         fillFormWithData(note.data);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -762,7 +751,6 @@
         updateDiagnosisSelects();
     }
 
-    // --- ENREGISTREMENT ---
     async function saveNoteToServer() {
         const data = generateJSON();
         // Use the actual patient ID from patientData if available
@@ -773,8 +761,7 @@
         if (currentEditingId) data.noteId = currentEditingId;
 
         try {
-            showNotification('Sauvegarde...', 'info');
-            // On utilise l'URL en dur ou une variable globale si path() échoue dynamiquement en JS
+            showNotification('Saving...', 'info');
             const url = currentEditingId ? '{{ path("doctor_update_clinical_note") }}' : '{{ path("doctor_save_clinical_note") }}';
             const method = currentEditingId ? 'PUT' : 'POST';
 
@@ -786,7 +773,7 @@
 
             const result = await response.json();
             if (result.success) {
-                showNotification('Succès !', 'success');
+                showNotification('Success!', 'success');
                 if (!currentEditingId) {
                     notesData.unshift({ id: result.consultationId, date: new Date().toLocaleDateString(), title: "Note SOAP", summary: data.consultation.chiefComplaint, data: data });
                 } else {
@@ -796,17 +783,16 @@
                 renderHistory();
                 resetForm();
             } else {
-                showNotification('Erreur: ' + result.message, 'error');
+                showNotification('Error: ' + result.message, 'error');
             }
         } catch (e) {
-            showNotification('Erreur de connexion', 'error');
+            showNotification('Connection error', 'error');
         }
     }
 
-    // --- SUPPRESSION ---
     async function deleteNote(event, id) {
-        event.stopPropagation(); // Évite de sélectionner la note en cliquant sur le X
-        if (!confirm('Supprimer cette note de la base de données ?')) return;
+        event.stopPropagation();
+        if (!confirm('Delete this note from the database?')) return;
 
         try {
             const deleteUrlBase = '{{ path('api_clinical_note_delete', {'id': 0}) }}';
@@ -814,19 +800,18 @@
             const result = await response.json();
 
             if (result.success) {
-                showNotification('Note supprimée', 'success');
+                showNotification('Note deleted', 'success');
                 notesData = notesData.filter(n => n.id !== id);
                 if (currentEditingId === id) resetForm();
                 renderHistory();
             } else {
-                showNotification('Erreur: ' + result.message, 'error');
+                showNotification('Error: ' + result.message, 'error');
             }
         } catch (e) {
-            showNotification('Erreur serveur', 'error');
+            showNotification('Server error', 'error');
         }
     }
 
-    // --- STRUCTURES DYNAMIQUES ---
     function renderHistory() {
         const list = document.getElementById('notesList');
         list.innerHTML = '';
@@ -860,14 +845,14 @@
         const card = document.createElement('div');
         card.className = 'medication-card';
         card.innerHTML = `
-            <div class="card-header"><h4 class="card-title">Médicament</h4><button class="btn-delete" onclick="removeMedication(this)"><i class="fas fa-trash"></i> Supprimer</button></div>
+            <div class="card-header"><h4 class="card-title">Medication</h4><button class="btn-delete" onclick="removeMedication(this)"><i class="fas fa-trash"></i> Remove</button></div>
             <div class="form-grid">
-                <div class="form-group"><label class="form-label">Diagnostic associé</label><select class="form-control medication-diagnosis"><option value="">Sélectionner</option></select></div>
-                <div class="form-group"><label class="form-label">Nom du médicament</label><input type="text" class="form-control medication-name"></div>
+                <div class="form-group"><label class="form-label">Associated diagnosis</label><select class="form-control medication-diagnosis"><option value="">Select</option></select></div>
+                <div class="form-group"><label class="form-label">Medication name</label><input type="text" class="form-control medication-name"></div>
                 <div class="form-group"><label class="form-label">Dosage</label><input type="text" class="form-control medication-dosage"></div>
-                <div class="form-group"><label class="form-label">Forme</label><select class="form-control medication-form"><option value="comprimé">Comprimé</option><option value="gélule">Gélule</option></select></div>
-                <div class="form-group"><label class="form-label">Fréquence</label><select class="form-control medication-frequency"><option value="1x/jour">1x/jour</option><option value="2x/jour">2x/jour</option></select></div>
-                <div class="form-group"><label class="form-label">Durée</label><input type="text" class="form-control medication-duration"></div>
+                <div class="form-group"><label class="form-label">Form</label><select class="form-control medication-form"><option value="comprimé">Tablet</option><option value="gélule">Capsule</option></select></div>
+                <div class="form-group"><label class="form-label">Frequency</label><select class="form-control medication-frequency"><option value="1x/jour">1×/day</option><option value="2x/jour">2×/day</option></select></div>
+                <div class="form-group"><label class="form-label">Duration</label><input type="text" class="form-control medication-duration"></div>
                 <div class="form-group form-grid-full"><label class="form-label">Instructions</label><textarea class="form-control medication-instructions"></textarea></div>
             </div>`;
         document.getElementById('medicationsContainer').appendChild(card);
@@ -881,38 +866,38 @@
         const card = document.createElement('div');
         card.className = 'exam-card';
         card.innerHTML = `
-            <div class="card-header"><h4 class="card-title">Examen</h4><button class="btn-delete" onclick="removeExam(this)"><i class="fas fa-trash"></i> Supprimer</button></div>
+            <div class="card-header"><h4 class="card-title">Test</h4><button class="btn-delete" onclick="removeExam(this)"><i class="fas fa-trash"></i> Remove</button></div>
             <div class="form-grid">
                 <div class="form-group"><label class="form-label">Type</label><select class="form-control exam-type" onchange="updateExamNameFromType(this)">
-                    <optgroup label="🧬 Examens biologiques">
-                        <option value="nfs">NFS (Numération Formule Sanguine)</option>
-                        <option value="bilan_lipidique">Bilan lipidique (Cholestérol, Triglycérides)</option>
-                        <option value="bilan_hepatique">Bilan hépatique (Transaminases, Gamma GT)</option>
-                        <option value="bilan_renal">Bilan rénal (Créatinine, Urée)</option>
-                        <option value="glycemie_hba1c">Glycémie, HbA1c (Diabète)</option>
-                        <option value="serologies">Sérologies (VIH, Hépatites)</option>
-                        <option value="ecbu">Examens urinaires (ECBU)</option>
+                    <optgroup label="Lab tests">
+                        <option value="nfs">CBC (complete blood count)</option>
+                        <option value="bilan_lipidique">Lipid panel</option>
+                        <option value="bilan_hepatique">Liver panel</option>
+                        <option value="bilan_renal">Renal panel</option>
+                        <option value="glycemie_hba1c">Glucose / HbA1c</option>
+                        <option value="serologies">Serologies</option>
+                        <option value="ecbu">Urinalysis</option>
                         <option value="hormones">Hormones (TSH, cortisol)</option>
                     </optgroup>
-                    <optgroup label="🧠 Examens d'imagerie médicale">
-                        <option value="irm">IRM (avec compte-rendu texte + images)</option>
-                        <option value="scanner">Scanner (TDM)</option>
-                        <option value="radiographie">Radiographie (Rayons X)</option>
-                        <option value="echographie">Échographie (Abdominale, pelvienne, obstétricale)</option>
-                        <option value="mammographie">Mammographie</option>
-                        <option value="osteodensitometrie">Ostéodensitométrie (densité osseuse)</option>
+                    <optgroup label="Imaging">
+                        <option value="irm">MRI</option>
+                        <option value="scanner">CT scan</option>
+                        <option value="radiographie">X-ray</option>
+                        <option value="echographie">Ultrasound</option>
+                        <option value="mammographie">Mammography</option>
+                        <option value="osteodensitometrie">DEXA bone density</option>
                     </optgroup>
-                    <optgroup label="❤️ Examens cardiovasculaires">
-                        <option value="ecg">Électrocardiogramme (ECG)</option>
-                        <option value="holter">Holter (rythme cardiaque sur 24h)</option>
-                        <option value="echocardiographie">Échocardiographie</option>
-                        <option value="epreuve_effort">Épreuve d'effort</option>
-                        <option value="coronarographie">Coronarographie</option>
+                    <optgroup label="Cardiovascular">
+                        <option value="ecg">ECG</option>
+                        <option value="holter">Holter monitor</option>
+                        <option value="echocardiographie">Echocardiography</option>
+                        <option value="epreuve_effort">Stress test</option>
+                        <option value="coronarographie">Coronary angiography</option>
                     </optgroup>
                 </select></div>
-                <div class="form-group"><label class="form-label">Nom / Détails</label><input type="text" class="form-control exam-name" placeholder="Précisions supplémentaires..."></div>
-                <div class="form-group"><label class="form-label">Date demandée</label><input type="date" class="form-control exam-requested-date"></div>
-                <div class="form-group"><label class="form-label">Statut</label><select class="form-control exam-status"><option value="prescrit">Prescrit</option><option value="realise">Réalisé</option></select></div>
+                <div class="form-group"><label class="form-label">Name / details</label><input type="text" class="form-control exam-name" placeholder="Additional details..."></div>
+                <div class="form-group"><label class="form-label">Requested date</label><input type="date" class="form-control exam-requested-date"></div>
+                <div class="form-group"><label class="form-label">Status</label><select class="form-control exam-status"><option value="prescrit">Ordered</option><option value="realise">Completed</option></select></div>
                 <div class="form-group form-grid-full"><label class="form-label">Notes</label><textarea class="form-control exam-notes"></textarea></div>
             </div>`;
         document.getElementById('examsContainer').appendChild(card);
@@ -948,15 +933,15 @@
         const dxs = Array.from(document.querySelectorAll('.diagnosis-tag')).map(t => t.innerText.replace('×','').trim());
         document.querySelectorAll('.medication-diagnosis').forEach(sel => {
             const current = sel.value;
-            sel.innerHTML = '<option value="">Sélectionner</option>' + dxs.map(d => `<option value="${d}">${d}</option>`).join('');
+            sel.innerHTML = '<option value="">Select</option>' + dxs.map(d => `<option value="${d}">${d}</option>`).join('');
             sel.value = current;
         });
     }
 
     function resetForm() {
         currentEditingId = null;
-        document.getElementById('mainEditorTitle').textContent = "Nouvelle Note SOAP";
-        document.getElementById('saveBtnText').textContent = "Enregistrer";
+        document.getElementById('mainEditorTitle').textContent = "New SOAP note";
+        document.getElementById('saveBtnText').textContent = "Save";
         document.querySelectorAll('input:not(.bp-input), textarea').forEach(i => i.value = '');
         document.getElementById('bpSystolic').value = '120';
         document.getElementById('bpDiastolic').value = '80';

@@ -1,7 +1,7 @@
 {# templates/doctor/patient-list.html.twig #}
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Liste des Consultations'|trans }} - WellCare Connect{% endblock %}
+{% block title %}Consultation list - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -13,7 +13,7 @@
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <span class="breadcrumb-current">{{ 'Liste des Consultations'|trans }}</span>
+        <span class="breadcrumb-current">Consultation list</span>
     </li>
 {% endblock %}
 
@@ -25,10 +25,10 @@
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-notes-medical text-wellcare-500"></i>
-                    {{ 'Liste des Consultations'|trans }}
+                    Consultation list
                 </h1>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    {{ 'Gérez vos consultations et notes cliniques'|trans }}
+                    Manage your consultations and clinical notes
                 </p>
             </div>
             
@@ -38,7 +38,7 @@
                     class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-wellcare-600 hover:bg-wellcare-700 dark:bg-wellcare-500 dark:hover:bg-wellcare-600"
                 >
                     <i class="fa-solid fa-plus"></i>
-                    {{ 'Nouvelle Consultation'|trans }}
+                    New consultation
                 </button>
             </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Consultations totales'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Total consultations</p>
                         <p class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" x-text="stats.totalPatients">0</p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-wellcare-50 text-wellcare-600 dark:bg-wellcare-900/30 dark:text-wellcare-400">
@@ -62,7 +62,7 @@
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Cas critiques'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Critical cases</p>
                         <p class="mt-1 text-3xl font-bold text-rose-600 dark:text-rose-400" x-text="stats.criticalAlerts">0</p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400">
@@ -74,7 +74,7 @@
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Suivi requis'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Follow-up required</p>
                         <p class="mt-1 text-3xl font-bold text-amber-600 dark:text-amber-400" x-text="stats.followUp">0</p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
@@ -86,7 +86,7 @@
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Consultations aujourd\'hui'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Consultations today</p>
                         <p class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" x-text="stats.todayAppointments">0</p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
@@ -106,7 +106,7 @@
                         x-model="searchQuery"
                         @input="filterPatients()"
                         class="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                        placeholder="{{ 'Rechercher par nom de patient, motif de consultation...'|trans }}"
+                        placeholder="Search by patient name or reason for visit..."
                     >
                 </div>
                 
@@ -116,11 +116,11 @@
                         @change="filterPatients()"
                         class="px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                     >
-                        <option value="all">{{ 'Tous les statuts'|trans }}</option>
-                        <option value="active">{{ 'Actif'|trans }}</option>
-                        <option value="critical">{{ 'Critique'|trans }}</option>
-                        <option value="follow-up">{{ 'Suivi requis'|trans }}</option>
-                        <option value="stable">{{ 'Stable'|trans }}</option>
+                        <option value="all">All statuses</option>
+                        <option value="active">Active</option>
+                        <option value="critical">Critical</option>
+                        <option value="follow-up">Follow-up required</option>
+                        <option value="stable">Stable</option>
                     </select>
 
                     <select 
@@ -128,10 +128,10 @@
                         @change="sortPatients()"
                         class="px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                     >
-                        <option value="name">{{ 'Trier par nom'|trans }}</option>
-                        <option value="lastVisit">{{ 'Date consultation'|trans }}</option>
-                        <option value="healthScore">{{ 'Score santé'|trans }}</option>
-                        <option value="alerts">{{ 'Priorité'|trans }}</option>
+                        <option value="name">Sort by name</option>
+                        <option value="lastVisit">Consultation date</option>
+                        <option value="healthScore">Health score</option>
+                        <option value="alerts">Priority</option>
                     </select>
 
                     <select 
@@ -139,11 +139,11 @@
                         @change="filterPatients()"
                         class="px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                     >
-                        <option value="all">{{ 'Toutes conditions'|trans }}</option>
-                        <option value="hypertension">{{ 'Hypertension'|trans }}</option>
-                        <option value="diabetes">{{ 'Diabète'|trans }}</option>
-                        <option value="cardiac">{{ 'Cardiaque'|trans }}</option>
-                        <option value="respiratory">{{ 'Respiratoire'|trans }}</option>
+                        <option value="all">All conditions</option>
+                        <option value="hypertension">Hypertension</option>
+                        <option value="diabetes">Diabetes</option>
+                        <option value="cardiac">Cardiac</option>
+                        <option value="respiratory">Respiratory</option>
                     </select>
                 </div>
             </div>
@@ -155,12 +155,12 @@
                 <table class="w-full text-left">
                     <thead class="bg-gray-50 dark:bg-gray-800">
                         <tr>
-                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">{{ 'Consultation / Patient'|trans }}</th>
-                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">{{ 'Statut'|trans }}</th>
-                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">{{ 'Score Santé'|trans }}</th>
-                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">{{ 'Diagnostics'|trans }}</th>
-                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">{{ 'Date Consultation'|trans }}</th>
-                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">{{ 'Actions'|trans }}</th>
+                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">Consultation / Patient</th>
+                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">Status</th>
+                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">Health score</th>
+                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">Diagnoses</th>
+                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">Consultation date</th>
+                            <th class="px-6 py-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -176,10 +176,10 @@
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900 dark:text-white" x-text="patient.name"></div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                                <span x-text="patient.age"></span> ans • 
-                                                <span x-text="patient.gender === 'M' ? 'Homme' : 'Femme'"></span>
+                                                <span x-text="patient.age"></span> yrs • 
+                                                <span x-text="patient.gender === 'M' ? 'Male' : 'Female'"></span>
                                             </div>
-                                            <div class="text-xs text-gray-500 dark:text-gray-400" x-text="patient.reasonForVisit || 'Motif non renseigne'"></div>
+                                            <div class="text-xs text-gray-500 dark:text-gray-400" x-text="patient.reasonForVisit || 'Reason not specified'"></div>
                                             <div class="text-xs text-gray-400 dark:text-gray-500" x-text="'#' + patient.fileNumber"></div>
                                         </div>
                                     </div>
@@ -226,21 +226,21 @@
                                         <a 
                                             :href="`/health/doctor/patient-chart/${patient.patientId}`"
                                             class="p-2 text-gray-600 transition-colors rounded-lg hover:bg-gray-100 hover:text-wellcare-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-wellcare-400"
-                                            title="{{ 'Voir le dossier patient'|trans }}"
+                                            title="View patient record"
                                         >
                                             <i class="fa-solid fa-file-medical"></i>
                                         </a>
                                         <a 
                                             :href="`/health/doctor/clinical-notes?consultationId=${patient.consultationId}`"
                                             class="p-2 text-wellcare-600 transition-colors rounded-lg hover:bg-wellcare-50 dark:text-wellcare-400 dark:hover:bg-wellcare-900/30"
-                                            title="{{ 'Voir la note clinique'|trans }}"
+                                            title="View clinical note"
                                         >
                                             <i class="fa-solid fa-notes-medical"></i>
                                         </a>
                                         <button 
                                             @click="openMessageModal(patient)"
                                             class="p-2 text-gray-600 transition-colors rounded-lg hover:bg-gray-100 hover:text-wellcare-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-wellcare-400"
-                                            title="{{ 'Envoyer un message'|trans }}"
+                                            title="Send a message"
                                         >
                                             <i class="fa-solid fa-comment-medical"></i>
                                         </button>
@@ -259,19 +259,19 @@
                                             >
                                                 <a :href="`/health/doctor/clinical-notes?consultationId=${patient.consultationId}`" 
                                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
-                                                    <i class="mr-2 fa-solid fa-notes-medical"></i> {{ 'Modifier la note'|trans }}
+                                                    <i class="mr-2 fa-solid fa-notes-medical"></i> Edit note
                                                 </a>
                                                 <a :href="`/health/doctor/patient/${patient.patientId}/communication`" 
                                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
-                                                    <i class="mr-2 fa-solid fa-comments"></i> {{ 'Communications'|trans }}
+                                                    <i class="mr-2 fa-solid fa-comments"></i> Communications
                                                 </a>
                                                 <button @click="printConsultation(patient)" 
                                                         class="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
-                                                    <i class="mr-2 fa-solid fa-print"></i> {{ 'Imprimer'|trans }}
+                                                    <i class="mr-2 fa-solid fa-print"></i> Print
                                                 </button>
                                                 <button @click="deleteConsultation(patient.consultationId)" 
                                                         class="block w-full px-4 py-2 text-sm text-left text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-900/30">
-                                                    <i class="mr-2 fa-solid fa-trash"></i> {{ 'Supprimer'|trans }}
+                                                    <i class="mr-2 fa-solid fa-trash"></i> Delete
                                                 </button>
                                             </div>
                                         </div>
@@ -288,14 +288,14 @@
                 <div class="inline-flex items-center justify-center w-16 h-16 mb-4 bg-gray-100 rounded-full dark:bg-gray-800">
                     <i class="text-2xl text-gray-400 fa-solid fa-clipboard-list"></i>
                 </div>
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ 'Aucune consultation trouvée'|trans }}</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ 'Essayez de modifier vos critères de recherche'|trans }}</p>
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">No consultations found</h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your search or filters</p>
             </div>
 
             {# Pagination #}
             <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700">
                 <div class="text-sm text-gray-500 dark:text-gray-400">
-                    {{ 'Affichage de'|trans }} <span x-text="filteredPatients.length"></span> {{ 'sur'|trans }} <span x-text="patients.length"></span> {{ 'consultations'|trans }}
+                    Showing <span x-text="filteredPatients.length"></span> of <span x-text="patients.length"></span> consultations
                 </div>
                 <div class="flex gap-2">
                     <button 
@@ -303,14 +303,14 @@
                         :disabled="currentPage === 1"
                         class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
                     >
-                        {{ 'Précédent'|trans }}
+                        Previous
                     </button>
                     <button 
                         @click="nextPage()"
                         :disabled="currentPage >= totalPages"
                         class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
                     >
-                        {{ 'Suivant'|trans }}
+                        Next
                     </button>
                 </div>
             </div>

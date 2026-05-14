@@ -595,7 +595,7 @@
                 <div class="mb-6">
                     <div x-show="!collapsed" x-transition:enter="transition-opacity duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="flex items-center gap-2 px-3 mb-2">
                         <h3 class="text-xs font-semibold tracking-wider uppercase text-wellcare-dark-600 dark:text-wellcare-dark-400">
-                            Médecin
+                            Physician
                         </h3>
                     </div>
                     <ul class="space-y-1" role="menubar">
@@ -605,7 +605,7 @@
                                class="sidebar-link"
                                :class="[isActive('/doctor/schedule') ? 'sidebar-link-active-admin' : 'sidebar-link-inactive-admin', collapsed ? 'justify-center px-2' : '']"
                                @click="setActive('/doctor/schedule')"
-                               :title="collapsed ? 'Planning' : ''"
+                               :title="collapsed ? 'Schedule' : ''"
                             >
                                 <span class="sidebar-icon text-wellcare-dark-500" :class="collapsed ? 'w-6 h-6' : ''">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -613,7 +613,7 @@
                                     </svg>
                                 </span>
 
-                                <span x-show="!collapsed" class="sidebar-text">Planning</span>
+                                <span x-show="!collapsed" class="sidebar-text">Schedule</span>
                             </a>
                         </li>
                         <li role="none">
@@ -638,14 +638,14 @@
                                class="sidebar-link"
                                :class="[isActive('/health/doctor/clinical-notes') ? 'sidebar-link-active-admin' : 'sidebar-link-inactive-admin', collapsed ? 'justify-center px-2' : '']"
                                @click="setActive('/health/doctor/clinical-notes')"
-                               :title="collapsed ? 'Notes Cliniques' : ''"
+                               :title="collapsed ? 'Clinical notes' : ''"
                             >
                                 <span class="sidebar-icon text-wellcare-dark-500" :class="collapsed ? 'w-6 h-6' : ''">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                     </svg>
                                 </span>
-                                <span x-show="!collapsed" class="sidebar-text">Notes Cliniques</span>
+                                <span x-show="!collapsed" class="sidebar-text">Clinical notes</span>
                             </a>
                         </li>
                         <li role="none">
@@ -654,33 +654,33 @@
                                class="sidebar-link"
                                :class="[isActive('/health/doctor/availability-settings') ? 'sidebar-link-active-admin' : 'sidebar-link-inactive-admin', collapsed ? 'justify-center px-2' : '']"
                                @click="setActive('/health/doctor/availability-settings')"
-                               :title="collapsed ? 'Disponibilité' : ''"
+                               :title="collapsed ? 'Availability' : ''"
                             >
                                 <span class="sidebar-icon text-wellcare-dark-500" :class="collapsed ? 'w-6 h-6' : ''">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                 </span>
-                                <span x-show="!collapsed" class="sidebar-text">Disponibilité</span>
+                                <span x-show="!collapsed" class="sidebar-text">Availability</span>
                             </a>
                         </li>
                         
                         {# Doctor Analytics #}
-                        <li role="none" x-data="{ open: !collapsed && isGroupActive(['/doctor/analytics', '/doctor/analytics/journal', '/doctor/analytics/report']) }" x-show="!collapsed || isGroupActive(['/doctor/analytics', '/doctor/analytics/journal', '/doctor/analytics/report']) }">
+                        <li role="none" x-data="{ open: !collapsed && isGroupActive(['/doctor/analytics', '/doctor/analytics/journal', '/doctor/analytics/report']) }" x-show="!collapsed || isGroupActive(['/doctor/analytics', '/doctor/analytics/journal', '/doctor/analytics/report'])">
                             <button 
                                 @click="if (!collapsed) open = !open"
                                 class="w-full sidebar-link sidebar-link-inactive"
                                 :class="[open ? 'bg-wellcare-50 dark:bg-wellcare-900/20' : '', collapsed ? 'justify-center px-2' : '']"
                                 aria-haspopup="true"
                                 :aria-expanded="open"
-                                :title="collapsed ? 'Analyses' : ''"
+                                :title="collapsed ? 'Analytics' : ''"
                             >
                                 <span class="sidebar-icon text-wellcare-dark-500" :class="collapsed ? 'w-6 h-6' : ''">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                     </svg>
                                 </span>
-                                <span x-show="!collapsed" class="sidebar-text">Analyses</span>
+                                <span x-show="!collapsed" class="sidebar-text">Analytics</span>
                             
                                 
                                 <svg x-show="!collapsed" x-transition:enter="transition-opacity duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="sidebar-chevron" :class="open ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -694,9 +694,9 @@
                                class="sidebar-link"
                                :class="[isActive('/health/analytics/doctor') ? 'sidebar-link-active-admin' : 'sidebar-link-inactive-admin', collapsed ? 'justify-center px-2' : '']"
                                @click="setActive('/health/analytics/doctor')"
-                               :title="collapsed ? 'Analyses' : ''"
+                               :title="collapsed ? 'Activity analytics' : ''"
                             >
-                                <span x-show="!collapsed" class="sidebar-text">Analyses activites</span>
+                                <span x-show="!collapsed" class="sidebar-text">Activity analytics</span>
                           </a>
                         </li>
                                 <li role="none">

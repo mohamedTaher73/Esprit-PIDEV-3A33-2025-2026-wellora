@@ -1112,13 +1112,13 @@ document.addEventListener('alpine:init', () => {
         
         // Weekly schedule for new template
         weeklySchedule: [
-            { name: 'Lundi', key: 'monday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
-            { name: 'Mardi', key: 'tuesday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
-            { name: 'Mercredi', key: 'wednesday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
-            { name: 'Jeudi', key: 'thursday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
-            { name: 'Vendredi', key: 'friday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
-            { name: 'Samedi', key: 'saturday', isActive: false, startTime: '09:00', endTime: '13:00', location: 'clinic', slots: [] },
-            { name: 'Dimanche', key: 'sunday', isActive: false, startTime: '09:00', endTime: '13:00', location: 'clinic', slots: [] },
+            { name: 'Monday', key: 'monday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
+            { name: 'Tuesday', key: 'tuesday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
+            { name: 'Wednesday', key: 'wednesday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
+            { name: 'Thursday', key: 'thursday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
+            { name: 'Friday', key: 'friday', isActive: true, startTime: '08:00', endTime: '18:00', location: 'clinic', slots: [] },
+            { name: 'Saturday', key: 'saturday', isActive: false, startTime: '09:00', endTime: '13:00', location: 'clinic', slots: [] },
+            { name: 'Sunday', key: 'sunday', isActive: false, startTime: '09:00', endTime: '13:00', location: 'clinic', slots: [] },
         ],
         
         // Settings
@@ -1152,8 +1152,8 @@ document.addEventListener('alpine:init', () => {
         
         // Locations
         locations: [
-            { id: 'loc1', name: 'Cabinet Principal', type: 'clinic', address: '123 Rue de la Santé, Tunis', phone: '+216 71 123 456', isActive: true },
-            { id: 'loc2', name: 'Hôpital Central', type: 'hospital', address: '456 Avenue Hospitalière, Tunis', phone: '+216 71 987 654', isActive: true },
+            { id: 'loc1', name: 'Main office', type: 'clinic', address: '123 Health Street, Tunis', phone: '+216 71 123 456', isActive: true },
+            { id: 'loc2', name: 'Central Hospital', type: 'hospital', address: '456 Hospital Avenue, Tunis', phone: '+216 71 987 654', isActive: true },
         ],
         
         // New location form
@@ -1211,8 +1211,8 @@ document.addEventListener('alpine:init', () => {
         
         loadLeaveRequests() {
             this.plannedLeaves = [
-                { id: 'LR001', type: 'vacation', title: 'Congés d\'été', startDate: '2026-02-20', endDate: '2026-02-25', days: 5, reason: 'Congés annuels', status: 'approved' },
-                { id: 'LR002', type: 'conference', title: 'Conférence Médicale', startDate: '2026-03-15', endDate: '2026-03-17', days: 2, reason: 'Conférence cardiologie', status: 'pending' },
+                { id: 'LR001', type: 'vacation', title: 'Summer break', startDate: '2026-02-20', endDate: '2026-02-25', days: 5, reason: 'Annual leave', status: 'approved' },
+                { id: 'LR002', type: 'conference', title: 'Medical conference', startDate: '2026-03-15', endDate: '2026-03-17', days: 2, reason: 'Cardiology conference', status: 'pending' },
             ];
         },
         
@@ -1239,13 +1239,13 @@ document.addEventListener('alpine:init', () => {
         // Methods
         getDayName(day) {
             const names = {
-                monday: 'Lundi',
-                tuesday: 'Mardi',
-                wednesday: 'Mercredi',
-                thursday: 'Jeudi',
-                friday: 'Vendredi',
-                saturday: 'Samedi',
-                sunday: 'Dimanche',
+                monday: 'Monday',
+                tuesday: 'Tuesday',
+                wednesday: 'Wednesday',
+                thursday: 'Thursday',
+                friday: 'Friday',
+                saturday: 'Saturday',
+                sunday: 'Sunday',
             };
             return names[day] || day;
         },
@@ -1288,12 +1288,12 @@ document.addEventListener('alpine:init', () => {
                 });
                 const data = await response.json();
                 if (data.success) {
-                    this.showToastMessage('Paramètres enregistrés avec succès', 'success');
+                    this.showToastMessage('Settings saved successfully', 'success');
                 } else {
-                    this.showToastMessage('Erreur lors de l\'enregistrement', 'error');
+                    this.showToastMessage('Error while saving', 'error');
                 }
             } catch (error) {
-                this.showToastMessage('Erreur de connexion', 'error');
+                this.showToastMessage('Connection error', 'error');
             }
         },
         
@@ -1305,7 +1305,7 @@ document.addEventListener('alpine:init', () => {
         
         confirmAddLocation() {
             if (!this.newLocation.name || !this.newLocation.address) {
-                this.showToastMessage('Veuillez remplir les champs obligatoires', 'error');
+                this.showToastMessage('Please fill in required fields', 'error');
                 return;
             }
             
@@ -1320,7 +1320,7 @@ document.addEventListener('alpine:init', () => {
             
             this.locations.push(location);
             this.showLocationModal = false;
-            this.showToastMessage('Lieu ajouté avec succès', 'success');
+            this.showToastMessage('Location added successfully', 'success');
             
             // Save to server
             this.saveLocationToServer(location);
@@ -1352,7 +1352,7 @@ document.addEventListener('alpine:init', () => {
         
         confirmLeaveRequest() {
             if (!this.newLeave.title || !this.newLeave.startDate || !this.newLeave.endDate) {
-                this.showToastMessage('Veuillez remplir les champs obligatoires', 'error');
+                this.showToastMessage('Please fill in required fields', 'error');
                 return;
             }
             
@@ -1373,7 +1373,7 @@ document.addEventListener('alpine:init', () => {
             
             this.plannedLeaves.push(leave);
             this.showLeaveModal = false;
-            this.showToastMessage('Demande de congé soumise', 'success');
+            this.showToastMessage('Leave request submitted', 'success');
             
             // Save to server and mark planning as unavailable
             this.saveLeaveToServer(leave);
@@ -1397,7 +1397,7 @@ document.addEventListener('alpine:init', () => {
         },
         
         cancelLeave(leave) {
-            if (confirm('Annuler cette demande de congé ?')) {
+            if (confirm('Cancel this leave request?')) {
                 this.plannedLeaves = this.plannedLeaves.filter(l => l.id !== leave.id);
                 this.cancelLeaveOnServer(leave.id);
             }
@@ -1423,18 +1423,18 @@ document.addEventListener('alpine:init', () => {
                         this.availableSubstitutes = data.substitutes;
                         this.showSubstituteModal = true;
                     } else {
-                        this.showToastMessage('Erreur lors du chargement des médecins', 'error');
+                        this.showToastMessage('Error loading physicians', 'error');
                     }
                 })
                 .catch(error => {
                     console.error('Error loading substitutes:', error);
-                    this.showToastMessage('Erreur de connexion', 'error');
+                    this.showToastMessage('Connection error', 'error');
                 });
         },
         
         confirmSubstitute() {
             if (!this.selectedSubstituteUuid) {
-                this.showToastMessage('Veuillez sélectionner un médecin', 'error');
+                this.showToastMessage('Please select a physician', 'error');
                 return;
             }
             
@@ -1443,11 +1443,11 @@ document.addEventListener('alpine:init', () => {
                 this.substituteDoctor = {
                     uuid: selected.uuid,
                     name: 'Dr. ' + selected.firstName + ' ' + selected.lastName,
-                    specialty: selected.specialite || 'Médecine Générale'
+                    specialty: selected.specialite || 'General practice'
                 };
                 this.showSubstituteModal = false;
                 this.selectedSubstituteUuid = null;
-                this.showToastMessage('Médecin remplaçant sélectionné');
+                this.showToastMessage('Locum physician selected');
             }
         },
         
@@ -1467,23 +1467,23 @@ document.addEventListener('alpine:init', () => {
         
         getLeaveTypeLabel(type) {
             const labels = {
-                vacation: 'Congés',
-                conference: 'Conférence',
-                training: 'Formation',
-                sick: 'Maladie',
-                emergency: 'Urgence personnelle',
-                personal: 'Personnel',
-                other: 'Autre',
+                vacation: 'Vacation',
+                conference: 'Conference',
+                training: 'Training',
+                sick: 'Sick leave',
+                emergency: 'Personal emergency',
+                personal: 'Personal',
+                other: 'Other',
             };
             return labels[type] || type;
         },
         
         getLeaveStatusLabel(status) {
             const labels = {
-                pending: 'En attente',
-                approved: 'Approuvée',
-                rejected: 'Refusée',
-                cancelled: 'Annulée',
+                pending: 'Pending',
+                approved: 'Approved',
+                rejected: 'Rejected',
+                cancelled: 'Cancelled',
             };
             return labels[status] || status;
         },
@@ -1512,15 +1512,15 @@ document.addEventListener('alpine:init', () => {
         },
         
         exportSchedule() {
-            alert('Exporter le planning au format PDF/iCal');
+            alert('Export schedule to PDF / iCal');
         },
         
         importSchedule() {
-            alert('Importer un planning');
+            alert('Import a schedule');
         },
         
         resetToDefaults() {
-            if (confirm('Réinitialiser tous les paramètres par défaut ?')) {
+            if (confirm('Reset all settings to defaults?')) {
                 this.settings = {
                     defaultAppointmentDuration: '30',
                     appointmentGap: '5',

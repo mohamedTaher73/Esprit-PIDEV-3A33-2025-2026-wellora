@@ -1313,19 +1313,7 @@ class DoctorController extends AbstractController
                 ], 404);
             }
 
-            // Delete related ordonnances
-            $ordonnances = $this->em->getRepository(Ordonnance::class)->findBy(['consultation' => $consultation]);
-            foreach ($ordonnances as $ordonnance) {
-                $this->em->remove($ordonnance);
-            }
-            
-            // Delete related examens
-            $examens = $this->em->getRepository(Examens::class)->findBy(['consultation' => $consultation]);
-            foreach ($examens as $examen) {
-                $this->em->remove($examen);
-            }
-            
-            // Delete consultation
+            // Delete consultation (all related records will be cascade deleted by the database)
             $this->em->remove($consultation);
             $this->em->flush();
             

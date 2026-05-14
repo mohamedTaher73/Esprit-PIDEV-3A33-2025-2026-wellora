@@ -30,9 +30,9 @@ class Notificationrdv
     #[ORM\JoinColumn(name: 'notifie_uuid', referencedColumnName: 'uuid')]
     private ?User $notifie = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: Consultation::class, cascade: ['remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?consultation $consultation = null;
+    private ?Consultation $consultation = null;
 
     public function getId(): ?int
     {
@@ -99,12 +99,12 @@ class Notificationrdv
         return $this;
     }
 
-    public function getConsultation(): ?consultation
+    public function getConsultation(): ?Consultation
     {
         return $this->consultation;
     }
 
-    public function setConsultation(?consultation $consultation): static
+    public function setConsultation(?Consultation $consultation): static
     {
         $this->consultation = $consultation;
 

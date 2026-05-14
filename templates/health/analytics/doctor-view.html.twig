@@ -3,7 +3,7 @@
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Tableau de Bord Médecin'|trans }} - WellCare Connect{% endblock %}
+{% block title %}Doctor dashboard - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -30,7 +30,7 @@
      data-last-update="{{ 'now'|date('H:i') }}"
      data-critical-alerts="{{ stats.criticalAlerts|default(0) }}"
      data-today-appointments="{{ stats.todayAppointments|default(0) }}"
-     data-next-appointment="{{ stats.nextAppointment|default('Aucun') }}"
+     data-next-appointment="{{ stats.nextAppointment|default('None') }}"
      data-reports-generated="{{ stats.reportsGenerated|default(0) }}"
      data-recent-alerts="{{ recent_alerts | json_encode | e('html_attr') }}">
     {# Header Section #}
@@ -40,10 +40,10 @@
                 <div>
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
                         <i class="mr-2 fa-solid fa-user-doctor text-wellcare-500"></i>
-                        {{ 'Tableau de Bord Médecin'|trans }}
+                        Doctor dashboard
                     </h1>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                        {{ 'Surveillance des patients, alertes et génération de rapports médicaux'|trans }}
+                        Patient monitoring, alerts, and medical report generation
                     </p>
                 </div>
                 
@@ -57,7 +57,7 @@
                             <span class="relative inline-flex w-2 h-2 rounded-full"
                                   :class="apiAvailable ? 'bg-emerald-500' : 'bg-amber-500'"></span>
                         </span>
-                        <span x-text="apiAvailable ? 'IA Connectée' : 'IA Mode Simulation'"></span>
+                        <span x-text="apiAvailable ? 'AI connected' : 'AI simulation mode'"></span>
                     </div>
                     
                     <div class="relative">
@@ -67,14 +67,14 @@
                             x-model="patientSearch"
                             @input="filterPatients"
                             class="pl-10 input"
-                            placeholder="{{ 'Rechercher un patient...'|trans }}"
+                            placeholder="Search for a patient..."
                         >
                     </div>
                     <select x-model="alertFilter" @change="filterByAlerts" class="w-40 input">
-                        <option value="all">{{ 'Tous les patients'|trans }}</option>
-                        <option value="critical">{{ 'Alertes critiques'|trans }}</option>
-                        <option value="warning">{{ 'Alertes modérées'|trans }}</option>
-                        <option value="stable">{{ 'Stables'|trans }}</option>
+                        <option value="all">All patients</option>
+                        <option value="critical">Critical alerts</option>
+                        <option value="warning">Moderate alerts</option>
+                        <option value="stable">Stable</option>
                     </select>
                 </div>
             </div>
@@ -87,7 +87,7 @@
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Patients actifs'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Active patients</p>
                         <p class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" x-text="totalPatients"></p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-wellcare-50 text-wellcare-600 dark:bg-wellcare-900/30 dark:text-wellcare-400">
@@ -98,14 +98,14 @@
                     <span class="text-emerald-600 dark:text-emerald-400">
                         <i class="fa-solid fa-arrow-trend-up"></i> +3
                     </span>
-                    <span class="text-gray-500 dark:text-gray-400">{{ 'ce mois'|trans }}</span>
+                    <span class="text-gray-500 dark:text-gray-400">this month</span>
                 </div>
             </div>
 
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Alertes critiques'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Critical alerts</p>
                         <p class="mt-1 text-3xl font-bold text-rose-600 dark:text-rose-400" x-text="criticalAlerts"></p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400">
@@ -116,14 +116,14 @@
                     <span class="text-rose-600 dark:text-rose-400">
                         <i class="fa-solid fa-arrow-trend-up"></i> +2
                     </span>
-                    <span class="text-gray-500 dark:text-gray-400">{{ 'cette semaine'|trans }}</span>
+                    <span class="text-gray-500 dark:text-gray-400">this week</span>
                 </div>
             </div>
 
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Consultations aujourd\'hui'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Consultations today</p>
                         <p class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" x-text="todayAppointments"></p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
@@ -138,7 +138,7 @@
             <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Rapports générés'|trans }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Reports generated</p>
                         <p class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" x-text="reportsGenerated"></p>
                     </div>
                     <div class="flex items-center justify-center w-12 h-12 text-blue-600 rounded-xl bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400">
@@ -149,7 +149,7 @@
                     <span class="text-emerald-600 dark:text-emerald-400">
                         <i class="fa-solid fa-check"></i>
                     </span>
-                    <span class="text-gray-500 dark:text-gray-400">{{ 'Ce mois'|trans }}</span>
+                    <span class="text-gray-500 dark:text-gray-400">This month</span>
                 </div>
             </div>
         </div>
@@ -164,15 +164,15 @@
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                             <i class="mr-2 fa-solid fa-wand-magic-sparkles"></i>
-                            {{ 'Prédictions IA'|trans }}
+                            AI predictions
                         </h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ 'Activité prévue pour les 7 prochains jours'|trans }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Expected activity for the next 7 days</p>
                     </div>
                 </div>
                 <button @click="refreshAiPredictions" :disabled="isLoadingPredictions" 
                         class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-wellcare-700 bg-white border border-wellcare-200 rounded-lg hover:bg-wellcare-50 dark:bg-wellcare-900/50 dark:text-wellcare-300 dark:border-wellcare-700 dark:hover:bg-wellcare-900/70">
                     <i class="fa-solid fa-rotate" :class="isLoadingPredictions ? 'fa-spin' : ''"></i>
-                    {{ 'Actualiser'|trans }}
+                    Refresh
                 </button>
             </div>
             
@@ -185,7 +185,7 @@
                             <span class="text-2xl font-bold text-wellcare-600 dark:text-wellcare-400" 
                                   x-text="prediction.predicted_consultations"></span>
                         </div>
-                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ 'consultations'|trans }}</p>
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">consultations</p>
                     </div>
                 </template>
             </div>
@@ -193,7 +193,7 @@
             <div class="flex items-center justify-between mt-4 pt-4 border-t border-wellcare-200 dark:border-wellcare-700">
                 <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                     <i class="fa-solid fa-chart-line"></i>
-                    <span>{{ 'Confiance:'|trans }} <strong x-text="aiConfidence + '%'"></strong></span>
+                    <span>Confidence: <strong x-text="aiConfidence + '%'"></strong></span>
                 </div>
                 <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                     <i class="fa-solid fa-clock"></i>
@@ -212,8 +212,8 @@
                                 <i class="text-lg fa-solid fa-user-injured"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Surveillance des Patients'|trans }}</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ 'Vue d\'ensemble et alertes'|trans }}</p>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Patient monitoring</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Overview and alerts</p>
                             </div>
                         </div>
                         <button @click="refreshPatientData" :disabled="isRefreshing" class="btn-outline">
@@ -226,12 +226,12 @@
                         <table class="w-full text-sm text-left">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
                                 <tr>
-                                    <th class="px-4 py-3">{{ 'Patient'|trans }}</th>
-                                    <th class="px-4 py-3">{{ 'Score Santé'|trans }}</th>
-                                    <th class="px-4 py-3">{{ 'Tendance'|trans }}</th>
-                                    <th class="px-4 py-3">{{ 'Alertes'|trans }}</th>
-                                    <th class="px-4 py-3">{{ 'Dernière entrée'|trans }}</th>
-                                    <th class="px-4 py-3">{{ 'Actions'|trans }}</th>
+                                    <th class="px-4 py-3">Patient</th>
+                                    <th class="px-4 py-3">Health score</th>
+                                    <th class="px-4 py-3">Trend</th>
+                                    <th class="px-4 py-3">Alerts</th>
+                                    <th class="px-4 py-3">Last update</th>
+                                    <th class="px-4 py-3">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -280,13 +280,13 @@
                                         </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-2">
-                                                <button @click="viewPatientDetails(patient.id)" class="p-2 text-blue-600 rounded-lg hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30" title="{{ 'Voir détails'|trans }}">
+                                                <button @click="viewPatientDetails(patient.id)" class="p-2 text-blue-600 rounded-lg hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30" title="View details">
                                                     <i class="fa-solid fa-eye"></i>
                                                 </button>
-                                                <button @click="generateReport(patient.id)" class="p-2 rounded-lg text-emerald-600 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-900/30" title="{{ 'Générer rapport'|trans }}">
+                                                <button @click="generateReport(patient.id)" class="p-2 rounded-lg text-emerald-600 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-900/30" title="Generate report">
                                                     <i class="fa-solid fa-file-medical"></i>
                                                 </button>
-                                                <button @click="sendMessage(patient.id)" class="p-2 rounded-lg text-wellcare-600 hover:bg-wellcare-50 dark:text-wellcare-400 dark:hover:bg-wellcare-900/30" title="{{ 'Envoyer message'|trans }}">
+                                                <button @click="sendMessage(patient.id)" class="p-2 rounded-lg text-wellcare-600 hover:bg-wellcare-50 dark:text-wellcare-400 dark:hover:bg-wellcare-900/30" title="Send message">
                                                     <i class="fa-solid fa-envelope"></i>
                                                 </button>
                                             </div>
@@ -306,14 +306,14 @@
                                 <i class="text-lg fa-solid fa-chart-line"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Efficacité des Traitements'|trans }}</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ 'Suivi comparatif par patient'|trans }}</p>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Treatment effectiveness</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Comparative follow-up by patient</p>
                             </div>
                         </div>
                         <select x-model="treatmentMetric" @change="updateTreatmentChart" class="w-40 input">
-                            <option value="symptoms">{{ 'Réduction symptômes'|trans }}</option>
-                            <option value="adherence">{{ 'Adhérence'|trans }}</option>
-                            <option value="satisfaction">{{ 'Satisfaction'|trans }}</option>
+                            <option value="symptoms">Symptom reduction</option>
+                            <option value="adherence">Adherence</option>
+                            <option value="satisfaction">Satisfaction</option>
                         </select>
                     </div>
                     <div class="relative h-72">
@@ -334,30 +334,30 @@
                                 <i class="text-lg fa-solid fa-coins"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Prévisions de revenus'|trans }}</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ 'Basé sur les consultations'|trans }}</p>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Revenue forecast</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Based on consultations</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="profitPredictions" class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">{{ '30 derniers jours'|trans }}</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Last 30 days</span>
                             <span class="text-sm font-semibold text-gray-900 dark:text-white" x-text="formatCurrency(profitPredictions.last_30)"></span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">{{ 'Prochains 30 jours'|trans }}</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Next 30 days</span>
                             <span class="text-sm font-semibold text-gray-900 dark:text-white" x-text="formatCurrency(profitPredictions.next_30)"></span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">{{ 'Honoraires moyens'|trans }}</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Average fees</span>
                             <span class="text-sm font-semibold text-gray-900 dark:text-white" x-text="formatCurrency(profitPredictions.avg_fee)"></span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">{{ 'Tendance'|trans }}</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Trend</span>
                             <span class="text-sm font-semibold" :class="profitPredictions.trend >= 0 ? 'text-emerald-600' : 'text-rose-600'" x-text="formatPercent(profitPredictions.trend)"></span>
                         </div>
                         <div x-show="profitPredictions.monthly_forecast && profitPredictions.monthly_forecast.length">
-                            <p class="mt-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">{{ 'Prochains mois'|trans }}</p>
+                            <p class="mt-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Upcoming months</p>
                             <div class="mt-2 space-y-1">
                                 <template x-for="item in profitPredictions.monthly_forecast" :key="item.month">
                                     <div class="flex items-center justify-between text-sm text-gray-700 dark:text-gray-300">
@@ -381,7 +381,7 @@
                     </div>
                     <div x-show="!profitPredictions" class="p-4 text-center text-gray-500 dark:text-gray-400">
                         <i class="mb-2 text-2xl fa-solid fa-chart-line"></i>
-                        <p class="text-sm">{{ 'Données insuffisantes'|trans }}</p>
+                        <p class="text-sm">Insufficient data</p>
                     </div>
                 </div>
 
@@ -392,7 +392,7 @@
                             <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
                                 <i class="text-lg fa-solid fa-calendar-alt"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Suggestions d\'amélioration du planning'|trans }}</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Schedule improvement suggestions</h3>
                         </div>
                         <span class="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full dark:bg-blue-900/30 dark:text-blue-400" x-text="planningSuggestions.length + ' suggestions'"></span>
                     </div>
@@ -403,11 +403,11 @@
                                     <div class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-800">
                                         <i class="text-blue-600 dark:text-blue-400 fa-solid"
                                            :class="{
-                                               'fa-compress-alt': suggestion.title.includes('creux'),
-                                               'fa-balance-scale': suggestion.title.includes('répartir') || suggestion.title.includes('Répartir'),
-                                               'fa-clock': suggestion.title.includes('marges'),
-                                               'fa-calendar-plus': suggestion.title.includes('Optimiser'),
-                                               'fa-exchange-alt': suggestion.title.includes('décalage') || suggestion.title.includes('Décalage'),
+                                               'fa-compress-alt': suggestion.title.includes('creux') || suggestion.title.includes('lull') || suggestion.title.includes('gap'),
+                                               'fa-balance-scale': suggestion.title.includes('répartir') || suggestion.title.includes('Répartir') || suggestion.title.includes('balance') || suggestion.title.includes('spread'),
+                                               'fa-clock': suggestion.title.includes('marges') || suggestion.title.includes('margin'),
+                                               'fa-calendar-plus': suggestion.title.includes('Optimiser') || suggestion.title.includes('optim'),
+                                               'fa-exchange-alt': suggestion.title.includes('décalage') || suggestion.title.includes('Décalage') || suggestion.title.includes('shift'),
                                                'fa-lightbulb': true
                                            }"></i>
                                     </div>
@@ -420,7 +420,7 @@
                         </template>
                         <div x-show="planningSuggestions.length === 0" class="p-4 text-center text-gray-500 dark:text-gray-400">
                             <i class="mb-2 text-2xl fa-solid fa-check-circle text-emerald-500"></i>
-                            <p class="text-sm">{{ 'Votre planning est bien optimisé !'|trans }}</p>
+                            <p class="text-sm">Your schedule looks well optimized.</p>
                         </div>
                     </div>
                 </div>
@@ -432,7 +432,7 @@
                             <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
                                 <i class="text-lg fa-solid fa-lightbulb"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Autres Recommandations IA'|trans }}</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Other AI recommendations</h3>
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -463,7 +463,7 @@
                         </template>
                         <div x-show="otherRecommendations.length === 0" class="p-4 text-center text-gray-500 dark:text-gray-400">
                             <i class="mb-2 text-2xl fa-solid fa-robot"></i>
-                            <p class="text-sm">{{ 'Chargement des recommandations...'|trans }}</p>
+                            <p class="text-sm">Loading recommendations...</p>
                         </div>
                     </div>
                 </div>
@@ -471,7 +471,7 @@
                 {# Critical Alerts Panel #}
                 <div class="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl dark:bg-gray-900 dark:border-gray-800">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Alertes Récentes'|trans }}</h3>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recent alerts</h3>
                         <span class="px-2 py-1 text-xs font-medium text-white rounded-full bg-rose-500" x-text="recentAlerts.length"></span>
                     </div>
                     <div class="space-y-4">
@@ -483,7 +483,7 @@
                                         <div class="flex items-center gap-2">
                                             <span class="text-xs font-medium" 
                                                   :class="alert.severity === 'critical' ? 'text-rose-600 dark:text-rose-400' : 'text-amber-600 dark:text-amber-400'"
-                                                  x-text="alert.severity === 'critical' ? '{{ 'CRITIQUE'|trans }}' : '{{ 'ATTENTION'|trans }}'"></span>
+                                                  x-text="alert.severity === 'critical' ? 'CRITICAL' : 'WARNING'"></span>
                                             <span class="text-xs text-gray-400" x-text="alert.time"></span>
                                         </div>
                                         <p class="mt-1 font-medium text-gray-900 dark:text-white" x-text="alert.patientName"></p>
@@ -497,7 +497,7 @@
                         </template>
                         <div x-show="recentAlerts.length === 0" class="p-4 text-center text-gray-500 dark:text-gray-400">
                             <i class="mb-2 text-3xl fa-solid fa-check-circle text-emerald-500"></i>
-                            <p>{{ 'Aucune alerte active'|trans }}</p>
+                            <p>No active alerts</p>
                         </div>
                     </div>
                 </div>
@@ -509,41 +509,41 @@
                             <i class="text-lg fa-solid fa-file-export"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Rapport Rapide'|trans }}</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Quick report</h3>
                         </div>
                     </div>
                     <div class="space-y-4">
                         <div>
-                            <label class="label">{{ 'Patient'|trans }}</label>
+                            <label class="label">Patient</label>
                             <select x-model="reportPatient" class="input">
-                                <option value="">{{ 'Sélectionner un patient...'|trans }}</option>
+                                <option value="">Select a patient...</option>
                                 <template x-for="patient in patients" :key="patient.id">
                                     <option :value="patient.id" x-text="patient.name"></option>
                                 </template>
                             </select>
                         </div>
                         <div>
-                            <label class="label">{{ 'Type de rapport'|trans }}</label>
+                            <label class="label">Report type</label>
                             <select x-model="reportType" class="input">
-                                <option value="summary">{{ 'Résumé clinique'|trans }}</option>
-                                <option value="detailed">{{ 'Rapport détaillé'|trans }}</option>
-                                <option value="trends">{{ 'Analyse des tendances'|trans }}</option>
-                                <option value="medication">{{ 'Suivi médicaments'|trans }}</option>
+                                <option value="summary">Clinical summary</option>
+                                <option value="detailed">Detailed report</option>
+                                <option value="trends">Trend analysis</option>
+                                <option value="medication">Medication follow-up</option>
                             </select>
                         </div>
                         <div>
-                            <label class="label">{{ 'Période'|trans }}</label>
+                            <label class="label">Period</label>
                             <select x-model="reportPeriod" class="input">
-                                <option value="7d">{{ '7 derniers jours'|trans }}</option>
-                                <option value="30d">{{ '30 derniers jours'|trans }}</option>
-                                <option value="3m">{{ '3 derniers mois'|trans }}</option>
-                                <option value="custom">{{ 'Personnalisé'|trans }}</option>
+                                <option value="7d">Last 7 days</option>
+                                <option value="30d">Last 30 days</option>
+                                <option value="3m">Last 3 months</option>
+                                <option value="custom">Custom</option>
                             </select>
                         </div>
                         <button @click="generateQuickReport" :disabled="!reportPatient" 
                                 class="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
                             <i class="mr-2 fa-solid fa-file-pdf"></i>
-                            {{ 'Générer le rapport'|trans }}
+                            Generate report
                         </button>
                     </div>
                 </div>
@@ -568,7 +568,7 @@
                 </div>
                 <div class="p-6">
                     {# Patient detail content would go here #}
-                    <p class="text-gray-600 dark:text-gray-300">{{ 'Chargement des détails du patient...'|trans }}</p>
+                    <p class="text-gray-600 dark:text-gray-300">Loading patient details...</p>
                 </div>
             </div>
         </div>
@@ -579,7 +579,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('build/health-analytics.js') }}"></script>
 {% endblock %}

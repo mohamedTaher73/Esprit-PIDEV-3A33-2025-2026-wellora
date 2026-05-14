@@ -594,7 +594,7 @@ document.addEventListener('alpine:init', () => {
         patients: bootstrapPatients,
         criticalAlerts: Number(getAttr('data-critical-alerts', '0')) || 0,
         todayAppointments: Number(getAttr('data-today-appointments', '0')) || 0,
-        nextAppointment: getAttr('data-next-appointment', '') || 'Aucun',
+        nextAppointment: getAttr('data-next-appointment', '') || 'None',
         reportsGenerated: Number(getAttr('data-reports-generated', '0')) || 0,
         recentAlerts: parseJsonAttr(getAttr('data-recent-alerts', ''), []),
     };
@@ -616,7 +616,7 @@ document.addEventListener('alpine:init', () => {
         totalPatients: bootstrap.patients.length || 0,
         criticalAlerts: bootstrap.criticalAlerts,
         todayAppointments: bootstrap.todayAppointments,
-        nextAppointment: bootstrap.nextAppointment || 'Aucun',
+        nextAppointment: bootstrap.nextAppointment || 'None',
         reportsGenerated: bootstrap.reportsGenerated,
 
         // AI Data
@@ -631,7 +631,7 @@ document.addEventListener('alpine:init', () => {
         treatmentEffectiveness: bootstrap.treatmentEffectiveness,
         doctorId: bootstrap.doctorId,
         isLoadingPredictions: false,
-        lastPredictionUpdate: bootstrap.lastPredictionUpdate || new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+        lastPredictionUpdate: bootstrap.lastPredictionUpdate || new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
         
         // Data
         patients: bootstrap.patients,
@@ -659,17 +659,17 @@ document.addEventListener('alpine:init', () => {
         formatDate(dateStr) {
             const date = new Date(dateStr);
             if (Number.isNaN(date.getTime())) return '';
-            return date.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+            return date.toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
         },
 
         formatCurrency(value) {
             const num = Number(value) || 0;
-            return new Intl.NumberFormat('fr-TN', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(num);
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(num);
         },
 
         formatPercent(value) {
             const num = Number(value) || 0;
-            return new Intl.NumberFormat('fr-FR', { style: 'percent', maximumFractionDigits: 1 }).format(num);
+            return new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 1 }).format(num);
         },
 
         async refreshAiPredictions() {
@@ -716,7 +716,7 @@ document.addEventListener('alpine:init', () => {
                     this.profitAlerts = data.profit_alerts;
                 }
 
-                this.lastPredictionUpdate = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                this.lastPredictionUpdate = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
             } catch (error) {
                 console.error('Error refreshing AI predictions:', error);
             } finally {
@@ -757,7 +757,7 @@ document.addEventListener('alpine:init', () => {
             // Use data from backend if available
             const labels = (this.treatmentEffectiveness && this.treatmentEffectiveness.labels) 
                 ? this.treatmentEffectiveness.labels 
-                : ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6'];
+                : ['Wk 1', 'Wk 2', 'Wk 3', 'Wk 4', 'Wk 5', 'Wk 6'];
             
             const datasets = (this.treatmentEffectiveness && this.treatmentEffectiveness.datasets) 
                 ? this.treatmentEffectiveness.datasets 
@@ -808,7 +808,7 @@ document.addEventListener('alpine:init', () => {
                             max: 100,
                             title: {
                                 display: true,
-                                text: 'Score de santé'
+                                text: 'Health score'
                             }
                         }
                     }
@@ -841,7 +841,7 @@ document.addEventListener('alpine:init', () => {
         },
         
         sendMessage(patientId) {
-            alert(`Ouverture de la messagerie pour ${patientId}`);
+            alert(`Opening messaging for ${patientId}`);
         },
         
         acknowledgeAlert(alertId) {
@@ -870,7 +870,7 @@ document.addEventListener('alpine:init', () => {
                 if (response.ok && contentType.includes('application/pdf')) {
                     const blob = await response.blob();
                     const disposition = response.headers.get('Content-Disposition') || '';
-                    let filename = 'rapport.pdf';
+                    let filename = 'report.pdf';
                     const match = disposition.match(/filename="?([^";]+)"?/i);
                     if (match && match[1]) {
                         filename = match[1];
@@ -889,14 +889,14 @@ document.addEventListener('alpine:init', () => {
                     if (data && data.message) {
                         alert(data.message);
                     } else {
-                        alert('Erreur lors de la generation du rapport');
+                        alert('Error generating report');
                     }
                 }).catch(() => {
-                    alert('Erreur lors de la generation du rapport');
+                    alert('Error generating report');
                 });
             }).catch((error) => {
                 console.error('Report generation error:', error);
-                alert('Erreur lors de la generation du rapport');
+                alert('Error generating report');
             });
         },
 
@@ -911,7 +911,7 @@ document.addEventListener('alpine:init', () => {
 
             const labels = (this.revenueWeekly && this.revenueWeekly.labels) 
                 ? this.revenueWeekly.labels 
-                : ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6', 'Sem 7', 'Sem 8', 'Sem 9', 'Sem 10', 'Sem 11', 'Sem 12'];
+                : ['Wk 1', 'Wk 2', 'Wk 3', 'Wk 4', 'Wk 5', 'Wk 6', 'Wk 7', 'Wk 8', 'Wk 9', 'Wk 10', 'Wk 11', 'Wk 12'];
             
             const values = (this.revenueWeekly && this.revenueWeekly.values) 
                 ? this.revenueWeekly.values 
@@ -923,7 +923,7 @@ document.addEventListener('alpine:init', () => {
                     labels,
                     datasets: [
                         {
-                            label: 'Revenus',
+                            label: 'Revenue',
                             data: values,
                             backgroundColor: medicalColors.primaryLight,
                             borderColor: medicalColors.primary,
@@ -949,7 +949,7 @@ document.addEventListener('alpine:init', () => {
                             grid: { color: 'rgba(0,0,0,0.05)' },
                             ticks: {
                                 callback: function (value) {
-                                    return new Intl.NumberFormat('fr-TN', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(value);
+                                    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(value);
                                 },
                             },
                         },
@@ -959,7 +959,7 @@ document.addEventListener('alpine:init', () => {
                         tooltip: {
                             callbacks: {
                                 label: function (context) {
-                                    return new Intl.NumberFormat('fr-TN', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(context.raw);
+                                    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(context.raw);
                                 },
                             },
                         },
@@ -979,7 +979,7 @@ document.addEventListener('alpine:init', () => {
 
             const labels = (this.revenueMonthly && this.revenueMonthly.labels) 
                 ? this.revenueMonthly.labels 
-                : ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+                : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             
             const values = (this.revenueMonthly && this.revenueMonthly.values) 
                 ? this.revenueMonthly.values 
@@ -991,7 +991,7 @@ document.addEventListener('alpine:init', () => {
                     labels,
                     datasets: [
                         {
-                            label: 'Revenus mensuels',
+                            label: 'Monthly revenue',
                             data: values,
                             borderColor: medicalColors.primary,
                             backgroundColor: medicalColors.primaryLight,
@@ -1017,7 +1017,7 @@ document.addEventListener('alpine:init', () => {
                             grid: { color: 'rgba(0,0,0,0.05)' },
                             ticks: {
                                 callback: function (value) {
-                                    return new Intl.NumberFormat('fr-TN', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(value);
+                                    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(value);
                                 },
                             },
                         },
@@ -1027,7 +1027,7 @@ document.addEventListener('alpine:init', () => {
                         tooltip: {
                             callbacks: {
                                 label: function (context) {
-                                    return new Intl.NumberFormat('fr-TN', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(context.raw);
+                                    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(context.raw);
                                 },
                             },
                         },
@@ -1037,7 +1037,7 @@ document.addEventListener('alpine:init', () => {
         },
         
         exportAllData(format) {
-            alert(`Export de toutes les données en format ${format}`);
+            alert(`Exporting all data as ${format}`);
         },
         
         printDashboard() {

@@ -52,7 +52,7 @@ document.addEventListener('alpine:init', () => {
         
         async loadPatients() {
             try {
-                console.log('Chargement des consultations...');
+                console.log('Loading consultations...');
                 const response = await fetch('/health/doctor/api/consultations');
                 console.log('Response status:', response.status);
                 
@@ -68,7 +68,7 @@ document.addEventListener('alpine:init', () => {
                     id: consultation.id,
                     patientId: consultation.patientId || consultation.consultationId || consultation.id,
                     consultationId: consultation.id,
-                    name: consultation.name || 'Nom non disponible',
+                    name: consultation.name || 'Name unavailable',
                     age: consultation.age || '--',
                     gender: consultation.gender || 'M',
                     fileNumber: consultation.fileNumber || '--',
@@ -85,14 +85,14 @@ document.addEventListener('alpine:init', () => {
                 this.updateFilteredPatients();
                 
             } catch (error) {
-                console.error('Erreur chargement patients:', error);
+                console.error('Error loading patients:', error);
                 // Fallback data with proper UUIDs for patientId
                 this.patients = [
-                    { id: 1, patientId: '550e8400-e29b-41d4-a716-446655440001', consultationId: 1, name: 'Ahmed Ben Ali', age: 45, gender: 'M', fileNumber: 'CONS-0001', status: 'active', healthScore: 78, conditions: ['Hypertension'], lastVisitDate: '15/01/2025', reasonForVisit: 'Consultation de suivi' },
-                    { id: 2, patientId: '550e8400-e29b-41d4-a716-446655440002', consultationId: 2, name: 'Fatma Trabelsi', age: 32, gender: 'F', fileNumber: 'CONS-0002', status: 'follow-up', healthScore: 82, conditions: ['Diabète Type 2'], lastVisitDate: '14/01/2025', reasonForVisit: 'Bilan mensuel' },
-                    { id: 3, patientId: '550e8400-e29b-41d4-a716-446655440003', consultationId: 3, name: 'Mohamed Khmiri', age: 58, gender: 'M', fileNumber: 'CONS-0003', status: 'critical', healthScore: 45, conditions: ['Insuffisance cardiaque'], lastVisitDate: '10/01/2025', reasonForVisit: 'Urgence cardiaque' },
-                    { id: 4, patientId: '550e8400-e29b-41d4-a716-446655440004', consultationId: 4, name: 'Salma Bouaziz', age: 28, gender: 'F', fileNumber: 'CONS-0004', status: 'active', healthScore: 92, conditions: [], lastVisitDate: '08/01/2025', reasonForVisit: 'Consultation générale' },
-                    { id: 5, patientId: '550e8400-e29b-41d4-a716-446655440005', consultationId: 5, name: 'Ali Mougou', age: 65, gender: 'M', fileNumber: 'CONS-0005', status: 'follow-up', healthScore: 68, conditions: ['Asthme', 'Allergies'], lastVisitDate: '05/01/2025', reasonForVisit: 'Contrôle asthme' },
+                    { id: 1, patientId: '550e8400-e29b-41d4-a716-446655440001', consultationId: 1, name: 'Ahmed Ben Ali', age: 45, gender: 'M', fileNumber: 'CONS-0001', status: 'active', healthScore: 78, conditions: ['Hypertension'], lastVisitDate: '01/15/2025', reasonForVisit: 'Follow-up visit' },
+                    { id: 2, patientId: '550e8400-e29b-41d4-a716-446655440002', consultationId: 2, name: 'Fatma Trabelsi', age: 32, gender: 'F', fileNumber: 'CONS-0002', status: 'follow-up', healthScore: 82, conditions: ['Type 2 diabetes'], lastVisitDate: '01/14/2025', reasonForVisit: 'Monthly check-in' },
+                    { id: 3, patientId: '550e8400-e29b-41d4-a716-446655440003', consultationId: 3, name: 'Mohamed Khmiri', age: 58, gender: 'M', fileNumber: 'CONS-0003', status: 'critical', healthScore: 45, conditions: ['Heart failure'], lastVisitDate: '01/10/2025', reasonForVisit: 'Cardiac emergency' },
+                    { id: 4, patientId: '550e8400-e29b-41d4-a716-446655440004', consultationId: 4, name: 'Salma Bouaziz', age: 28, gender: 'F', fileNumber: 'CONS-0004', status: 'active', healthScore: 92, conditions: [], lastVisitDate: '01/08/2025', reasonForVisit: 'General consultation' },
+                    { id: 5, patientId: '550e8400-e29b-41d4-a716-446655440005', consultationId: 5, name: 'Ali Mougou', age: 65, gender: 'M', fileNumber: 'CONS-0005', status: 'follow-up', healthScore: 68, conditions: ['Asthma', 'Allergies'], lastVisitDate: '01/05/2025', reasonForVisit: 'Asthma follow-up' },
                 ];
                 this.stats.totalPatients = this.patients.length;
                 this.updateFilteredPatients();
@@ -205,15 +205,15 @@ document.addEventListener('alpine:init', () => {
         
         getStatusLabel(status) {
             const labels = {
-                active: 'Actif',
-                critical: 'Critique',
-                'follow-up': 'Suivi requis',
+                active: 'Active',
+                critical: 'Critical',
+                'follow-up': 'Follow-up required',
                 stable: 'Stable',
-                pending: 'En attente',
-                completed: 'Terminée',
-                in_progress: 'En cours',
-                cancelled: 'Annulée',
-                emergency: 'Urgence',
+                pending: 'Pending',
+                completed: 'Completed',
+                in_progress: 'In progress',
+                cancelled: 'Cancelled',
+                emergency: 'Emergency',
             };
             return labels[status] || status;
         },
@@ -233,7 +233,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         openAddPatientModal() {
-            alert('Fonctionnalite a implementer : Ajouter un nouveau patient');
+            alert('Feature to be implemented: add new consultation');
         },
 
         openMessageModal(patient) {
@@ -253,7 +253,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         async deleteConsultation(consultationId) {
-            if (!confirm('Etes-vous sur de vouloir supprimer cette consultation ?')) {
+            if (!confirm('Are you sure you want to delete this consultation?')) {
                 return;
             }
 
@@ -271,13 +271,13 @@ document.addEventListener('alpine:init', () => {
                     this.patients = this.patients.filter(p => p.consultationId !== consultationId);
                     this.filterPatients();
                     this.updateStats();
-                    alert('Consultation supprimee avec succes');
+                    alert('Consultation deleted successfully');
                 } else {
-                    alert(result.message || 'Erreur lors de la suppression');
+                    alert(result.message || 'Error while deleting');
                 }
             } catch (error) {
-                console.error('Erreur lors de la suppression:', error);
-                alert('Erreur lors de la suppression de la consultation');
+                console.error('Error while deleting:', error);
+                alert('Error while deleting the consultation');
             }
         },
         
@@ -405,7 +405,7 @@ document.addEventListener('alpine:init', () => {
             }
             
             try {
-                console.log('Chargement données du patient chart:', this.consultationId);
+                console.log('Loading patient chart data:', this.consultationId);
                 
                 // Fetch complete patient chart data from single API endpoint
                 const response = await fetch(`/health/doctor/api/patient-chart/${this.consultationId}`);
@@ -413,7 +413,7 @@ document.addEventListener('alpine:init', () => {
                 
                 if (!response.ok) {
                     console.error('Patient Chart API error:', response.statusText);
-                    throw new Error('Erreur lors du chargement des données');
+                    throw new Error('Error loading chart data');
                 }
                 
                 const data = await response.json();
@@ -443,19 +443,19 @@ document.addEventListener('alpine:init', () => {
                     // Format vital signs for display cards
                     this.vitalsCards = this.formatVitalsCards();
                     
-                    console.log('Données chargées avec succès:', {
+                    console.log('Chart data loaded:', {
                         patient: this.patient,
-                        timeline: this.timeline.length + ' entrées',
+                        timeline: this.timeline.length + ' entries',
                         symptoms: this.symptoms.length,
                         medications: this.medications.length,
                         vitals: this.vitalSigns.length
                     });
                 } else {
-                    console.log('Aucune donnée trouvée, utilisation des données par défaut');
+                    console.log('No data returned, using defaults where applicable');
                 }
                 
             } catch (error) {
-                console.error('Erreur lors du chargement des données:', error);
+                console.error('Error loading chart data:', error);
             }
         },
         
@@ -520,10 +520,10 @@ document.addEventListener('alpine:init', () => {
         formatVitalsCards() {
             if (!this.vitalSigns || this.vitalSigns.length === 0) {
                 return [
-                    { type: 'bloodPressure', label: 'Tension artérielle', value: '--', unit: 'mmHg', icon: 'fa-solid fa-heart-pulse', trend: 'stable', change: '0%', normalRange: '90-140/60-90', alert: false },
-                    { type: 'heartRate', label: 'Fréquence cardiaque', value: '--', unit: 'bpm', icon: 'fa-solid fa-heart', trend: 'stable', change: '0%', normalRange: '60-100', alert: false },
-                    { type: 'temperature', label: 'Température', value: '--', unit: '°C', icon: 'fa-solid fa-thermometer', trend: 'stable', change: '0%', normalRange: '36.1-37.2', alert: false },
-                    { type: 'spo2', label: 'Saturation O₂', value: '--', unit: '%', icon: 'fa-solid fa-lungs', trend: 'stable', change: '0%', normalRange: '95-100', alert: false }
+                    { type: 'bloodPressure', label: 'Blood pressure', value: '--', unit: 'mmHg', icon: 'fa-solid fa-heart-pulse', trend: 'stable', change: '0%', normalRange: '90-140/60-90', alert: false },
+                    { type: 'heartRate', label: 'Heart rate', value: '--', unit: 'bpm', icon: 'fa-solid fa-heart', trend: 'stable', change: '0%', normalRange: '60-100', alert: false },
+                    { type: 'temperature', label: 'Temperature', value: '--', unit: '°C', icon: 'fa-solid fa-thermometer', trend: 'stable', change: '0%', normalRange: '36.1-37.2', alert: false },
+                    { type: 'spo2', label: 'SpO₂', value: '--', unit: '%', icon: 'fa-solid fa-lungs', trend: 'stable', change: '0%', normalRange: '95-100', alert: false }
                 ];
             }
             
@@ -533,7 +533,7 @@ document.addEventListener('alpine:init', () => {
             return [
                 {
                     type: 'bloodPressure',
-                    label: 'Tension artérielle',
+                    label: 'Blood pressure',
                     value: latest.bloodPressure || '--',
                     unit: 'mmHg',
                     icon: 'fa-solid fa-heart-pulse',
@@ -544,7 +544,7 @@ document.addEventListener('alpine:init', () => {
                 },
                 {
                     type: 'heartRate',
-                    label: 'Fréquence cardiaque',
+                    label: 'Heart rate',
                     value: latest.heartRate || '--',
                     unit: 'bpm',
                     icon: 'fa-solid fa-heart',
@@ -555,7 +555,7 @@ document.addEventListener('alpine:init', () => {
                 },
                 {
                     type: 'temperature',
-                    label: 'Température',
+                    label: 'Temperature',
                     value: latest.temperature?.toFixed(1) || '--',
                     unit: '°C',
                     icon: 'fa-solid fa-thermometer',
@@ -566,7 +566,7 @@ document.addEventListener('alpine:init', () => {
                 },
                 {
                     type: 'spo2',
-                    label: 'Saturation O₂',
+                    label: 'SpO₂',
                     value: latest.spo2 || '--',
                     unit: '%',
                     icon: 'fa-solid fa-lungs',
@@ -613,15 +613,15 @@ document.addEventListener('alpine:init', () => {
         
         getStatusLabel(status) {
             const labels = {
-                active: 'Actif',
-                critical: 'Critique',
-                'follow-up': 'Suivi requis',
+                active: 'Active',
+                critical: 'Critical',
+                'follow-up': 'Follow-up required',
                 stable: 'Stable',
-                pending: 'En attente',
-                completed: 'Terminée',
-                in_progress: 'En cours',
-                cancelled: 'Annulée',
-                emergency: 'Urgence',
+                pending: 'Pending',
+                completed: 'Completed',
+                in_progress: 'In progress',
+                cancelled: 'Cancelled',
+                emergency: 'Emergency',
             };
             return labels[status] || status;
         },
@@ -703,20 +703,20 @@ document.addEventListener('alpine:init', () => {
         
         // Notes List
         notes: [
-            { id: 1, type: 'SOAP', typeLabel: 'Note SOAP', date: '15/01/2026', author: 'Dr. Martin', summary: 'Consultation de suivi hypertension', isComplete: true },
-            { id: 2, type: 'SOAP', typeLabel: 'Note SOAP', date: '01/01/2026', author: 'Dr. Martin', summary: 'Bilan annuel', isComplete: true },
-            { id: 3, type: 'Prescription', typeLabel: 'Ordonnance', date: '20/12/2025', author: 'Dr. Martin', summary: 'Renouvellement traitement', isComplete: true },
-            { id: 4, type: 'LabResult', typeLabel: 'Résultat Labo', date: '15/12/2025', author: 'Labo Central', summary: 'Analyse sanguine complète', isComplete: true },
-            { id: 5, type: 'Progress', typeLabel: 'Evolution', date: '10/12/2025', author: 'Dr. Martin', summary: 'Amélioration symptoms', isComplete: false },
+            { id: 1, type: 'SOAP', typeLabel: 'SOAP note', date: '1/15/2026', author: 'Dr. Martin', summary: 'Hypertension follow-up', isComplete: true },
+            { id: 2, type: 'SOAP', typeLabel: 'SOAP note', date: '1/1/2026', author: 'Dr. Martin', summary: 'Annual check-up', isComplete: true },
+            { id: 3, type: 'Prescription', typeLabel: 'Prescription', date: '12/20/2025', author: 'Dr. Martin', summary: 'Medication renewal', isComplete: true },
+            { id: 4, type: 'LabResult', typeLabel: 'Lab result', date: '12/15/2025', author: 'Central Lab', summary: 'Complete blood count', isComplete: true },
+            { id: 5, type: 'Progress', typeLabel: 'Progress note', date: '12/10/2025', author: 'Dr. Martin', summary: 'Symptom improvement', isComplete: false },
         ],
         
         // Templates
         templates: {
             soap: {
-                subjective: 'Patient rapporte',
-                objective: 'Examen clinique',
-                assessment: 'Diagnostic',
-                plan: 'Plan de traitement'
+                subjective: 'Patient reports',
+                objective: 'Clinical exam',
+                assessment: 'Assessment',
+                plan: 'Treatment plan'
             }
         },
         
@@ -740,7 +740,7 @@ document.addEventListener('alpine:init', () => {
         },
         
         get todaysNotes() {
-            const today = new Date().toLocaleDateString('fr-FR');
+            const today = new Date().toLocaleDateString('en-US');
             return this.notes.filter(note => note.date === today);
         },
         
@@ -781,10 +781,10 @@ document.addEventListener('alpine:init', () => {
             
             if (this.newNote.type === 'SOAP') {
                 if (!this.newNote.subjective.trim()) {
-                    this.validationErrors.subjective = 'Ce champ est requis';
+                    this.validationErrors.subjective = 'This field is required';
                 }
                 if (!this.newNote.assessment.trim()) {
-                    this.validationErrors.assessment = 'Ce champ est requis';
+                    this.validationErrors.assessment = 'This field is required';
                 }
             }
             
@@ -800,13 +800,13 @@ document.addEventListener('alpine:init', () => {
                 id: Date.now(),
                 type: this.newNote.type,
                 typeLabel: this.getNoteTypeLabel(this.newNote.type),
-                date: new Date().toLocaleDateString('fr-FR'),
+                date: new Date().toLocaleDateString('en-US'),
                 author: 'Dr. Martin',
                 summary: this.newNote.type === 'SOAP' 
                     ? `${this.newNote.subjective.substring(0, 50)}...`
                     : this.newNote.type === 'Prescription'
                         ? this.newNote.prescriptions.map(p => p.name).join(', ')
-                        : 'Nouvelle entrée',
+                        : 'New entry',
                 isComplete: true
             };
             
@@ -814,7 +814,7 @@ document.addEventListener('alpine:init', () => {
             this.closeNewNoteModal();
             
             // Show success notification
-            this.showNotification('Note enregistrée avec succès');
+            this.showNotification('Note saved successfully');
         },
         
         addPrescription() {
@@ -845,18 +845,18 @@ document.addEventListener('alpine:init', () => {
         
         getNoteTypeLabel(type) {
             const labels = {
-                'SOAP': 'Note SOAP',
-                'Prescription': 'Ordonnance',
-                'LabResult': 'Résultat Labo',
-                'Progress': 'Evolution',
-                'Discharge': 'Sortie'
+                'SOAP': 'SOAP note',
+                'Prescription': 'Prescription',
+                'LabResult': 'Lab result',
+                'Progress': 'Progress note',
+                'Discharge': 'Discharge'
             };
             return labels[type] || type;
         },
         
         formatDate(date) {
             const d = new Date(date);
-            return d.toLocaleDateString('fr-FR', { 
+            return d.toLocaleDateString('en-US', { 
                 day: '2-digit', 
                 month: '2-digit', 
                 year: 'numeric',
@@ -897,15 +897,15 @@ document.addEventListener('alpine:init', () => {
         
         getStatusLabel(status) {
             const labels = {
-                active: 'Actif',
-                critical: 'Critique',
-                'follow-up': 'Suivi requis',
+                active: 'Active',
+                critical: 'Critical',
+                'follow-up': 'Follow-up required',
                 stable: 'Stable',
-                pending: 'En attente',
-                completed: 'Terminée',
-                in_progress: 'En cours',
-                cancelled: 'Annulée',
-                emergency: 'Urgence',
+                pending: 'Pending',
+                completed: 'Completed',
+                in_progress: 'In progress',
+                cancelled: 'Cancelled',
+                emergency: 'Emergency',
             };
             return labels[status] || status;
         },
@@ -944,7 +944,7 @@ document.addEventListener('alpine:init', () => {
                 id: 1,
                 patientName: 'Marie Dupont',
                 patientAvatar: 'https://ui-avatars.com/api/?name=Marie+Dupont&background=00A790&color=fff',
-                lastMessage: 'Merci pour votre aide, Docteur.',
+                lastMessage: 'Thank you for your help, Doctor.',
                 lastMessageTime: '10:30',
                 unreadCount: 0,
                 status: 'active',
@@ -952,10 +952,10 @@ document.addEventListener('alpine:init', () => {
             },
             {
                 id: 2,
-                patientName: 'Pharmacie Centrale',
-                patientAvatar: 'https://ui-avatars.com/api/?name=Pharmacie+Centrale&background=6366f1&color=fff',
-                lastMessage: 'Ordonnance confirmée',
-                lastMessageTime: 'Hier',
+                patientName: 'Central Pharmacy',
+                patientAvatar: 'https://ui-avatars.com/api/?name=Central+Pharmacy&background=6366f1&color=fff',
+                lastMessage: 'Prescription confirmed',
+                lastMessageTime: 'Yesterday',
                 unreadCount: 2,
                 status: 'active',
                 type: 'pharmacy'
@@ -964,8 +964,8 @@ document.addEventListener('alpine:init', () => {
                 id: 3,
                 patientName: 'Dr. Sophie Bernard',
                 patientAvatar: 'https://ui-avatars.com/api/?name=Sophie+Bernard&background=8b5cf6&color=fff',
-                lastMessage: 'Consultation de suivi programmée',
-                lastMessageTime: 'Hier',
+                lastMessage: 'Follow-up visit scheduled',
+                lastMessageTime: 'Yesterday',
                 unreadCount: 1,
                 status: 'active',
                 type: 'doctor'
@@ -974,7 +974,7 @@ document.addEventListener('alpine:init', () => {
                 id: 4,
                 patientName: 'Jean Martin',
                 patientAvatar: 'https://ui-avatars.com/api/?name=Jean+Martin&background=10b981&color=fff',
-                lastMessage: 'Questions sur les médicaments',
+                lastMessage: 'Questions about medications',
                 lastMessageTime: '12/01/2026',
                 unreadCount: 0,
                 status: 'active',
@@ -982,9 +982,9 @@ document.addEventListener('alpine:init', () => {
             },
             {
                 id: 5,
-                patientName: 'Service Radiologie',
-                patientAvatar: 'https://ui-avatars.com/api/?name=Service+Radiologie&background=f59e0b&color=fff',
-                lastMessage: 'Résultats d\'imagerie prêts',
+                patientName: 'Radiology department',
+                patientAvatar: 'https://ui-avatars.com/api/?name=Radiology+Dept&background=f59e0b&color=fff',
+                lastMessage: 'Imaging results are ready',
                 lastMessageTime: '10/01/2026',
                 unreadCount: 0,
                 status: 'active',
@@ -994,10 +994,10 @@ document.addEventListener('alpine:init', () => {
         
         // Message Templates
         templates: [
-            { id: 1, name: 'Rendez-vous confirmé', content: 'Votre rendez-vous est confirmé pour le {date} à {time}. Merci de vous présenter 15 minutes à l\'avance.' },
-            { id: 2, name: 'Rappel de traitement', content: 'N\'oubliez pas de prendre votre traitement régulièrement comme prescrit. En cas de вопросs, n\'hésitez pas à me contacter.' },
-            { id: 3, name: 'Résultats d\'analyse', content: 'Vos résultats d\'analyse sont prêts. Je vous invite à prendre rendez-vous pour en discuter.' },
-            { id: 4, name: 'Urgence', content: 'En cas d\'urgence, veuillez contacter le 15 ou vous rendre aux urgences les plus proches.' }
+            { id: 1, name: 'Appointment confirmed', content: 'Your appointment is confirmed for {date} at {time}. Please arrive 15 minutes early.' },
+            { id: 2, name: 'Treatment reminder', content: 'Please remember to take your medication as prescribed. If you have any questions, contact me.' },
+            { id: 3, name: 'Lab results', content: 'Your lab results are ready. Please schedule an appointment to review them.' },
+            { id: 4, name: 'Emergency', content: 'In an emergency, call your local emergency number or go to the nearest emergency department.' }
         ],
         
         // Computed
@@ -1035,14 +1035,14 @@ document.addEventListener('alpine:init', () => {
                 {
                     id: 1,
                     sender: conversation.type === 'doctor' ? 'them' : 'me',
-                    content: 'Bonjour, j\'ai une question concernant mon traitement.',
+                    content: 'Hello, I have a question about my treatment.',
                     time: '09:00',
                     status: 'read'
                 },
                 {
                     id: 2,
                     sender: conversation.type === 'doctor' ? 'me' : 'them',
-                    content: 'Bien sûr, je suis à votre disposition. Quelle est votre question ?',
+                    content: 'Of course — how can I help?',
                     time: '09:15',
                     status: 'read'
                 },
@@ -1063,7 +1063,7 @@ document.addEventListener('alpine:init', () => {
                 id: Date.now(),
                 sender: 'me',
                 content: this.newMessage,
-                time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+                time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
                 status: 'sending'
             };
             
@@ -1120,7 +1120,7 @@ document.addEventListener('alpine:init', () => {
                 return date;
             }
             
-            return d.toLocaleDateString('fr-FR', { 
+            return d.toLocaleDateString('en-US', { 
                 day: '2-digit', 
                 month: 'short'
             });

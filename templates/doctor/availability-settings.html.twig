@@ -3,7 +3,7 @@
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Disponibilités'|trans }} - WellCare Connect{% endblock %}
+{% block title %}Availability - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -20,10 +20,10 @@
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-clock text-wellcare-500"></i>
-                    {{ "Configuration des Disponibilités"|trans }}
+                    Availability settings
                 </h1>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    {{ "Gérez vos horaires de travail, pauses et absences"|trans }}
+                    Manage your working hours, breaks, and time off
                 </p>
             </div>
             
@@ -33,14 +33,14 @@
                     class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-wellcare-500 hover:bg-wellcare-600"
                 >
                     <i class="mr-2 fa-solid fa-save"></i>
-                    {{ "Enregistrer"|trans }}
+                    Save
                 </button>
                 <button 
                     @click="resetToDefaults()"
                     class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-white border border-gray-300 rounded-lg dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                 >
                     <i class="mr-2 fa-solid fa-rotate-left"></i>
-                    {{ "Réinitialiser"|trans }}
+                    Reset
                 </button>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="p-4 border-b border-gray-200 dark:border-gray-800">
                     <h2 class="font-semibold text-gray-900 dark:text-white">
                         <i class="mr-2 fa-solid fa-calendar-week text-wellcare-500"></i>
-                        {{ "Horaires Hebdomadaires"|trans }}
+                        Weekly hours
                     </h2>
                 </div>
                 
@@ -83,7 +83,7 @@
                                             x-model="day.startTime"
                                             class="px-3 py-2 text-sm border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                                         >
-                                        <span class="text-gray-500">{{ "à"|trans }}</span>
+                                        <span class="text-gray-500">to</span>
                                         <input 
                                             type="time" 
                                             x-model="day.endTime"
@@ -95,8 +95,8 @@
                                         x-model="day.location"
                                         class="px-3 py-2 text-sm border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                                     >
-                                        <option value="clinic">{{ "Clinique"|trans }}</option>
-                                        <option value="hospital">{{ "Hôpital"|trans }}</option>
+                                        <option value="clinic">Clinic</option>
+                                        <option value="hospital">Hospital</option>
                                     </select>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
                                     class="px-3 py-1.5 text-sm text-wellcare-600 dark:text-wellcare-400 border border-wellcare-200 dark:border-wellcare-800 rounded-lg hover:bg-wellcare-50 dark:hover:bg-wellcare-900/20"
                                 >
                                     <i class="mr-1 fa-solid fa-plus"></i>
-                                    {{ "Ajouter créneau"|trans }}
+                                    Add time slot
                                 </button>
                             </div>
                         </div>
@@ -132,45 +132,45 @@
                 <div class="p-4 border-b border-gray-200 dark:border-gray-800">
                     <h2 class="font-semibold text-gray-900 dark:text-white">
                         <i class="mr-2 fa-solid fa-sliders text-wellcare-500"></i>
-                        {{ "Paramètres de Temps"|trans }}
+                        Time settings
                     </h2>
                 </div>
                 
                 <div class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2">
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {{ "Durée par défaut des consultations"|trans }}
+                            Default appointment length
                         </label>
                         <select 
                             x-model="settings.defaultAppointmentDuration"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                         >
-                            <option value="15">15 {{ "minutes"|trans }}</option>
-                            <option value="20">20 {{ "minutes"|trans }}</option>
-                            <option value="30">30 {{ "minutes"|trans }}</option>
-                            <option value="45">45 {{ "minutes"|trans }}</option>
-                            <option value="60">60 {{ "minutes"|trans }}</option>
+                            <option value="15">15 min</option>
+                            <option value="20">20 min</option>
+                            <option value="30">30 min</option>
+                            <option value="45">45 min</option>
+                            <option value="60">60 min</option>
                         </select>
                     </div>
                     
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {{ "Intervalle entre les RDV"|trans }}
+                            Gap between appointments
                         </label>
                         <select 
                             x-model="settings.appointmentGap"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                         >
-                            <option value="0">{{ "Aucun"|trans }}</option>
-                            <option value="5">5 {{ "minutes"|trans }}</option>
-                            <option value="10">10 {{ "minutes"|trans }}</option>
-                            <option value="15">15 {{ "minutes"|trans }}</option>
+                            <option value="0">None</option>
+                            <option value="5">5 min</option>
+                            <option value="10">10 min</option>
+                            <option value="15">15 min</option>
                         </select>
                     </div>
                     
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {{ "Pause méridienne"|trans }}
+                            Lunch break
                         </label>
                         <div class="flex items-center gap-2">
                             <input 
@@ -178,7 +178,7 @@
                                 x-model="settings.lunchBreakStart"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                             >
-                            <span class="text-gray-500">{{ "à"|trans }}</span>
+                            <span class="text-gray-500">to</span>
                             <input 
                                 type="time" 
                                 x-model="settings.lunchBreakEnd"
@@ -189,7 +189,7 @@
                     
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {{ "Créneau d'urgence"|trans }}
+                            Emergency slots
                         </label>
                         <div class="flex items-center gap-2">
                             <input 
@@ -199,7 +199,7 @@
                                 max="5"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                             >
-                            <span class="text-sm text-gray-500">{{ "par jour"|trans }}</span>
+                            <span class="text-sm text-gray-500">per day</span>
                         </div>
                     </div>
                     
@@ -211,11 +211,11 @@
                                 class="w-4 h-4 border-gray-300 rounded text-wellcare-500 dark:border-gray-600 focus:ring-wellcare-500"
                             >
                             <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                {{ "Autoriser la double réservation"|trans }}
+                                Allow double booking
                             </span>
                         </label>
                         <p class="mt-1 text-xs text-gray-500 ml-7">
-                            {{ "Permet de planifier deux patients simultanément (ex: procédures parallèles)"|trans }}
+                            Allows scheduling two patients at overlapping times (e.g. parallel procedures).
                         </p>
                     </div>
                     
@@ -227,7 +227,7 @@
                                 class="w-4 h-4 border-gray-300 rounded text-wellcare-500 dark:border-gray-600 focus:ring-wellcare-500"
                             >
                             <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                {{ "Confirmation automatique des RDV"|trans }}
+                                Auto-confirm appointments
                             </span>
                         </label>
                     </div>
@@ -239,14 +239,14 @@
                 <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
                     <h2 class="font-semibold text-gray-900 dark:text-white">
                         <i class="mr-2 fa-solid fa-plane-departure text-wellcare-500"></i>
-                        {{ "Congés et Absences"|trans }}
+                        Time off & absences
                     </h2>
                     <button 
                         @click="openLeaveRequest()"
                         class="px-3 py-1.5 text-sm font-medium text-wellcare-600 dark:text-wellcare-400 border border-wellcare-200 dark:border-wellcare-800 rounded-lg hover:bg-wellcare-50 dark:hover:bg-wellcare-900/20"
                     >
                         <i class="mr-1 fa-solid fa-plus"></i>
-                        {{ "Demander un congé"|trans }}
+                        Request time off
                     </button>
                 </div>
                 
@@ -277,7 +277,7 @@
                                     <p class="font-medium text-gray-900 dark:text-white" x-text="leave.title"></p>
                                     <p class="text-sm text-gray-500">
                                         <span x-text="leave.startDate"></span> - <span x-text="leave.endDate"></span>
-                                        (<span x-text="leave.days"></span> {{ "jours"|trans }})
+                                        (<span x-text="leave.days"></span> days)
                                     </p>
                                 </div>
                             </div>
@@ -305,7 +305,7 @@
                     
                     <div x-show="plannedLeaves.length === 0" class="p-8 text-center text-gray-500 dark:text-gray-400">
                         <i class="mb-2 text-3xl fa-solid fa-calendar-xmark"></i>
-                        <p>{{ "Aucun congé prévu"|trans }}</p>
+                        <p>No planned leave</p>
                     </div>
                 </div>
             </div>
@@ -318,12 +318,12 @@
             <div class="p-6 bg-white border border-gray-200 dark:bg-gray-900 rounded-2xl dark:border-gray-800">
                 <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-chart-pie text-wellcare-500"></i>
-                    {{ "Résumé Hebdomadaire"|trans }}
+                    Weekly summary
                 </h3>
                 
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">{{ "Heures de travail"|trans }}</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Working hours</span>
                         <span class="font-semibold text-gray-900 dark:text-white" x-text="totalWeeklyHours + 'h'"></span>
                     </div>
                     
@@ -335,20 +335,20 @@
                             ></div>
                         </div>
                         <div class="flex justify-between mt-2 text-xs text-gray-500">
-                            <span>{{ "Lun"|trans }}</span>
-                            <span>{{ "Ven"|trans }}</span>
-                            <span>{{ "Sam"|trans }}</span>
-                            <span>{{ "Dim"|trans }}</span>
+                            <span>Mon</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
                         </div>
                     </div>
                     
                     <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ "Rendez-vous cette semaine"|trans }}</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Appointments this week</span>
                             <span class="font-semibold text-gray-900 dark:text-white" x-text="weeklyStats.appointments"></span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ "Patients vus"|trans }}</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Patients seen</span>
                             <span class="font-semibold text-emerald-600" x-text="weeklyStats.patientsSeen"></span>
                         </div>
                     </div>
@@ -359,7 +359,7 @@
             <div class="p-6 bg-white border border-gray-200 dark:bg-gray-900 rounded-2xl dark:border-gray-800">
                 <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-location-dot text-wellcare-500"></i>
-                    {{ "Lieux de Consultation"|trans }}
+                    Consultation locations
                 </h3>
                 
                 <div class="space-y-3">
@@ -401,7 +401,7 @@
                     class="w-full px-4 py-2 mt-4 text-sm font-medium transition-colors border rounded-lg text-wellcare-600 dark:text-wellcare-400 border-wellcare-200 dark:border-wellcare-800 hover:bg-wellcare-50 dark:hover:bg-wellcare-900/20"
                 >
                     <i class="mr-2 fa-solid fa-plus"></i>
-                    {{ "Ajouter un lieu"|trans }}
+                    Add a location
                 </button>
             </div>
             
@@ -409,17 +409,17 @@
             <div class="p-6 bg-white border border-gray-200 dark:bg-gray-900 rounded-2xl dark:border-gray-800">
                 <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-calendar-check text-wellcare-500"></i>
-                    {{ "Planning"|trans }}
+                    Schedule
                 </h3>
                 
                 <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                    {{ "Accédez à votre planning pour gérer vos rendez-vous et consulter votre agenda."|trans }}
+                    Open your schedule to manage appointments and view your calendar.
                 </p>
                 
                 <a href="{{ path('doctor_schedule_week') }}" 
                    class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition-colors rounded-lg bg-wellcare-500 hover:bg-wellcare-600">
                     <i class="mr-2 fa-solid fa-calendar-alt"></i>
-                    {{ "Voir mon planning"|trans }}
+                    View my schedule
                 </a>
             </div>
             
@@ -427,7 +427,7 @@
             <div class="p-6 bg-white border border-gray-200 dark:bg-gray-900 rounded-2xl dark:border-gray-800">
                 <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-user-clock text-wellcare-500"></i>
-                    {{ "Médecin Remplaçant"|trans }}
+                    Locum physician
                 </h3>
                 
                 <div class="space-y-3">
@@ -437,7 +437,7 @@
                             class="w-full px-4 py-3 text-sm font-medium text-gray-600 transition-colors border border-gray-300 border-dashed rounded-lg dark:text-gray-400 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
                             <i class="mr-2 fa-solid fa-plus"></i>
-                            {{ "Sélectionner un médecin"|trans }}
+                            Select a physician
                         </button>
                     </template>
                     
@@ -468,7 +468,7 @@
                             class="w-4 h-4 border-gray-300 rounded text-wellcare-500 dark:border-gray-600 focus:ring-wellcare-500"
                         >
                         <label for="autoAssign" class="text-sm text-gray-700 dark:text-gray-300">
-                            {{ "Attribuer automatiquement"|trans }}
+                            Assign automatically
                         </label>
                     </div>
                 </div>
@@ -491,7 +491,7 @@
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-location-dot text-wellcare-500"></i>
-                    {{ "Ajouter un lieu de consultation"|trans }}
+                    Add consultation location
                 </h3>
                 <button @click="showLocationModal = false" class="text-gray-400 hover:text-gray-600">
                     <i class="fa-solid fa-times"></i>
@@ -501,50 +501,50 @@
             <div class="space-y-4">
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ "Nom du lieu"|trans }} *
+                        Location name
                     </label>
                     <input 
                         type="text" 
                         x-model="newLocation.name"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
-                        placeholder="{{ 'Ex: Cabinet Médical Centre-Ville'|trans }}"
+                        placeholder="e.g. Downtown medical office"
                     >
                 </div>
                 
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ "Type"|trans }} *
+                        Type
                     </label>
                     <select 
                         x-model="newLocation.type"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                     >
-                        <option value="clinic">{{ "Clinique"|trans }}</option>
-                        <option value="hospital">{{ "Hôpital"|trans }}</option>
+                        <option value="clinic">Clinic</option>
+                        <option value="hospital">Hospital</option>
                     </select>
                 </div>
                 
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ "Adresse"|trans }} *
+                        Address
                     </label>
                     <input 
                         type="text" 
                         x-model="newLocation.address"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
-                        placeholder="{{ 'Ex: 123 Avenue Habib Bourguiba, Tunis'|trans }}"
+                        placeholder="e.g. 123 Main Street"
                     >
                 </div>
                 
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ "Téléphone"|trans }}
+                        Phone
                     </label>
                     <input 
                         type="tel" 
                         x-model="newLocation.phone"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
-                        placeholder="{{ 'Ex: +216 71 123 456'|trans }}"
+                        placeholder="e.g. +1 555 123 4567"
                     >
                 </div>
             </div>
@@ -554,14 +554,14 @@
                     @click="showLocationModal = false"
                     class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                 >
-                    {{ "Annuler"|trans }}
+                    Cancel
                 </button>
                 <button 
                     @click="confirmAddLocation()"
                     class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-wellcare-500 hover:bg-wellcare-600"
                 >
                     <i class="mr-2 fa-solid fa-check"></i>
-                    {{ "Ajouter"|trans }}
+                    Add
                 </button>
             </div>
         </div>
@@ -582,7 +582,7 @@
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-plane-departure text-wellcare-500"></i>
-                    {{ "Demander un congé"|trans }}
+                    Request time off
                 </h3>
                 <button @click="showLeaveModal = false" class="text-gray-400 hover:text-gray-600">
                     <i class="fa-solid fa-times"></i>
@@ -592,35 +592,35 @@
             <div class="space-y-4">
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ "Type de congé"|trans }} *
+                        Leave type
                     </label>
                     <select 
                         x-model="newLeave.type"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
                     >
-                        <option value="vacation">{{ "Vacances"|trans }}</option>
-                        <option value="conference">{{ "Conférence/Formation"|trans }}</option>
-                        <option value="sick">{{ "Maladie"|trans }}</option>
-                        <option value="personal">{{ "Raison personnelle"|trans }}</option>
+                        <option value="vacation">Vacation</option>
+                        <option value="conference">Conference / training</option>
+                        <option value="sick">Sick leave</option>
+                        <option value="personal">Personal</option>
                     </select>
                 </div>
                 
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ "Titre / Objet"|trans }} *
+                        Title / subject
                     </label>
                     <input 
                         type="text" 
                         x-model="newLeave.title"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
-                        placeholder="{{ 'Ex: Congés d\'été'|trans }}"
+                        placeholder="e.g. Summer break"
                     >
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {{ "Date de début"|trans }} *
+                            Start date
                         </label>
                         <input 
                             type="date" 
@@ -630,7 +630,7 @@
                     </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {{ "Date de fin"|trans }} *
+                            End date
                         </label>
                         <input 
                             type="date" 
@@ -642,13 +642,13 @@
                 
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ "Motif / Description"|trans }}
+                        Reason / description
                     </label>
                     <textarea 
                         x-model="newLeave.reason"
                         rows="3"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-800"
-                        placeholder="{{ 'Détails supplémentaires...'|trans }}"
+                        placeholder="Additional details..."
                     ></textarea>
                 </div>
                 
@@ -656,7 +656,7 @@
                     <div class="flex items-start gap-2">
                         <i class="mt-0.5 fa-solid fa-info-circle text-amber-600 dark:text-amber-400"></i>
                         <p class="text-sm text-amber-700 dark:text-amber-300">
-                            {{ "Pendant cette période, votre planning sera marqué comme indisponible pour les nouveaux rendez-vous. Les rendez-vous existants devront être reprogrammés."|trans }}
+                            During this period your schedule will be marked unavailable for new bookings. Existing appointments may need to be rescheduled.
                         </p>
                     </div>
                 </div>
@@ -667,14 +667,14 @@
                     @click="showLeaveModal = false"
                     class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                 >
-                    {{ "Annuler"|trans }}
+                    Cancel
                 </button>
                 <button 
                     @click="confirmLeaveRequest()"
                     class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-wellcare-500 hover:bg-wellcare-600"
                 >
                     <i class="mr-2 fa-solid fa-check"></i>
-                    {{ "Envoyer la demande"|trans }}
+                    Submit request
                 </button>
             </div>
         </div>
@@ -695,7 +695,7 @@
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     <i class="mr-2 fa-solid fa-user-doctor text-wellcare-500"></i>
-                    {{ "Sélectionner un médecin remplaçant"|trans }}
+                    Select a locum physician
                 </h3>
                 <button @click="showSubstituteModal = false" class="text-gray-400 hover:text-gray-600">
                     <i class="fa-solid fa-times"></i>
@@ -704,7 +704,7 @@
             
             <div class="mb-4">
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ "Choisissez un médecin qui vous remplacera pendant vos absences."|trans }}
+                    Choose a physician who will cover for you while you are away.
                 </p>
             </div>
             
@@ -712,7 +712,7 @@
                 <template x-if="availableSubstitutes.length === 0">
                     <div class="p-4 text-center text-gray-500 dark:text-gray-400">
                         <i class="mb-2 text-3xl fa-solid fa-user-slash"></i>
-                        <p>{{ "Aucun médecin disponible"|trans }}</p>
+                        <p>No physicians available</p>
                     </div>
                 </template>
                 
@@ -730,7 +730,7 @@
                                 <p class="font-medium text-gray-900 dark:text-white">
                                     Dr. <span x-text="doctor.firstName"></span> <span x-text="doctor.lastName"></span>
                                 </p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400" x-text="doctor.specialite || 'Médecine Générale'"></p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" x-text="doctor.specialite || 'General practice'"></p>
                             </div>
                             <div x-show="selectedSubstituteUuid === doctor.uuid" class="text-wellcare-500">
                                 <i class="fa-solid fa-check-circle text-xl"></i>
@@ -745,7 +745,7 @@
                     @click="showSubstituteModal = false; selectedSubstituteUuid = null;"
                     class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                 >
-                    {{ "Annuler"|trans }}
+                    Cancel
                 </button>
                 <button 
                     @click="confirmSubstitute()"
@@ -754,7 +754,7 @@
                     class="px-4 py-2 text-sm font-medium text-white rounded-lg"
                 >
                     <i class="mr-2 fa-solid fa-check"></i>
-                    {{ "Confirmer"|trans }}
+                    Confirm
                 </button>
             </div>
         </div>

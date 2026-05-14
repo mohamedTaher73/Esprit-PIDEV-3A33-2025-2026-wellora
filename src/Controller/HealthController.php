@@ -778,10 +778,10 @@ public function bodyMap(): Response
                 $trendLabel = 'Stable';
                 if ($latestScore > $previousScore + 2) {
                     $trend = 'improving';
-                    $trendLabel = 'En amélioration';
+                    $trendLabel = 'Improving';
                 } elseif ($latestScore < $previousScore - 2) {
                     $trend = 'declining';
-                    $trendLabel = 'En déclin';
+                    $trendLabel = 'Declining';
                 }
 
                 $alerts = $latest ? $this->buildAlerts($latest) : [];
@@ -817,7 +817,7 @@ public function bodyMap(): Response
         }
 
         return $this->render('health/analytics/doctor-view.html.twig', [
-            'page_title' => 'Tableau de Bord Médecin',
+            'page_title' => 'Doctor dashboard',
             'patients' => $patients,
             'ai_data' => $aiDashboardData,
             'api_available' => $aiDashboardData['api_available'],
@@ -825,7 +825,7 @@ public function bodyMap(): Response
             'stats' => [
                 'criticalAlerts' => $criticalAlerts,
                 'todayAppointments' => $todayAppointments,
-                'nextAppointment' => $nextAppointment['label'] ?? 'Aucun',
+                'nextAppointment' => $nextAppointment['label'] ?? 'None',
                 'reportsGenerated' => $reportsGenerated,
             ],
             'recent_alerts' => array_slice($recentAlerts, 0, 5),
@@ -1024,14 +1024,14 @@ public function bodyMap(): Response
             $alerts[] = [
                 'id' => $id++,
                 'severity' => 'critical',
-                'message' => 'Consultation d\'urgence',
+                'message' => 'Emergency consultation',
                 'icon' => 'fa-triangle-exclamation',
             ];
         } elseif ($consultation->getStatus() === 'pending') {
             $alerts[] = [
                 'id' => $id++,
                 'severity' => 'warning',
-                'message' => 'Consultation en attente',
+                'message' => 'Pending consultation',
                 'icon' => 'fa-clock',
             ];
         }
@@ -1043,7 +1043,7 @@ public function bodyMap(): Response
             $alerts[] = [
                 'id' => $id++,
                 'severity' => $temp >= 39 ? 'critical' : 'warning',
-                'message' => 'Fièvre détectée',
+                'message' => 'Fever detected',
                 'icon' => 'fa-temperature-high',
             ];
         }
@@ -1053,7 +1053,7 @@ public function bodyMap(): Response
             $alerts[] = [
                 'id' => $id++,
                 'severity' => 'critical',
-                'message' => 'SpO2 basse',
+                'message' => 'Low SpO2',
                 'icon' => 'fa-lungs',
             ];
         }
@@ -1065,7 +1065,7 @@ public function bodyMap(): Response
             $alerts[] = [
                 'id' => $id++,
                 'severity' => ($systolic >= 160 || $diastolic >= 100) ? 'critical' : 'warning',
-                'message' => 'Tension élevée',
+                'message' => 'Elevated blood pressure',
                 'icon' => 'fa-heart-pulse',
             ];
         }
@@ -1092,16 +1092,16 @@ public function bodyMap(): Response
 
         if ($diff < 3600) {
             $mins = max(1, (int) floor($diff / 60));
-            return 'Il y a ' . $mins . ' min';
+            return $mins . ' min ago';
         }
 
         if ($diff < 86400) {
             $hours = (int) floor($diff / 3600);
-            return 'Il y a ' . $hours . 'h';
+            return $hours . 'h ago';
         }
 
         $days = (int) floor($diff / 86400);
-        return 'Il y a ' . $days . ' j';
+        return $days . 'd ago';
     }
 
     private function parsePeriodStart(string $period): ?\DateTimeInterface
