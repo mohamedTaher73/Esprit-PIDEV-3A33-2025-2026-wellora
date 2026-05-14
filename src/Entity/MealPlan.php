@@ -15,7 +15,7 @@ class MealPlan
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mealPlans')]
     #[ORM\JoinColumn(name: 'user_uuid', referencedColumnName: 'uuid')]
     private ?User $user = null;
 

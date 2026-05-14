@@ -28,7 +28,7 @@ class TestDataController extends AbstractController
         $healthentry->setDateEntry(new \DateTime());
         $healthentry->setPoids(70.5);
         $healthentry->setGlycemie(1.0);
-        $healthentry->setTension(12.0);
+        $healthentry->setTension('12.0');
         $healthentry->setSommeil(8);
         $entityManager->persist($healthentry);
 

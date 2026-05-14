@@ -17,7 +17,7 @@ class FoodLog
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'foodLogs')]
     #[ORM\JoinColumn(name: 'user_uuid', referencedColumnName: 'uuid')]
     private ?User $user = null;
 
@@ -34,6 +34,10 @@ class FoodLog
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'foodLog', targetEntity: FoodItem::class, cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, FoodItem>
+     * @phpstan-var Collection<int, FoodItem>
+     */
     private Collection $foodItems;
 
     #[ORM\Column(type: Types::INTEGER, nullable: true)]

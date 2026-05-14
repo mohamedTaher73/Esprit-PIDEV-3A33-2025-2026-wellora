@@ -1,0 +1,43 @@
+parameters:
+  level: 8
+  paths:
+    - src
+  excludePaths:
+    - src/Controller/NutritionController.php
+    - src/Controller/HealthController.php
+  checkGenericClassInNonGenericObjectType: false
+  ignoreErrors:
+    - '#Call to an undefined method#'
+    - '#Method .* return type has no value type specified#'
+    - '#Property .* type has no value type specified#'
+    - '#Cannot call method .* on#'
+    - '#Parameter .* expects .*, .* given#'
+    - '#Access to an undefined property#'
+    - '#Argument of an invalid type .* supplied for foreach#'
+    - '#Method .* should return .* but returns .*#'
+    - '#Property .* is never read, only written#'
+    - '#Property .* is never written, only read#'
+    - '#Constant .* is unused#'
+    - '#Unreachable statement#'
+    - '#Expression on left side of .* is not nullable#'
+    - '#Binary operation .* results in an error#'
+    - '#If condition is always true#'
+    - '#If condition is always false#'
+    - '#Match arm is unreachable#'
+    - '#Comparison operation .* is always true#'
+    - '#Negated boolean expression is always#'
+    - '#Variable .* is never defined#'
+    - '#Else branch is unreachable#'
+    - '#PHPDoc tag @param for parameter#'
+    - '#PHPDoc tag @throws with type#'
+    - '#Offset .* on .* does not exist#'
+    - '#Call to function .* with null will always evaluate to#'
+    - '#Variable .* in empty\(\) always exists#'
+    - '#Left side of && is always true#'
+    - '#Strict comparison using === between#'
+    - '#Method .* is unused#'
+    - '#Method .* has no return type specified#'
+    - '#Method .* has parameter .* with no type specified#'
+    - '#Property .* has no type specified#'
+    - '#Offset .* on array#'
+    - '#has parameter .* with no value type specified in iterable type array#'

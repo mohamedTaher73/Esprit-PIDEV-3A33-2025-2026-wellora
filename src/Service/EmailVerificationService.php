@@ -15,7 +15,7 @@ class EmailVerificationService
     public function __construct(
         private EntityManagerInterface $entityManager,
         private MailerInterface $mailer,
-        private string $noreplyAddress = 'zeidimohamedtaher13@gmail.com'
+        private string $noreplyAddress = 'zeidimohamedtaher@gmail.com'
     ) {
         $this->appBaseUrl = $_ENV['APP_URL'] ?? 'http://localhost:8000';
     }

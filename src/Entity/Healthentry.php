@@ -70,6 +70,10 @@ class Healthentry
     private ?Healthjournal $journal = null;
 
     #[ORM\OneToMany(mappedBy: "entry", targetEntity: Symptom::class, cascade: ["persist", "remove"])]
+    /**
+     * @var Collection<int, Symptom>
+     * @phpstan-var Collection<int, Symptom>
+     */
     private Collection $symptoms;
 
 

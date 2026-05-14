@@ -145,13 +145,25 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?array $trustedDevices = [];
 
     #[ORM\OneToMany(targetEntity: Healthjournal::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, Healthjournal>
+     * @phpstan-var Collection<int, Healthjournal>
+     */
     private Collection $healthJournals;
 
     // Nutrition relationships
     #[ORM\OneToMany(targetEntity: NutritionGoal::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, NutritionGoal>
+     * @phpstan-var Collection<int, NutritionGoal>
+     */
     private Collection $nutritionGoals;
 
     #[ORM\OneToMany(targetEntity: FoodLog::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, FoodLog>
+     * @phpstan-var Collection<int, FoodLog>
+     */
     private Collection $foodLogs;
 
     #[ORM\OneToMany(targetEntity: WaterIntake::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
@@ -161,9 +173,17 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $mealPlans;
 
     #[ORM\OneToMany(targetEntity: NutritionConsultation::class, mappedBy: 'patient', cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, NutritionConsultation>
+     * @phpstan-var Collection<int, NutritionConsultation>
+     */
     private Collection $nutritionConsultations;
 
     #[ORM\OneToMany(targetEntity: NutritionConsultation::class, mappedBy: 'nutritionist', cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, NutritionConsultation>
+     * @phpstan-var Collection<int, NutritionConsultation>
+     */
     private Collection $nutritionConsultationsGiven;
     // Professional properties shared across professional users
     #[ORM\Column(name: 'years_of_experience')]
@@ -242,7 +262,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Conversation>
      */
-    #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'patient')]
+    #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'coach')]
     private Collection $coach;
 
     /**
@@ -891,10 +911,13 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGoogleId(?string $googleId): self
     {
         $this->googleId = $googleId;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Consultation>
      */
-    }
     public function getConsultations(): Collection
     {
         return $this->consultations;

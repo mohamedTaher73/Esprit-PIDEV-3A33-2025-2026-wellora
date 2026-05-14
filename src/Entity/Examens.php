@@ -93,7 +93,7 @@ class Examens
 
     public function setTypeExamen(string $type_examen): static
     {
-        $this->type_examen = trim(preg_replace('/\s+/', ' ', $type_examen));
+        $this->type_examen = trim((string) preg_replace('/\s+/', ' ', $type_examen));
         return $this;
     }
 
@@ -115,7 +115,7 @@ class Examens
 
     public function setResultat(?string $resultat): static
     {
-        $this->resultat = $resultat === null ? null : trim(preg_replace('/\s+/', ' ', $resultat));
+        $this->resultat = $resultat === null ? null : trim((string) preg_replace('/\s+/', ' ', $resultat));
         return $this;
     }
 
@@ -137,7 +137,7 @@ class Examens
 
     public function setNotes(?string $notes): static
     {
-        $this->notes = $notes === null ? null : trim(preg_replace('/\s+/', ' ', $notes));
+        $this->notes = $notes === null ? null : trim((string) preg_replace('/\s+/', ' ', $notes));
         return $this;
     }
 
@@ -148,7 +148,7 @@ class Examens
 
     public function setNomExamen(string $nom_examen): static
     {
-        $this->nom_examen = trim(preg_replace('/\s+/', ' ', $nom_examen));
+        $this->nom_examen = trim((string) preg_replace('/\s+/', ' ', $nom_examen));
         return $this;
     }
 

@@ -1,4 +1,13 @@
 {
+    "ahmed-bhs/doctrine-doctor": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "0a0c0e3972f784e628c4f759d2fb446e9eeb4959"
+        }
+    },
     "doctrine/deprecations": {
         "version": "1.1",
         "recipe": {
@@ -36,7 +45,7 @@
         ]
     },
     "endroid/qr-code-bundle": {
-        "version": "6.0.0"
+        "version": "4.3.3"
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v6.10.0"
@@ -51,10 +60,7 @@
             "branch": "main",
             "version": "1.20",
             "ref": "1ff300d8c030f55c99219cc55050b97a695af3f6"
-        },
-        "files": [
-            "./config/packages/knpu_oauth2_client.yaml"
-        ]
+        }
     },
     "liip/imagine-bundle": {
         "version": "2.17",
@@ -63,11 +69,7 @@
             "branch": "main",
             "version": "1.8",
             "ref": "d1227d002b70d1a1f941d91845fcd7ac7fbfc929"
-        },
-        "files": [
-            "./config/packages/liip_imagine.yaml",
-            "./config/routes/liip_imagine.yaml"
-        ]
+        }
     },
     "php-http/discovery": {
         "version": "1.20",
@@ -81,8 +83,17 @@
             "./config/packages/http_discovery.yaml"
         ]
     },
+    "phpstan/phpstan": {
+        "version": "1.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "5e490cc197fb6bb1ae22e5abbc531ddc633b6767"
+        }
+    },
     "phpunit/phpunit": {
-        "version": "11.5",
+        "version": "12.5",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -97,7 +108,7 @@
         ]
     },
     "scheb/2fa-bundle": {
-        "version": "7.13",
+        "version": "6.13",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -116,10 +127,7 @@
             "branch": "main",
             "version": "1.0",
             "ref": "5d454ec6cc4c700ed3d963f3803e1d427d9669fb"
-        },
-        "files": [
-            "./public/.htaccess"
-        ]
+        }
     },
     "symfony/console": {
         "version": "6.4",
@@ -386,9 +394,6 @@
             "branch": "main",
             "version": "1.13",
             "ref": "1b3064c2f6b255c2bc2f56461aaeb76b11e07e36"
-        },
-        "files": [
-            "./config/packages/vich_uploader.yaml"
-        ]
+        }
     }
 }

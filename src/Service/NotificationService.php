@@ -203,7 +203,7 @@ class NotificationService
     private function formatNumero(string $numero): string
     {
         // Nettoyer le numéro (enlever espaces, tirets)
-        $numero = preg_replace('/[^0-9+]/', '', $numero);
+        $numero = (string) preg_replace('/[^0-9+]/', '', $numero);
         
         // Si le numéro commence par 0 (format tunisien)
         if (strlen($numero) === 8 && substr($numero, 0, 1) === '2' || 

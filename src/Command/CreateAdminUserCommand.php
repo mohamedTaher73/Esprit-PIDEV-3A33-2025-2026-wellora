@@ -26,21 +26,21 @@ class CreateAdminUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $admin = new Administrator();
-        $admin->setEmail('admin123@gmail.com');
+        $admin->setEmail('admin@wellcare.tn');
         $admin->setFirstName('Admin');
         $admin->setLastName('User');
         $admin->setIsActive(true);
         $admin->setIsEmailVerified(true);
 
-        $hashedPassword = $this->passwordHasher->hashPassword($admin, 'Admin123@');
+        $hashedPassword = $this->passwordHasher->hashPassword($admin, 'Admin@123');
         $admin->setPassword($hashedPassword);
 
         $this->entityManager->persist($admin);
         $this->entityManager->flush();
 
         $output->writeln('Admin user created successfully!');
-        $output->writeln('Email: admin123@gmail.com');
-        $output->writeln('Password: Admin123@');
+        $output->writeln('Email: admin@wellcare.tn');
+        $output->writeln('Password: Admin@123');
         $output->writeln('Role: ROLE_ADMIN (automatic from Administrator class)');
 
         return Command::SUCCESS;

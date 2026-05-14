@@ -7,11 +7,13 @@ use App\Entity\Coach;
 use App\Entity\Medecin;
 use App\Entity\Nutritionist;
 use App\Entity\Patient;
+use App\Entity\ProfessionalVerification;
 use App\Entity\User;
 use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
 use App\Security\Authenticator;
 use App\Service\CaptchaService;
+use App\Service\DiplomaVerificationService;
 use App\Service\LoginValidationService;
 use App\Service\PasswordResetService;
 use App\Service\EmailVerificationService;
@@ -40,7 +42,8 @@ class AuthController extends AbstractController
         private PasswordResetService $passwordResetService,
         private EmailVerificationService $emailVerificationService,
         private TokenStorageInterface $tokenStorage,
-        private CaptchaService $captchaService
+        private CaptchaService $captchaService,
+        private ?DiplomaVerificationService $diplomaVerificationService = null
     ) {}
 
     #[Route('/login', name: 'app_login')]
@@ -464,7 +467,7 @@ class AuthController extends AbstractController
             
             // Validate license number uniqueness (for professionals)
             $licenseNumber = $request->request->get('license_number');
-            if (!empty($licenseNumber) && in_array($type, ['medecin', 'coach', 'nutritionist'])) {
+            if (!empty($licenseNumber) && in_array($type, ['medecin', 'coach', 'nutritionist', 'professional'])) {
                 $existingLicenseUser = $this->entityManager->getRepository(User::class)->findOneBy(['licenseNumber' => $licenseNumber]);
                 if ($existingLicenseUser) {
                     $this->addFlash('error', 'Ce numéro de licence est déjà utilisé par un autre professionnel.');
@@ -600,6 +603,57 @@ class AuthController extends AbstractController
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 error_log("[DEBUG] User saved to database - id: " . $user->getId());
+                
+                // Create professional verification record if applicable
+                if ($this->diplomaVerificationService && in_array($type, ['medecin', 'coach', 'nutritionist', 'professional'])) {
+                    try {
+                        $diplomaPath = null;
+                        
+                        // Get diploma path from user entity
+                        if (method_exists($user, 'getDiplomaUrl') && $user->getDiplomaUrl()) {
+                            $diplomaPath = $user->getDiplomaUrl();
+                        }
+                        
+                        // Get license number and specialty
+                        $licenseNumber = null;
+                        $specialty = null;
+                        
+                        if (method_exists($user, 'getLicenseNumber')) {
+                            $licenseNumber = $user->getLicenseNumber();
+                        }
+                        if (method_exists($user, 'getSpecialite')) {
+                            $specialty = $user->getSpecialite();
+                        }
+                        
+                        // Create verification record
+                        $verification = new ProfessionalVerification();
+                        $verification->setProfessionalUuid($user->getUuid());
+                        $verification->setProfessionalEmail($user->getEmail());
+                        $verification->setLicenseNumber($licenseNumber);
+                        $verification->setSpecialty($specialty);
+                        $verification->setDiplomaPath($diplomaPath);
+                        $verification->setStatus(ProfessionalVerification::STATUS_PENDING);
+                        $verification->setCreatedAt(new \DateTime());
+                        
+                        $this->entityManager->persist($verification);
+                        $this->entityManager->flush();
+                        
+                        error_log("[DEBUG] Professional verification record created - id: " . $verification->getId());
+                        
+                        // Process verification automatically if diploma is available
+                        if ($diplomaPath) {
+                            try {
+                                $verification = $this->diplomaVerificationService->processVerification($verification);
+                                $this->entityManager->flush();
+                                error_log("[DEBUG] Verification processed - score: " . $verification->getConfidenceScore());
+                            } catch (\Exception $e) {
+                                error_log("[DEBUG] Verification processing error: " . $e->getMessage());
+                            }
+                        }
+                    } catch (\Exception $e) {
+                        error_log("[DEBUG] Error creating verification record: " . $e->getMessage());
+                    }
+                }
                 
                 // Send verification email
                 try {

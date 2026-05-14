@@ -35,6 +35,10 @@ class DoctorAvailability
     private ?string $location = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
+    /**
+     * @var array<string, mixed>|null
+     * @phpstan-var array<string, mixed>|null
+     */
     private ?array $breaks = [];
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -119,11 +123,17 @@ class DoctorAvailability
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function getBreaks(): ?array
     {
         return $this->breaks;
     }
 
+    /**
+     * @param array<string, mixed>|null $breaks
+     */
     public function setBreaks(?array $breaks): self
     {
         $this->breaks = $breaks;

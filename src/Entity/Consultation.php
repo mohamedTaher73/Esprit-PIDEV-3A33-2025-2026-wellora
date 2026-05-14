@@ -99,12 +99,24 @@ class Consultation
             message: 'Le diagnostic doit suivre le format CIM-10 (ex: A10).'
         ),
     ], groups: ['clinical_note'])]
+    /**
+     * @var array<string>|null
+     * @phpstan-var array<string>|null
+     */
     private ?array $diagnoses = []; // Diagnostics (codes CIM-10)
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
+    /**
+     * @var array<string, mixed>|null
+     * @phpstan-var array<string, mixed>|null
+     */
     private ?array $vitals = []; // Signes vitaux structurés
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
+    /**
+     * @var array<string, mixed>|null
+     * @phpstan-var array<string, mixed>|null
+     */
     private ?array $follow_up = []; // Suivi structuré
 
     /**
@@ -168,7 +180,7 @@ class Consultation
             if (!is_string($diagnosis)) {
                 continue;
             }
-            $normalized = strtoupper(trim(preg_replace('/\s+/', ' ', $diagnosis)));
+            $normalized = strtoupper(trim((string) preg_replace('/\s+/', ' ', (string) $diagnosis)));
             if ($normalized === '') {
                 continue;
             }
@@ -267,8 +279,8 @@ class Consultation
             if (!is_string($name) || !is_string($dosage)) {
                 continue;
             }
-            $normalizedName = strtolower(trim(preg_replace('/\s+/', ' ', $name)));
-            $normalizedDosage = strtolower(trim(preg_replace('/\s+/', ' ', $dosage)));
+            $normalizedName = strtolower(trim((string) preg_replace('/\s+/', ' ', (string) $name)));
+            $normalizedDosage = strtolower(trim((string) preg_replace('/\s+/', ' ', (string) $dosage)));
             if ($normalizedName === '' || $normalizedDosage === '') {
                 continue;
             }
@@ -318,7 +330,7 @@ class Consultation
 
     public function setSubjective(?string $subjective): static
     {
-        $this->subjective = $subjective === null ? null : trim(preg_replace('/\s+/', ' ', $subjective));
+        $this->subjective = $subjective === null ? null : trim((string) preg_replace('/\s+/', ' ', $subjective));
         return $this;
     }
 
@@ -329,7 +341,7 @@ class Consultation
 
     public function setObjective(?string $objective): static
     {
-        $this->objective = $objective === null ? null : trim(preg_replace('/\s+/', ' ', $objective));
+        $this->objective = $objective === null ? null : trim((string) preg_replace('/\s+/', ' ', $objective));
         return $this;
     }
 
@@ -340,7 +352,7 @@ class Consultation
 
     public function setAssessment(?string $assessment): static
     {
-        $this->assessment = $assessment === null ? null : trim(preg_replace('/\s+/', ' ', $assessment));
+        $this->assessment = $assessment === null ? null : trim((string) preg_replace('/\s+/', ' ', $assessment));
         return $this;
     }
 
@@ -351,15 +363,21 @@ class Consultation
 
     public function setPlan(?string $plan): static
     {
-        $this->plan = $plan === null ? null : trim(preg_replace('/\s+/', ' ', $plan));
+        $this->plan = $plan === null ? null : trim((string) preg_replace('/\s+/', ' ', $plan));
         return $this;
     }
 
+    /**
+     * @return array<string>|null
+     */
     public function getDiagnoses(): ?array
     {
         return $this->diagnoses;
     }
 
+    /**
+     * @param array<string>|null $diagnoses
+     */
     public function setDiagnoses(?array $diagnoses): static
     {
         if ($diagnoses === null) {
@@ -371,7 +389,7 @@ class Consultation
             if (!is_string($diagnosis)) {
                 continue;
             }
-            $clean = strtoupper(trim(preg_replace('/\s+/', ' ', $diagnosis)));
+            $clean = strtoupper(trim((string) preg_replace('/\s+/', ' ', $diagnosis)));
             if ($clean === '') {
                 continue;
             }
@@ -381,22 +399,34 @@ class Consultation
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function getVitals(): ?array
     {
         return $this->vitals;
     }
 
+    /**
+     * @param array<string, mixed>|null $vitals
+     */
     public function setVitals(?array $vitals): static
     {
         $this->vitals = $vitals;
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function getFollowUp(): ?array
     {
         return $this->follow_up;
     }
 
+    /**
+     * @param array<string, mixed>|null $follow_up
+     */
     public function setFollowUp(?array $follow_up): static
     {
         $this->follow_up = $follow_up;
@@ -411,7 +441,7 @@ class Consultation
 
     public function getSummary(): string
     {
-        return substr($this->reason_for_visit, 0, 100) . '...';
+        return substr((string) $this->reason_for_visit, 0, 100) . '...';
     }
 
     public function getTypeLabel(): string
@@ -448,7 +478,7 @@ class Consultation
 
     public function setReasonForVisit(string $reason_for_visit): static
     {
-        $this->reason_for_visit = trim(preg_replace('/\s+/', ' ', $reason_for_visit));
+        $this->reason_for_visit = trim((string) preg_replace('/\s+/', ' ', $reason_for_visit));
         return $this;
     }
 
@@ -459,7 +489,7 @@ class Consultation
 
     public function setSymptomsDescription(string $symptoms_description): static
     {
-        $this->symptoms_description = trim(preg_replace('/\s+/', ' ', $symptoms_description));
+        $this->symptoms_description = trim((string) preg_replace('/\s+/', ' ', $symptoms_description));
         return $this;
     }
 
@@ -536,7 +566,7 @@ class Consultation
 
     public function setNotes(?string $notes): static
     {
-        $this->notes = $notes === null ? null : trim(preg_replace('/\s+/', ' ', $notes));
+        $this->notes = $notes === null ? null : trim((string) preg_replace('/\s+/', ' ', $notes));
         return $this;
     }
 

@@ -32,7 +32,11 @@ class Notificationrdv
 
     #[ORM\ManyToOne(targetEntity: Consultation::class, cascade: ['remove'])]
     #[ORM\JoinColumn(nullable: false)]
+<<<<<<< HEAD
     private ?Consultation $consultation = null;
+=======
+    private ?\App\Entity\Consultation $consultation = null;
+>>>>>>> 9f5844fa870e3396fdbf4eb0b551b5897a14d32e
 
     public function getId(): ?int
     {
@@ -99,12 +103,20 @@ class Notificationrdv
         return $this;
     }
 
+<<<<<<< HEAD
     public function getConsultation(): ?Consultation
+=======
+    public function getConsultation(): ?\App\Entity\Consultation
+>>>>>>> 9f5844fa870e3396fdbf4eb0b551b5897a14d32e
     {
         return $this->consultation;
     }
 
+<<<<<<< HEAD
     public function setConsultation(?Consultation $consultation): static
+=======
+    public function setConsultation(?\App\Entity\Consultation $consultation): static
+>>>>>>> 9f5844fa870e3396fdbf4eb0b551b5897a14d32e
     {
         $this->consultation = $consultation;
 

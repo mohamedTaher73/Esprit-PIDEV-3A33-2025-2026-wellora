@@ -134,6 +134,10 @@ class Goal
     private ?int $restDays = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
+    /**
+     * @var array<int, string>
+     * @phpstan-var array<int, string>
+     */
     private array $preferredDays = [];
 
     // 6. Santé & contraintes utilisateur
@@ -155,6 +159,10 @@ private ?string $aiCoachAdvice = null;  // Conseil généré par l'IA pour le co
 private ?\DateTimeInterface $lastAiAnalysis = null;  // Date de la dernière analyse
 
 #[ORM\Column(type: Types::JSON, nullable: true)]
+/**
+ * @var array<string, mixed>|null
+ * @phpstan-var array<string, mixed>|null
+ */
 private ?array $aiMetrics = null; 
 
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
@@ -475,11 +483,17 @@ private ?string $coachId = null;
         return $this;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function getPreferredDays(): array
     {
         return $this->preferredDays;
     }
 
+    /**
+     * @param array<int, string> $preferredDays
+     */
     public function setPreferredDays(array $preferredDays): static
     {
         $this->preferredDays = $preferredDays;
@@ -617,6 +631,10 @@ public function getAiMetrics(): ?array  // ← Ajoute ? devant array
     return $this->aiMetrics;
 }
 
+/**
+ * @param array<string, mixed>|null $aiMetrics
+ * @phpstan-param array<string, mixed>|null $aiMetrics
+ */
 public function setAiMetrics(?array $aiMetrics): self  // ← Ajoute ? devant array
 {
     $this->aiMetrics = $aiMetrics;

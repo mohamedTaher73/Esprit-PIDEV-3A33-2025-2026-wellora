@@ -8,7 +8,7 @@ framework:
     # Enable form component
     form:
         enabled: true
-
+    
     # Session configuration
     session:
         handler_id: null

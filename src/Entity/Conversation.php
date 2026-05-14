@@ -20,7 +20,7 @@ class Conversation
     #[ORM\JoinColumn(name: 'patient_uuid', referencedColumnName: 'uuid', nullable: false)]
     private ?User $patient = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'coach')]
     #[ORM\JoinColumn(name: 'coach_uuid', referencedColumnName: 'uuid', nullable: false)]
     private ?User $coach = null;
 
@@ -35,6 +35,10 @@ class Conversation
     private ?\DateTime $lastMessageAt = null;
 
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'conversation', cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, Message>
+     * @phpstan-var Collection<int, Message>
+     */
     private Collection $messages;
 
     public function __construct()
@@ -103,6 +107,9 @@ class Conversation
         return $this;
     }
 
+    /**
+     * @return Collection<int, Message>
+     */
     public function getMessages(): Collection
     {
         return $this->messages;

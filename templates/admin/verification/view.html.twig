@@ -1,0 +1,417 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Détails de la Vérification - WellCare Connect{% endblock %}
+
+{% block body %}
+<div class="space-y-6">
+    {# Header #}
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <a href="{{ path('admin_verification_dashboard') }}" 
+               class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    {% if professional %}
+                        Vérification de {{ professional.firstName }} {{ professional.lastName }}
+                    {% else %}
+                        Vérification #{{ verification.id }}
+                    {% endif %}
+                </h1>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    Soumis le {{ verification.createdAt|date('d/m/Y à H:i') }}
+                </p>
+            </div>
+        </div>
+        
+        {# Status Badge #}
+        {% set statusColors = {
+            'pending': 'yellow',
+            'processing': 'blue',
+            'verified': 'green',
+            'rejected': 'red',
+            'manual_review': 'orange'
+        } %}
+        {% set color = statusColors[verification.status] | default('gray') %}
+        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-{{ color }}-100 text-{{ color }}-800 dark:bg-{{ color }}-900/30 dark:text-{{ color }}-300">
+            {{ verification.statusLabel }}
+        </span>
+    </div>
+
+    {# Flash Messages #}
+    {% for message in app.flashes('success') %}
+    <div class="p-4 text-green-700 bg-green-100 border border-green-400 rounded-lg dark:bg-green-900/30 dark:border-green-700 dark:text-green-300">
+        {{ message }}
+    </div>
+    {% endfor %}
+    
+    {% for message in app.flashes('error') %}
+    <div class="p-4 text-red-700 bg-red-100 border border-red-400 rounded-lg dark:bg-red-900/30 dark:border-red-700 dark:text-red-300">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {# Left Column - Professional Info & Documents #}
+        <div class="space-y-6 lg:col-span-2">
+            {# Professional Information #}
+            <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    Informations du Professionnel
+                </h2>
+                <dl class="grid grid-cols-2 gap-4">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Nom complet</dt>
+                        <dd class="text-sm text-gray-900 dark:text-white">{{ professional ? professional.firstName ~ ' ' ~ professional.lastName : verification.professionalUuid[:8] ~ '...' }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</dt>
+                        <dd class="text-sm text-gray-900 dark:text-white">{{ professional ? professional.email : 'N/A' }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Rôle</dt>
+                        <dd class="text-sm text-gray-900 dark:text-white">{{ professional ? 'ROLE_MEDECIN' : 'N/A' }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Téléphone</dt>
+                        <dd class="text-sm text-gray-900 dark:text-white">{{ professional ? (professional.phone ?? 'Non fourni') : 'N/A' }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Numéro de licence</dt>
+                        <dd class="text-sm text-gray-900 dark:text-white">{{ verification.licenseNumber ?? 'Non fourni' }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Spécialité</dt>
+                        <dd class="text-sm text-gray-900 dark:text-white">{{ verification.specialty ?? 'Non fourni' }}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            {# Diploma Document #}
+            <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    Document de Diplôme
+                </h2>
+                {% if diploma_url %}
+                <div class="p-4 border-2 border-gray-300 border-dashed rounded-lg">
+                    <iframe src="{{ diploma_url }}" class="w-full rounded-lg h-96"></iframe>
+                    <div class="flex justify-center mt-4">
+                        <a href="{{ diploma_url }}" target="_blank" 
+                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-wellcare-600 hover:text-wellcare-700">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                            Ouvrir dans une nouvelle fenêtre
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="py-8 text-center text-gray-500 dark:text-gray-400">
+                    <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <p class="mt-2">Aucun document de diplôme上传é</p>
+                </div>
+                {% endif %}
+            </div>
+
+            {# Extracted Data #}
+            {% if verification.extractedData %}
+            <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    Données Extraites (OCR)
+                </h2>
+                <div class="p-4 overflow-x-auto rounded-lg bg-gray-50 dark:bg-gray-900">
+                    <pre class="text-xs text-gray-700 whitespace-pre-wrap dark:text-gray-300">{{ verification.extractedData|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {# Right Column - Verification Results #}
+        <div class="space-y-6">
+            {# Confidence Score #}
+            <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    Score de Confiance
+                </h2>
+                {% if verification.confidenceScore is not null %}
+                <div class="flex items-center justify-center mb-4">
+                    <div class="relative w-32 h-32">
+                        <svg class="w-32 h-32 transform -rotate-90">
+                            <circle cx="64" cy="64" r="56" stroke="currentColor" stroke-width="8" fill="none" class="text-gray-200 dark:text-gray-700"></circle>
+                            <circle cx="64" cy="64" r="56" stroke="currentColor" stroke-width="8" fill="none" 
+                                    stroke-dasharray="{{ 351 }}" 
+                                    stroke-dashoffset="{{ 351 - (351 * verification.confidenceScore / 100) }}"
+                                    class="{{ verification.confidenceScore >= 80 ? 'text-green-500' : verification.confidenceScore >= 60 ? 'text-orange-500' : 'text-red-500' }}">
+                            </circle>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ verification.confidenceScore }}</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-sm text-center text-gray-500 dark:text-gray-400">
+                    {% if verification.confidenceScore >= 80 %}
+                        ✅ Score élevé - Approbation automatique recommandée
+                    {% elseif verification.confidenceScore >= 60 %}
+                        ⚠️ Score moyen - Revue manuelle recommandée
+                    {% else %}
+                        ❌ Score faible - Rejet recommandé
+                    {% endif %}
+                </p>
+                {% else %}
+                <div class="py-8 text-center text-gray-500 dark:text-gray-400">
+                    <p>Aucun score calculé</p>
+                </div>
+                {% endif %}
+            </div>
+
+            {# Validation Details #}
+            {% if verification.validationDetails %}
+            <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    Détails de Validation
+                </h2>
+                <ul class="space-y-2">
+                    {% if verification.validationDetails.details %}
+                        {% if verification.validationDetails.details.name %}
+                        <li class="flex items-center text-sm {{ verification.validationDetails.details.name.matched ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
+                            {% if verification.validationDetails.details.name.matched %}
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            {% else %}
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            {% endif %}
+                            Nom: {{ verification.validationDetails.details.name.message ?? 'Vérifié' }}
+                        </li>
+                        {% endif %}
+                        
+                        {% if verification.validationDetails.details.specialty %}
+                        <li class="flex items-center text-sm {{ verification.validationDetails.details.specialty.matched ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
+                            {% if verification.validationDetails.details.specialty.matched %}
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            {% else %}
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            {% endif %}
+                            Spécialité: {{ verification.validationDetails.details.specialty.message ?? 'Vérifiée' }}
+                        </li>
+                        {% endif %}
+                        
+                        {% if verification.validationDetails.details.license %}
+                        <li class="flex items-center text-sm {{ verification.validationDetails.details.license.valid ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400' }}">
+                            {% if verification.validationDetails.details.license.valid %}
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            {% else %}
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                            {% endif %}
+                            Licence: {{ verification.validationDetails.details.license.message ?? 'Format vérifié' }}
+                        </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {# Forgery Indicators #}
+            {% if verification.forgeryIndicators %}
+            <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    Indicateurs de Falsification
+                </h2>
+                {% set indicators = verification.forgeryIndicators %}
+                {% if indicators.warnings and indicators.warnings|length > 0 %}
+                <ul class="space-y-2">
+                    {% for indicator in indicators.warnings %}
+                    <li class="flex items-start text-sm text-red-600 dark:text-red-400">
+                        <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        {{ indicator }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-sm text-green-600 dark:text-green-400">✅ Aucun indicateur de falsification détecté</p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {# Rejection Reason #}
+            {% if verification.rejectionReason %}
+            <div class="p-6 bg-white border-l-4 border-red-500 rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                    Raison du Rejet
+                </h2>
+                <p class="text-sm text-gray-700 dark:text-gray-300">{{ verification.rejectionReason }}</p>
+            </div>
+            {% endif %}
+
+            {# Action Buttons #}
+            <div class="p-6 space-y-4 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Actions
+                </h2>
+                
+                {# Reprocess #}
+                <a href="{{ path('admin_verification_reprocess', {id: verification.id}) }}" 
+                   class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Retraiter
+                </a>
+
+                {# Manual Approve #}
+                {% if verification.status != 'verified' %}
+                <form action="{{ path('admin_verification_approve', {id: verification.id}) }}" method="post" class="w-full">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('approve_verification_' ~ verification.id) }}">
+                    <button type="submit"
+                            class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Approuver manuellement
+                    </button>
+                </form>
+                {% endif %}
+
+                {# Manual Reject #}
+                {% if verification.status != 'rejected' %}
+                <form action="{{ path('admin_verification_reject', {id: verification.id}) }}" method="post" class="w-full" onsubmit="return confirm('Êtes-vous sûr de vouloir rejeter ce professionnel?');">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('reject_verification_' ~ verification.id) }}">
+                    <div class="mb-2">
+                        <input type="text" name="reason" placeholder="Motif du rejet" required
+                               class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <button type="submit"
+                            class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        Rejeter
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Approve Modal #}
+<div id="approve-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" onclick="document.getElementById('approve-modal').classList.add('hidden')"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full dark:bg-gray-800">
+            <form action="{{ path('admin_verification_approve', {id: verification.id}) }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('approve_verification_' ~ verification.id) }}">
+                <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4 dark:bg-gray-800">
+                    <div class="sm:flex sm:items-start">
+                        <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-green-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white" id="modal-title">
+                                Approuver le professionnel
+                            </h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    {% if professional %}
+                                    Vous êtes sur le point d'approuver {{ professional.firstName }} {{ professional.lastName }}. Cette action est irréversible.
+                                    {% else %}
+                                    Vous êtes sur le point d'approuver ce professionnel. Cette action est irréversible.
+                                    {% endif %}
+                                </p>
+                                <div class="mt-4">
+                                    <label for="reason" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Note (optionnel)</label>
+                                    <textarea name="reason" id="reason" rows="3" 
+                                              class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-wellcare-500 focus:ring-wellcare-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+Approuvé manuellement par l'administrateur
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse dark:bg-gray-900">
+                    <button type="submit" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        Confirmer l'approbation
+                    </button>
+                    <button type="button" onclick="document.getElementById('approve-modal').classList.add('hidden')"
+                            class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{# Reject Modal #}
+<div id="reject-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" onclick="document.getElementById('reject-modal').classList.add('hidden')"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full dark:bg-gray-800">
+            <form action="{{ path('admin_verification_reject', {id: verification.id}) }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('reject_verification_' ~ verification.id) }}">
+                <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4 dark:bg-gray-800">
+                    <div class="sm:flex sm:items-start">
+                        <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white" id="modal-title">
+                                Rejeter le professionnel
+                            </h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    {% if professional %}
+                                    Vous êtes sur le point de rejeter {{ professional.firstName }} {{ professional.lastName }}. Cette action est irréversible.
+                                    {% else %}
+                                    Vous êtes sur le point de rejeter ce professionnel. Cette action est irréversible.
+                                    {% endif %}
+                                </p>
+                                <div class="mt-4">
+                                    <label for="reject-reason" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Raison du rejet <span class="text-red-500">*</span></label>
+                                    <textarea name="reason" id="reject-reason" rows="4" required
+                                              class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-wellcare-500 focus:ring-wellcare-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                              placeholder="Veuillez fournir une raison détaillée pour le rejet..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse dark:bg-gray-900">
+                    <button type="submit" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        Confirmer le rejet
+                    </button>
+                    <button type="button" onclick="document.getElementById('reject-modal').classList.add('hidden')"
+                            class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

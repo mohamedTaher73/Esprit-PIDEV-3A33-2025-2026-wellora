@@ -2460,6 +2460,7 @@ public function bodyMap(): Response
                 ->andWhere('j.user = :user')
                 ->setParameter('entryDate', $entryDate)
                 ->setParameter('user', $user)
+                ->setMaxResults(1)
                 ->getQuery()
                 ->getOneOrNullResult();
         }

@@ -54,6 +54,8 @@ PROMPT;
 
     /**
      * Send a chat message to Ollama
+     * @param array<string, mixed> $conversationHistory
+     * @return array<string, mixed>
      */
     public function chat(string $message, array $conversationHistory = []): array
     {
@@ -138,6 +140,7 @@ PROMPT;
 
     /**
      * Get available models from Ollama
+     * @return array<string>
      */
     public function getAvailableModels(): array
     {

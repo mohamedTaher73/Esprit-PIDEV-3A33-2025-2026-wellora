@@ -1,0 +1,77 @@
+# Configuration for Doctrine Doctor Bundle
+# Documentation: https://github.com/ahmed-bhs/doctrine-doctor
+
+doctrine_doctor:
+    # Enable or disable the bundle entirely
+    enabled: true
+
+    # Profiler integration
+    profiler:
+        show_in_toolbar: true
+
+    # Analyzer configurations
+    analyzers:
+        # N+1 Query Detection
+        n_plus_one:
+            enabled: true
+            threshold: 5
+
+        # Slow Query Detection
+        slow_query:
+            enabled: true
+            threshold: 100
+
+        # Missing Index Detection
+        missing_index:
+            enabled: true
+            slow_query_threshold: 1
+            explain_queries: true
+            min_rows_scanned: 5
+
+        # Hydration Analysis
+        hydration:
+            enabled: true
+            row_threshold: 50
+            critical_threshold: 500
+
+        # Eager Loading Analysis
+        eager_loading:
+            enabled: true
+            join_threshold: 4
+            critical_join_threshold: 7
+
+        # EntityManager Clear Detection
+        entity_manager_clear:
+            enabled: true
+            batch_size_threshold: 20
+
+        # GetReference Optimization Detection
+        get_reference:
+            enabled: true
+            threshold: 3
+
+        # Flush in Loop Detection
+        flush_in_loop:
+            enabled: true
+            flush_count_threshold: 5
+            time_window_ms: 1000
+
+        # Lazy Loading Detection
+        lazy_loading:
+            enabled: true
+            threshold: 10
+
+        # DQL Injection Security Scanner
+        dql_injection:
+            enabled: true
+
+        # Bulk Operation Detection
+        bulk_operation:
+            enabled: true
+            threshold: 20
+
+        # JOIN Optimization Detection
+        join_optimization:
+            enabled: true
+            max_joins_recommended: 5
+            max_joins_critical: 8

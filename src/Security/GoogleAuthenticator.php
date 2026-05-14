@@ -150,11 +150,11 @@ class GoogleAuthenticator extends OAuth2Authenticator
         if (in_array('ROLE_ADMIN', $roles)) {
             $targetUrl = $this->router->generate('admin_trail_analytics');
         } elseif (in_array('ROLE_MEDECIN', $roles)) {
-            $targetUrl = $this->router->generate('doctor_patient_queue');
+            $targetUrl = $this->router->generate('doctor_patient_queue_page');
         } elseif (in_array('ROLE_COACH', $roles)) {
             $targetUrl = $this->router->generate('coach_clients');
         } elseif (in_array('ROLE_NUTRITIONIST', $roles)) {
-            $targetUrl = $this->router->generate('nutrition_nutritionniste_dashboard');
+            $targetUrl = $this->router->generate('nutrisioniste_dash');
         } else {
             // Default: patient dashboard
             $targetUrl = $this->router->generate('appointment_patient_dashboard');

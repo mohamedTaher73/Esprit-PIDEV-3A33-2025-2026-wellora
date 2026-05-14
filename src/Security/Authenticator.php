@@ -134,7 +134,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('coach_clients'));
         }
         if (in_array('ROLE_NUTRITIONIST', $roles)) {
-            return new RedirectResponse($this->urlGenerator->generate('nutrition_nutritionniste_dashboard'));
+            return new RedirectResponse($this->urlGenerator->generate('nutrisioniste_dash'));
         }
         
         // Default: patient dashboard

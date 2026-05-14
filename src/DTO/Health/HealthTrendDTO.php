@@ -8,6 +8,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 final class HealthTrendDTO
 {
+    /**
+     * @param array<string, float> $metricEvolutions
+     */
     public function __construct(
         #[Groups(['health_trends', 'health_export'])]
         public ?HealthScoreDTO $currentScore = null,

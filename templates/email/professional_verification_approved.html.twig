@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification approuvée - WellCare Connect</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #00A790 0%, #008674 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .status-badge {
+            display: inline-block;
+            background: #10B981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid #10B981;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00A790 0%, #008674 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .button:hover {
+            opacity: 0.9;
+        }
+        .footer {
+            background-color: #f9fafb;
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✅ Vérification approuvée</h1>
+        </div>
+        <div class="content">
+            <span class="status-badge">Compte vérifié</span>
+            
+            <h2>Bienvenue sur WellCare Connect !</h2>
+            
+            <p>Bonjour <strong>{{ firstName }} {{ lastName }}</strong>,</p>
+            
+            <p>Nous avons le plaisir de vous informer que votre compte professionnel a été <strong>approuvé</strong> par notre équipe d'administration.</p>
+            
+            <div class="info-box">
+                <p><strong>Type de compte :</strong> {{ professionalType }}</p>
+                <p><strong>Spécialité :</strong> {{ specialty }}</p>
+                <p><strong>Date d'approbation :</strong> {{ approvalDate|date('d/m/Y à H:i') }}</p>
+            </div>
+            
+            <p>Vous pouvez maintenant accéder à toutes les fonctionnalités réservées aux professionnels de santé :</p>
+            <ul>
+                <li>Consultation des patients</li>
+                <li>Planification de rendez-vous</li>
+                <li>Gestion des dossiers médicaux</li>
+                <li>Téléconsultation</li>
+            </ul>
+            
+            <center>
+                <a href="{{ loginUrl }}" class="button">Se connecter</a>
+            </center>
+            
+            <p>Si vous avez des questions ou avez besoin d'assistance, n'hésitez pas à contacter notre équipe de support.</p>
+            
+            <p>Cordialement,<br>L'équipe <strong>WellCare Connect</strong></p>
+        </div>
+        <div class="footer">
+            <p>© {{ "now"|date("Y") }} WellCare Connect. Tous droits réservés.</p>
+            <p>Cet email a été envoyé à {{ email }}</p>
+        </div>
+    </div>
+</body>
+</html>

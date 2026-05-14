@@ -94,6 +94,9 @@ final class WeatherService
         ];
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function requestJson(string $url): ?array
     {
         $streamContext = stream_context_create([

@@ -31,6 +31,10 @@ class Healthjournal
     private ?UserInterface $user = null;
 
     #[ORM\OneToMany(targetEntity: Healthentry::class, mappedBy: "journal")]
+    /**
+     * @var Collection<int, Healthentry>
+     * @phpstan-var Collection<int, Healthentry>
+     */
     private Collection $entries;
 
     public function __construct()

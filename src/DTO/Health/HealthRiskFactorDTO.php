@@ -8,6 +8,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 final class HealthRiskFactorDTO
 {
+    /**
+     * @param array<string> $triggeringConditions
+     */
     public function __construct(
         #[Groups(['health_risk', 'health_export'])]
         public string $name,

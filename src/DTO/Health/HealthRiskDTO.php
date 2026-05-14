@@ -10,6 +10,7 @@ final class HealthRiskDTO
 {
     /**
      * @param array<HealthRiskFactorDTO> $riskFactors
+     * @param array<string> $recommendations
      */
     public function __construct(
         #[Groups(['health_risk', 'health_export'])]

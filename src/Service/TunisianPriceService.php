@@ -12,6 +12,7 @@ class TunisianPriceService
      * Price database for common food items in Tunisia
      * Prices are average market prices in TND
      * Format: price per unit, calories per 100g
+     * @var array<string, array{price: float, unit: string, category: string, calories: int}>
      */
     private array $prices = [
         // Fruits & Légumes
@@ -231,7 +232,7 @@ class TunisianPriceService
         $dt = floor($price); // Dinars
         $ml = round(($price - $dt) * 1000); // Millimes
         
-        return $dt . 'dt' . str_pad($ml, 3, '0', STR_PAD_LEFT);
+        return $dt . 'dt' . str_pad((string) $ml, 3, '0', STR_PAD_LEFT);
     }
 
     /**

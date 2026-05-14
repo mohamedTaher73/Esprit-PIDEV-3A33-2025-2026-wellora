@@ -25,6 +25,10 @@ class AiConversation
     private ?string $aiResponse = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
+    /**
+     * @var array<string, mixed>|null
+     * @phpstan-var array<string, mixed>|null
+     */
     private ?array $metadata = null;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -97,11 +101,17 @@ class AiConversation
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function getMetadata(): ?array
     {
         return $this->metadata;
     }
 
+    /**
+     * @param array<string, mixed>|null $metadata
+     */
     public function setMetadata(?array $metadata): static
     {
         $this->metadata = $metadata;

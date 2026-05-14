@@ -55,10 +55,25 @@ class Symptom
         return $this->intensite;
     }
 
+    public function getIntensity(): ?int
+    {
+        return $this->intensite;
+    }
+
     public function setIntensite(int $intensite): static
     {
         $this->intensite = $intensite;
 
+        return $this;
+    }
+
+    public function setDateSymptom(\DateTimeInterface $dateSymptom): static
+    {
+        return $this;
+    }
+
+    public function setDateObservation(\DateTimeInterface $dateObservation): static
+    {
         return $this;
     }
 

@@ -22,6 +22,10 @@ class ExercisePlan
     private ?int $weekNumber = null;
 
     #[ORM\Column(type: Types::JSON)]
+    /**
+     * @var array<string, mixed>
+     * @phpstan-var array<string, mixed>
+     */
     private array $exercises = [];
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -65,11 +69,17 @@ class ExercisePlan
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getExercises(): array
     {
         return $this->exercises;
     }
 
+    /**
+     * @param array<string, mixed> $exercises
+     */
     public function setExercises(array $exercises): static
     {
         $this->exercises = $exercises;

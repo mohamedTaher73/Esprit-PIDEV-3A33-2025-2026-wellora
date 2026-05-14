@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\NutritionGoalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -46,12 +48,36 @@ class NutritionGoal
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'nutritionGoals')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'uuid')]
     private ?User $user = null;
 
-    #[ORM\Column]
-    private ?int $userId = null;
+    /**
+     * @var Collection<int, NutritionGoalAchievement>
+     */
+    #[ORM\OneToMany(mappedBy: 'goal', targetEntity: NutritionGoalAchievement::class)]
+    private Collection $achievements;
+
+    /**
+     * @var Collection<int, NutritionGoalAdjustment>
+     */
+    #[ORM\OneToMany(mappedBy: 'goal', targetEntity: NutritionGoalAdjustment::class)]
+    private Collection $adjustments;
+
+    /**
+     * @var Collection<int, NutritionGoalMilestone>
+     */
+    #[ORM\OneToMany(mappedBy: 'goal', targetEntity: NutritionGoalMilestone::class)]
+    private Collection $milestones;
+
+    /**
+     * @var Collection<int, NutritionGoalProgress>
+     */
+    #[ORM\OneToMany(mappedBy: 'goal', targetEntity: NutritionGoalProgress::class)]
+    private Collection $progress;
+
+    #[ORM\Column(type: Types::STRING, length: 36, nullable: true)]
+    private ?string $userId = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $name = null;
@@ -151,6 +177,10 @@ class NutritionGoal
 
     public function __construct()
     {
+        $this->achievements = new ArrayCollection();
+        $this->adjustments = new ArrayCollection();
+        $this->milestones = new ArrayCollection();
+        $this->progress = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->startDate = new \DateTime();
@@ -166,9 +196,9 @@ class NutritionGoal
         return $this->userId;
     }
 
-    public function setUserId(int|string $userId): static
+    public function setUserId(string|null $userId): static
     {
-        $this->userId = is_string($userId) ? (int) hexdec(substr($userId, 0, 8)) : $userId;
+        $this->userId = $userId;
         return $this;
     }
 

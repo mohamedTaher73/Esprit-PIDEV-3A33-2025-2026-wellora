@@ -1,0 +1,22 @@
+ -- ----------------------------------------------------------------------------------------------------------------- 
+     Error                                                                                                            
+ -- ----------------------------------------------------------------------------------------------------------------- 
+     Ignored error pattern #Parameter .* with no value type specified# was not matched in reported errors.            
+     Ignored error pattern #Using nullsafe method call on non-nullable type# was not matched in reported errors.      
+     Ignored error pattern #Call to an undefined static method# was not matched in reported errors.                   
+     Ignored error pattern #Call to undefined method# was not matched in reported errors.                             
+     Ignored error pattern #Instantiated class .* not found# was not matched in reported errors.                      
+     Ignored error pattern #Function .* not found# was not matched in reported errors.                                
+     Ignored error pattern #Interface .* not found# was not matched in reported errors.                               
+     Ignored error pattern #Trait .* not found# was not matched in reported errors.                                   
+     Ignored error pattern #PHPDoc type .* of property .* is not subtype of native type# was not matched in reported  
+     errors.                                                                                                          
+     Ignored error pattern #Return type in method .* is not subtype of return type in parent# was not matched in      
+     reported errors.                                                                                                 
+     Ignored error pattern #Doctrine\\Common\\Collections\\Collection does not specify its types# was not matched in  
+     reported errors.                                                                                                 
+ -- ----------------------------------------------------------------------------------------------------------------- 
+
+
+ [ERROR] Found 11 errors                                                                                               
+

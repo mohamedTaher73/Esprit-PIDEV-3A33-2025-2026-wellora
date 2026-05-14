@@ -15,11 +15,11 @@ class NutritionConsultation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'nutritionConsultations')]
     #[ORM\JoinColumn(name: 'patient_uuid', referencedColumnName: 'uuid')]
     private ?User $patient = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'nutritionConsultationsGiven')]
     #[ORM\JoinColumn(name: 'nutritionist_uuid', referencedColumnName: 'uuid')]
     private ?User $nutritionist = null;
 
@@ -249,7 +249,7 @@ class NutritionConsultation
             'confirmed' => 'Confirmée',
             'completed' => 'Terminée',
             'cancelled' => 'Annulée',
-            default => $this->status
+            default => $this->status ?? 'Inconnu'
         };
     }
 
