@@ -56,7 +56,8 @@ RUN touch .env
 RUN mkdir -p var/cache var/log public/uploads public/build \
     && chown -R www-data:www-data /var/www/html
 
-# Install PHP dependencies (no scripts - we'll run cache warmup manually)
+# Install PHP dependencies
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --optimize-autoloader --no-interaction
 
 # Install Node dependencies and build assets
