@@ -4,11 +4,27 @@ namespace App\Controller;
 
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GoogleController extends AbstractController
 {
+    /** TEMPORARY DEBUG - remove after fixing */
+    #[Route('/debug-oauth', name: 'debug_oauth')]
+    public function debugOauth(): JsonResponse
+    {
+        $clientId = getenv('GOOGLE_CLIENT_ID');
+        $secret   = getenv('GOOGLE_CLIENT_SECRET');
+        return new JsonResponse([
+            'GOOGLE_CLIENT_ID'          => $clientId ?: 'NOT_SET_via_getenv',
+            'GOOGLE_CLIENT_ID_ENV'      => $_ENV['GOOGLE_CLIENT_ID'] ?? 'NOT_IN_ENV',
+            'GOOGLE_CLIENT_ID_SERVER'   => $_SERVER['GOOGLE_CLIENT_ID'] ?? 'NOT_IN_SERVER',
+            'SECRET_LAST4'              => $secret ? substr($secret, -4) : 'NOT_SET',
+            'APP_ENV'                   => getenv('APP_ENV') ?: 'NOT_SET',
+        ]);
+    }
+
     /**
      * Link to this controller to start the "Connect Google" process
      */
