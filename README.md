@@ -110,7 +110,9 @@ npm install
 npm start
 
 ### ▶️ Lancement du projet
-symfony server:start
+composer install
+ php bin/console doctrine:migrations:migrate
+ symfony serve # ou : php -S localhost:8000 -t public/
 
 ###🔐 Variables d’environnement
 Créer un fichier .env base sur .env.exemple
