@@ -74,7 +74,8 @@ RUN npm install && npm run build
 # Cache will be warmed up at runtime with real env vars
 
 # Clear any stale build-time cache, warm up fresh with real env vars, migrate, then start Apache
-CMD php -d memory_limit=-1 bin/console cache:clear --env=prod --no-warmup \
+CMD echo "" > .env \
+    && php -d memory_limit=-1 bin/console cache:clear --env=prod --no-warmup \
     && php -d memory_limit=-1 bin/console cache:warmup --env=prod \
     && echo "DATABASE_URL is: ${DATABASE_URL}" \
     && php bin/console doctrine:migrations:migrate --no-interaction \
