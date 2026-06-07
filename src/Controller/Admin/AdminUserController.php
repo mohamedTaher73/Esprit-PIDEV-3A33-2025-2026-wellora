@@ -249,7 +249,7 @@ class AdminUserController extends AbstractController
     /**
      * List unverified professionals
      */
-    #[Route('/pending-verification', name: 'admin_users_pending_verification', methods: ['GET'])]
+    #[Route('/pending-verification', name: 'admin_users_pending_verification', methods: ['GET'], priority: 10)]
     #[Template('admin/users/pending-verification.html.twig')]
     public function pendingVerification(): array
     {
@@ -263,7 +263,7 @@ class AdminUserController extends AbstractController
     /**
      * Bulk activate users
      */
-    #[Route('/bulk-activate', name: 'admin_users_bulk_activate', methods: ['POST'])]
+    #[Route('/bulk-activate', name: 'admin_users_bulk_activate', methods: ['POST'], priority: 10)]
     public function bulkActivate(Request $request): Response
     {
         $uuids = $request->request->get('uuids', []);
@@ -296,7 +296,7 @@ class AdminUserController extends AbstractController
     /**
      * Bulk verify professionals
      */
-    #[Route('/bulk-verify', name: 'admin_users_bulk_verify', methods: ['POST'])]
+    #[Route('/bulk-verify', name: 'admin_users_bulk_verify', methods: ['POST'], priority: 10)]
     public function bulkVerify(Request $request): Response
     {
         $uuids = $request->request->get('uuids', []);
@@ -336,7 +336,7 @@ class AdminUserController extends AbstractController
     /**
      * Bulk deactivate users
      */
-    #[Route('/bulk-deactivate', name: 'admin_users_bulk_deactivate', methods: ['POST'])]
+    #[Route('/bulk-deactivate', name: 'admin_users_bulk_deactivate', methods: ['POST'], priority: 10)]
     public function bulkDeactivate(Request $request): Response
     {
         $uuids = $request->request->get('uuids', []);
@@ -372,7 +372,7 @@ class AdminUserController extends AbstractController
     /**
      * Bulk delete users
      */
-    #[Route('/bulk-delete', name: 'admin_users_bulk_delete', methods: ['POST'])]
+    #[Route('/bulk-delete', name: 'admin_users_bulk_delete', methods: ['POST'], priority: 10)]
     public function bulkDelete(Request $request): Response
     {
         $uuids = $request->request->get('uuids', []);
