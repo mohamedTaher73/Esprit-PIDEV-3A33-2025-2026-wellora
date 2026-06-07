@@ -48,8 +48,9 @@ ENV APP_ENV=prod
 ENV APP_SECRET=build-time-placeholder
 ENV DATABASE_URL="mysql://user:pass@127.0.0.1:3306/db_name?serverVersion=8.0.32&charset=utf8mb4"
 
-# Create a baseline .env file from .env.example so all required variables are defined
-RUN cp .env.example .env
+# NOTE: No .env file is created here intentionally.
+# Symfony's bootEnv() skips .env loading when APP_ENV is set in the system env.
+# All real env vars (GOOGLE_CLIENT_ID, MAILER_DSN, etc.) are injected by Render at runtime.
 
 # Set proper permissions
 RUN mkdir -p var/cache var/log public/uploads public/build \
