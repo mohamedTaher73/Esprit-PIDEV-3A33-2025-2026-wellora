@@ -57,7 +57,7 @@ RUN mkdir -p var/cache var/log public/uploads public/build \
     && chown -R www-data:www-data /var/www/html
 
 # Install PHP dependencies (no scripts - we'll run cache warmup manually)
-RUN composer install --optimize-autoloader --no-interaction --no-scripts
+RUN composer install --optimize-autoloader --no-interaction
 
 # Install Node dependencies and build assets
 RUN npm install && npm run build
