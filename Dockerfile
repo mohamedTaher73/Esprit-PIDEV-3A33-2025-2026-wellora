@@ -62,7 +62,7 @@ RUN composer install --optimize-autoloader --no-interaction --no-scripts
 RUN npm install && npm run build
 
 # Warm up Symfony cache
-RUN php bin/console cache:warmup --env=prod
+RUN php -d memory_limit=-1 bin/console cache:warmup --env=prod
 
 # Start Apache
 CMD ["apache2-foreground"]
