@@ -43,18 +43,25 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . .
 
-# Set proper permissions before Composer/NPM
+# Set APP_ENV for build time so Symfony can boot without a real .env
+ENV APP_ENV=prod
+ENV APP_SECRET=build-time-placeholder
+
+# Create a minimal .env file so Symfony can load during build
+RUN echo "APP_ENV=prod" > .env && echo "APP_SECRET=build-time-placeholder" >> .env
+
+# Set proper permissions
 RUN mkdir -p var/cache var/log public/uploads public/build \
     && chown -R www-data:www-data /var/www/html
 
-# Install PHP dependencies
+# Install PHP dependencies (no scripts - we'll run cache warmup manually)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Install Node dependencies and build assets
 RUN npm install && npm run build
 
-# Run Symfony post-install scripts (cache warmup)
-RUN composer run-script post-install-cmd
+# Warm up Symfony cache
+RUN php bin/console cache:warmup --env=prod
 
-# Expose port and start Apache
+# Start Apache
 CMD ["apache2-foreground"]
