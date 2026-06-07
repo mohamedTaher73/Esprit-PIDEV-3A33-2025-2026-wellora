@@ -47,6 +47,12 @@ COPY . .
 ENV APP_ENV=prod
 ENV APP_SECRET=build-time-placeholder
 ENV APP_URL="http://localhost"
+ENV MERCURE_URL="http://localhost/.well-known/mercure"
+ENV MERCURE_PUBLIC_URL="http://localhost/.well-known/mercure"
+ENV MERCURE_JWT_SECRET="dummy"
+ENV GOOGLE_CLIENT_ID="dummy"
+ENV GOOGLE_CLIENT_SECRET="dummy"
+ENV MAILER_DSN="null://null"
 ENV DATABASE_URL="mysql://user:pass@127.0.0.1:3306/db_name?serverVersion=8.0.32&charset=utf8mb4"
 
 # Create an EMPTY .env so Symfony doesn't crash (it requires the file to exist).
