@@ -65,6 +65,7 @@ RUN mkdir -p var/cache var/log public/uploads public/build \
 
 # Install PHP dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_MEMORY_LIMIT=-1
 RUN composer install --optimize-autoloader --no-interaction
 
 # Install Node dependencies and build assets
