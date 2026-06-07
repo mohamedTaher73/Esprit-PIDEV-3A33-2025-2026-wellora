@@ -78,6 +78,7 @@ CMD echo "" > .env \
     && php -d memory_limit=-1 bin/console cache:clear --env=prod --no-warmup \
     && php -d memory_limit=-1 bin/console cache:warmup --env=prod \
     && php bin/console doctrine:migrations:migrate --no-interaction \
-    && rm -f /etc/apache2/mods-enabled/mpm_*.load \
+    && rm -f /etc/apache2/mods-enabled/mpm_* \
     && ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/ \
+    && ln -s /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/ \
     && apache2-foreground
