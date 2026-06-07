@@ -81,4 +81,5 @@ CMD echo "" > .env \
     && rm -f /etc/apache2/mods-enabled/mpm_* \
     && ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/ \
     && ln -s /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/ \
+    && chown -R www-data:www-data var/cache var/log \
     && apache2-foreground
