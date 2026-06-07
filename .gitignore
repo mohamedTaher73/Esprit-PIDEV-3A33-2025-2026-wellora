@@ -6,7 +6,7 @@
 /.env.*.local
 /.env.test
 /.env.test.local
-
+/.env.dev
 # Symfony secrets
 /config/secrets/*/decrypt.private.php
 /config/secrets/prod/prod.decrypt.private.php
