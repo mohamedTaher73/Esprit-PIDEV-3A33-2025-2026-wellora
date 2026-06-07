@@ -48,10 +48,8 @@ ENV APP_ENV=prod
 ENV APP_SECRET=build-time-placeholder
 ENV DATABASE_URL="mysql://user:pass@127.0.0.1:3306/db_name?serverVersion=8.0.32&charset=utf8mb4"
 
-# Create a minimal .env file so Symfony can load during build
-RUN echo "APP_ENV=prod" > .env && \
-    echo "APP_SECRET=build-time-placeholder" >> .env && \
-    echo "DATABASE_URL=mysql://user:pass@127.0.0.1:3306/db_name?serverVersion=8.0.32&charset=utf8mb4" >> .env
+# Create a baseline .env file from .env.example so all required variables are defined
+RUN cp .env.example .env
 
 # Set proper permissions
 RUN mkdir -p var/cache var/log public/uploads public/build \
