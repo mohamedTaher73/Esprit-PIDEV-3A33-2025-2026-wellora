@@ -22,9 +22,7 @@ final class Version20260304000000 extends AbstractMigration
         // Change user_id column type from INT to VARCHAR(36)
         $this->addSql('ALTER TABLE nutrition_goals CHANGE user_id user_id VARCHAR(36) DEFAULT NULL');
         
-        // Add foreign key for user_id in nutrition_goals
-        $this->addSql('ALTER TABLE nutrition_goals ADD CONSTRAINT FK_AE09E63FA76ED395 FOREIGN KEY (user_id) REFERENCES users (uuid)');
-        $this->addSql('CREATE INDEX IDX_AE09E63FA76ED395 ON nutrition_goals (user_id)');
+
         
         // Update various column definitions to match entity mappings
         $this->addSql('ALTER TABLE users CHANGE birthdate birthdate DATE DEFAULT NULL');
@@ -84,7 +82,7 @@ final class Version20260304000000 extends AbstractMigration
         $this->addSql('ALTER TABLE nutrition_goal_progress CHANGE weight weight NUMERIC(5, 2) DEFAULT NULL, CHANGE created_at created_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE ordonnance CHANGE instructions instructions VARCHAR(500) DEFAULT NULL, CHANGE frequency frequency VARCHAR(50) DEFAULT NULL, CHANGE diagnosis_code diagnosis_code VARCHAR(20) DEFAULT NULL, CHANGE medecin_id medecin_id VARCHAR(36) DEFAULT NULL');
         $this->addSql('ALTER TABLE parcours_de_sante CHANGE latitude_parcours latitude_parcours DOUBLE PRECISION DEFAULT NULL, CHANGE longitude_parcours longitude_parcours DOUBLE PRECISION DEFAULT NULL, CHANGE image_parcours image_parcours VARCHAR(255) DEFAULT NULL, CHANGE owner_patient_uuid owner_patient_uuid VARCHAR(36) DEFAULT NULL');
-        $this->addSql('ALTER TABLE professional_verifications CHANGE professional_email professional_email VARCHAR(255) DEFAULT NULL, CHANGE license_number license_number VARCHAR(255) DEFAULT NULL, CHANGE specialty specialty VARCHAR(255) DEFAULT NULL, CHANGE diploma_path diploma_path VARCHAR(500) DEFAULT NULL, CHANGE diploma_filename diploma_filename VARCHAR(255) DEFAULT NULL, CHANGE extracted_data extracted_data JSON DEFAULT NULL, CHANGE validation_details validation_details JSON DEFAULT NULL, CHANGE forgery_indicators forgery_indicators JSON DEFAULT NULL, CHANGE verified_at verified_at DATETIME DEFAULT NULL, CHANGE reviewed_by reviewed_by VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE professional_verification CHANGE professional_email professional_email VARCHAR(255) DEFAULT NULL, CHANGE license_number license_number VARCHAR(255) DEFAULT NULL, CHANGE specialty specialty VARCHAR(255) DEFAULT NULL, CHANGE diploma_path diploma_path VARCHAR(500) DEFAULT NULL, CHANGE diploma_filename diploma_filename VARCHAR(255) DEFAULT NULL, CHANGE extracted_data extracted_data JSON DEFAULT NULL, CHANGE validation_details validation_details JSON DEFAULT NULL, CHANGE forgery_indicators forgery_indicators JSON DEFAULT NULL, CHANGE verified_at verified_at DATETIME DEFAULT NULL, CHANGE reviewed_by reviewed_by VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE publication_parcours CHANGE owner_patient_uuid owner_patient_uuid VARCHAR(36) DEFAULT NULL');
         $this->addSql('ALTER TABLE symptom CHANGE zone zone VARCHAR(100) DEFAULT NULL');
         $this->addSql('ALTER TABLE water_intakes CHANGE created_at created_at DATETIME DEFAULT NULL, CHANGE updated_at updated_at DATETIME DEFAULT NULL, CHANGE user_uuid user_uuid VARCHAR(36) DEFAULT NULL');
@@ -92,7 +90,6 @@ final class Version20260304000000 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE nutrition_goals DROP FOREIGN KEY FK_AE09E63FA76ED395');
-        $this->addSql('DROP INDEX IDX_AE09E63FA76ED395 ON nutrition_goals');
+
     }
 }
