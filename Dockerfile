@@ -61,8 +61,10 @@ RUN composer install --optimize-autoloader --no-interaction --no-scripts
 # Install Node dependencies and build assets
 RUN npm install && npm run build
 
-# Warm up Symfony cache
-RUN php -d memory_limit=-1 bin/console cache:warmup --env=prod
+# Cache will be warmed up at runtime with real env vars
 
-# Run migrations and start Apache
-CMD php bin/console doctrine:migrations:migrate --no-interaction && apache2-foreground
+# Clear any stale build-time cache, warm up fresh with real env vars, migrate, then start Apache
+CMD php -d memory_limit=-1 bin/console cache:clear --env=prod --no-warmup \
+    && php -d memory_limit=-1 bin/console cache:warmup --env=prod \
+    && php bin/console doctrine:migrations:migrate --no-interaction \
+    && apache2-foreground
