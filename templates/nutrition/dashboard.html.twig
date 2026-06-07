@@ -5,7 +5,7 @@ Main nutrition tracking dashboard without JavaScript dependencies
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Tableau de bord - WellCare{% endblock %}
+{% block title %}Dashboard - WellCare{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -21,15 +21,15 @@ Main nutrition tracking dashboard without JavaScript dependencies
                 <div>
                     <h1 class="flex items-center gap-3 text-2xl font-bold text-gray-900 dark:text-white">
                         <i class="text-3xl fas fa-utensils text-wellcare-500"></i>
-                        Tableau de Bord Nutrition
+                        Nutrition Dashboard
                     </h1>
-                    <p class="mt-1 text-gray-600 dark:text-gray-400">Suivez votre alimentation quotidienne</p>
+                    <p class="mt-1 text-gray-600 dark:text-gray-400">Track your daily food intake</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ path('nutrition_quick_log') }}" 
                        class="inline-flex items-center px-4 py-2 text-white transition-colors rounded-lg bg-wellcare-500 hover:bg-wellcare-600">
                         <i class="mr-2 fas fa-plus"></i>
-                        Ajout Rapide
+                        Quick Add
                     </a>
                     <a href="{{ path('nutrition_ai_assistant') }}" 
                        class="inline-flex items-center px-4 py-2 text-white transition-colors rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700">
@@ -62,7 +62,7 @@ Main nutrition tracking dashboard without JavaScript dependencies
             {# Protein Card #}
             <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-xl">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Protéines</h3>
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Proteins</h3>
                     <span class="text-2xl">🥩</span>
                 </div>
                 <div class="flex items-baseline gap-2">
@@ -77,7 +77,7 @@ Main nutrition tracking dashboard without JavaScript dependencies
             {# Carbs Card #}
             <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-xl">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Glucides</h3>
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Carbohydrates</h3>
                     <span class="text-2xl">🍞</span>
                 </div>
                 <div class="flex items-baseline gap-2">
@@ -92,7 +92,7 @@ Main nutrition tracking dashboard without JavaScript dependencies
             {# Fats Card #}
             <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-xl">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Lipides</h3>
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Fats</h3>
                     <span class="text-2xl">🧈</span>
                 </div>
                 <div class="flex items-baseline gap-2">
@@ -114,13 +114,13 @@ Main nutrition tracking dashboard without JavaScript dependencies
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                     {% if mealType == 'breakfast' %}
-                                        <i class="mr-2 text-orange-500 fas fa-coffee"></i>Petit-déjeuner
+                                        <i class="mr-2 text-orange-500 fas fa-coffee"></i>Breakfast
                                     {% elseif mealType == 'lunch' %}
-                                        <i class="mr-2 text-yellow-500 fas fa-sun"></i>Déjeuner
+                                        <i class="mr-2 text-yellow-500 fas fa-sun"></i>Lunch
                                     {% elseif mealType == 'dinner' %}
-                                        <i class="mr-2 text-indigo-500 fas fa-moon"></i>Dîner
+                                        <i class="mr-2 text-indigo-500 fas fa-moon"></i>Dinner
                                     {% else %}
-                                        <i class="mr-2 text-pink-500 fas fa-cookie-bite"></i>Collation
+                                        <i class="mr-2 text-pink-500 fas fa-cookie-bite"></i>Snack
                                     {% endif %}
                                 </h3>
                                 <span class="text-sm font-medium text-gray-500">{{ mealData.calories }} kcal</span>
@@ -134,13 +134,13 @@ Main nutrition tracking dashboard without JavaScript dependencies
                                             <p class="text-sm text-gray-500">
                                                 {{ item.calories }} kcal | 
                                                 P: {{ item.protein }}g | 
-                                                G: {{ item.carbs }}g | 
-                                                L: {{ item.fats }}g
+                                                C: {{ item.carbs }}g | 
+                                                F: {{ item.fats }}g
                                             </p>
                                         </div>
                                         <div class="flex items-center gap-1">
                                             <a href="{{ path('nutrition_food_edit', { id: item.id }) }}" 
-                                               class="text-blue-500 hover:text-blue-700 p-2" title="Modifier">
+                                               class="text-blue-500 hover:text-blue-700 p-2" title="Edit">
                                                 <i class="fas fa-edit text-xs"></i>
                                             </a>
                                             <a href="{{ path('nutrition_food_delete', { id: item.id }) }}" 
@@ -161,22 +161,22 @@ Main nutrition tracking dashboard without JavaScript dependencies
                     <a href="{{ path('nutrition_quick_log', { meal: 'breakfast' }) }}" 
                        class="p-4 text-center transition-all border-2 border-orange-200 rounded-xl hover:border-orange-400 hover:bg-orange-50 dark:border-gray-700 dark:hover:border-orange-600 dark:hover:bg-orange-900/20">
                         <i class="mb-2 text-2xl text-orange-500 fas fa-coffee"></i>
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Petit-déjeuner</p>
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Breakfast</p>
                     </a>
                     <a href="{{ path('nutrition_quick_log', { meal: 'lunch' }) }}" 
                        class="p-4 text-center transition-all border-2 border-yellow-200 rounded-xl hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:border-yellow-600 dark:hover:bg-yellow-900/20">
                         <i class="mb-2 text-2xl text-yellow-500 fas fa-sun"></i>
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Déjeuner</p>
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Lunch</p>
                     </a>
                     <a href="{{ path('nutrition_quick_log', { meal: 'dinner' }) }}" 
                        class="p-4 text-center transition-all border-2 border-indigo-200 rounded-xl hover:border-indigo-400 hover:bg-indigo-50 dark:border-gray-700 dark:hover:border-indigo-600 dark:hover:bg-indigo-900/20">
                         <i class="mb-2 text-2xl text-indigo-500 fas fa-moon"></i>
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Dîner</p>
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Dinner</p>
                     </a>
                     <a href="{{ path('nutrition_quick_log', { meal: 'snacks' }) }}" 
                        class="p-4 text-center transition-all border-2 border-pink-200 rounded-xl hover:border-pink-400 hover:bg-pink-50 dark:border-gray-700 dark:hover:border-pink-600 dark:hover:bg-pink-900/20">
                         <i class="mb-2 text-2xl text-pink-500 fas fa-cookie-bite"></i>
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Collation</p>
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Snack</p>
                     </a>
                 </div>
             </div>
@@ -186,32 +186,32 @@ Main nutrition tracking dashboard without JavaScript dependencies
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                         <i class="mr-2 text-emerald-500 fas fa-robot"></i>
-                        Assistant AI
+                        AI Assistant
                     </h3>
                     <a href="{{ path('nutrition_ai_insights') }}" class="text-sm text-emerald-600 dark:text-emerald-400 hover:underline">
-                        Voir analyses →
+                        View insights →
                     </a>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <a href="{{ path('nutrition_ai_assistant', {'_fragment': 'ask'}) }}?message=recette" 
+                    <a href="{{ path('nutrition_ai_assistant', {'_fragment': 'ask'}) }}?message=recipe" 
                        class="p-3 bg-white dark:bg-gray-800 rounded-lg hover:shadow-md transition-all text-center">
                         <span class="text-2xl block mb-1">🍳</span>
-                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Recettes</span>
+                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Recipes</span>
                     </a>
-                    <a href="{{ path('nutrition_ai_assistant') }}?message=menu semaine" 
+                    <a href="{{ path('nutrition_ai_assistant') }}?message=weekly menu" 
                        class="p-3 bg-white dark:bg-gray-800 rounded-lg hover:shadow-md transition-all text-center">
                         <span class="text-2xl block mb-1">📅</span>
-                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Menu</span>
+                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Meal Plan</span>
                     </a>
-                    <a href="{{ path('nutrition_ai_assistant') }}?message=perdre du poids" 
+                    <a href="{{ path('nutrition_ai_assistant') }}?message=lose weight" 
                        class="p-3 bg-white dark:bg-gray-800 rounded-lg hover:shadow-md transition-all text-center">
                         <span class="text-2xl block mb-1">⚖️</span>
-                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Perte poids</span>
+                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Weight Loss</span>
                     </a>
                     <a href="{{ path('nutrition_ai_recommendations') }}" 
                        class="p-3 bg-white dark:bg-gray-800 rounded-lg hover:shadow-md transition-all text-center">
                         <span class="text-2xl block mb-1">💡</span>
-                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Conseils</span>
+                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Tips</span>
                     </a>
                 </div>
             </div>
@@ -222,7 +222,7 @@ Main nutrition tracking dashboard without JavaScript dependencies
                 <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-xl">
                     <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
                         <i class="mr-2 text-blue-500 fas fa-tint"></i>
-                        Hydratation
+                        Hydration
                     </h3>
                     <div class="text-center">
                         <div class="relative inline-block mb-4">
@@ -239,12 +239,12 @@ Main nutrition tracking dashboard without JavaScript dependencies
                                 <span class="text-3xl font-bold {{ waterPercent >= 100 ? 'text-green-500' : 'text-gray-900 dark:text-white' }}">{{ water.intake|default(0) }}</span>
                             </div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-400">/ {{ water.target|default(8) }} verres</p>
+                        <p class="text-gray-600 dark:text-gray-400">/ {{ water.target|default(8) }} glasses</p>
                         {% if waterPercent >= 100 %}
                         <div class="mt-3 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse">
                             <p class="text-white font-bold text-sm">
                                 <i class="fas fa-trophy mr-1"></i>
-                                Objectif atteint! 🎉
+                                Goal reached! 🎉
                             </p>
                         </div>
                         {% endif %}
@@ -265,24 +265,24 @@ Main nutrition tracking dashboard without JavaScript dependencies
                 <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-xl">
                     <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
                         <i class="mr-2 text-wellcare-500 fas fa-bolt"></i>
-                        Accès Rapide
+                        Quick Access
                     </h3>
                     <div class="space-y-2">
                         <a href="{{ path('nutrition_meal_planner') }}" class="flex items-center gap-3 p-3 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                             <i class="text-wellcare-500 fas fa-calendar-alt"></i>
-                            <span class="text-gray-700 dark:text-gray-300">Planificateur</span>
+                            <span class="text-gray-700 dark:text-gray-300">Meal Planner</span>
                         </a>
                         <a href="{{ path('nutrition_goals') }}" class="flex items-center gap-3 p-3 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                             <i class="text-wellcare-500 fas fa-target"></i>
-                            <span class="text-gray-700 dark:text-gray-300">Objectifs</span>
+                            <span class="text-gray-700 dark:text-gray-300">Goals</span>
                         </a>
                         <a href="{{ path('nutrition_food_diary') }}" class="flex items-center gap-3 p-3 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                             <i class="text-wellcare-500 fas fa-book"></i>
-                            <span class="text-gray-700 dark:text-gray-300">Journal</span>
+                            <span class="text-gray-700 dark:text-gray-300">Food Diary</span>
                         </a>
                         <a href="{{ path('nutrition_nutrition_recipes') }}" class="flex items-center gap-3 p-3 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                             <i class="text-wellcare-500 fas fa-book-open"></i>
-                            <span class="text-gray-700 dark:text-gray-300">Recettes</span>
+                            <span class="text-gray-700 dark:text-gray-300">Recipes</span>
                         </a>
                     </div>
                 </div>
@@ -300,18 +300,18 @@ Main nutrition tracking dashboard without JavaScript dependencies
                 <div class="mx-auto w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
                     <i class="text-3xl text-red-500 fas fa-exclamation-triangle"></i>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Confirmer la suppression</h3>
+                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Confirm Deletion</h3>
                 <p class="mb-6 text-gray-600 dark:text-gray-400">
-                    Êtes-vous sûr de vouloir supprimer <span id="delete-item-name" class="font-semibold text-red-500"></span> ?
+                    Are you sure you want to delete <span id="delete-item-name" class="font-semibold text-red-500"></span>?
                 </p>
                 <div class="flex gap-3">
                     <button onclick="hideDeleteModal()" 
                             class="flex-1 px-4 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-                        Annuler
+                        Cancel
                     </button>
                     <a id="delete-confirm-btn" href="#"
                        class="flex-1 px-4 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600">
-                        Supprimer
+                        Delete
                     </a>
                 </div>
             </div>

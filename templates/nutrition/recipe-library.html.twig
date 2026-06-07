@@ -1,6 +1,6 @@
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Bibliothèque de recettes - WellCare Connect{% endblock %}
+{% block title %}Recipe Library - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -15,36 +15,36 @@
         {# Header #}
         <div class="flex flex-col gap-4 mb-8 md:flex-row md:items-center md:justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Bibliothèque de recettes</h1>
-                <p class="mt-1 text-gray-500 dark:text-gray-400">Découvrez des recettes saines et délicieuses</p>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Recipe Library</h1>
+                <p class="mt-1 text-gray-500 dark:text-gray-400">Discover healthy and delicious recipes</p>
             </div>
             <div class="flex items-center gap-3">
                 <a href="{{ path('nutrition_dashboard') }}" 
                    class="inline-flex items-center px-4 py-2 text-gray-700 transition-colors border border-gray-300 rounded-lg dark:border-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
                     <i class="mr-2 fas fa-arrow-left"></i>
-                    Retour
+                    Back
                 </a>
             </div>
         </div>
 
         {# Categories #}
         <div class="p-4 mb-6 bg-white shadow-lg dark:bg-gray-800 rounded-2xl">
-            <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Catégories</h2>
+            <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Categories</h2>
             <div class="flex flex-wrap gap-3">
                 <a href="{{ path('nutrition_nutrition_recipes') }}" class="px-4 py-2 font-medium text-white bg-wellcare-500 rounded-lg">
-                    <i class="mr-2 fas fa-th-large"></i>Toutes
+                    <i class="mr-2 fas fa-th-large"></i>All
                 </a>
                 <a href="{{ path('nutrition_nutrition_recipes', { category: 'breakfast' }) }}" class="px-4 py-2 font-medium text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-lg hover:bg-wellcare-100{% if category == 'breakfast' %} bg-wellcare-500 text-white{% endif %}">
-                    <i class="mr-2 fas fa-mug-hot"></i>Petit-déjeuner
+                    <i class="mr-2 fas fa-mug-hot"></i>Breakfast
                 </a>
                 <a href="{{ path('nutrition_nutrition_recipes', { category: 'lunch' }) }}" class="px-4 py-2 font-medium text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-lg hover:bg-wellcare-100{% if category == 'lunch' %} bg-wellcare-500 text-white{% endif %}">
-                    <i class="mr-2 fas fa-utensils"></i>Déjeuner
+                    <i class="mr-2 fas fa-utensils"></i>Lunch
                 </a>
                 <a href="{{ path('nutrition_nutrition_recipes', { category: 'dinner' }) }}" class="px-4 py-2 font-medium text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-lg hover:bg-wellcare-100{% if category == 'dinner' %} bg-wellcare-500 text-white{% endif %}">
-                    <i class="mr-2 fas fa-moon"></i>Dîner
+                    <i class="mr-2 fas fa-moon"></i>Dinner
                 </a>
                 <a href="{{ path('nutrition_nutrition_recipes', { category: 'snacks' }) }}" class="px-4 py-2 font-medium text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-lg hover:bg-wellcare-100{% if category == 'snacks' %} bg-wellcare-500 text-white{% endif %}">
-                    <i class="mr-2 fas fa-cookie"></i>Colations
+                    <i class="mr-2 fas fa-cookie"></i>Snacks
                 </a>
                 <a href="{{ path('nutrition_nutrition_recipes', { category: 'desserts' }) }}" class="px-4 py-2 font-medium text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-lg hover:bg-wellcare-100{% if category == 'desserts' %} bg-wellcare-500 text-white{% endif %}">
                     <i class="mr-2 fas fa-birthday-cake"></i>Desserts
@@ -55,7 +55,7 @@
         {# Recipes - Filtered by category #}
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             
-            {# Recipe 1 - Salade quinoa (lunch) #}
+            {# Recipe 1 - Quinoa salad (lunch) #}
             {% if category == 'lunch' or not category %}
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                 <div class="h-48 bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center">
@@ -63,19 +63,19 @@
                 </div>
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Déjeuner</span>
+                        <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Lunch</span>
                         <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">15 min</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Salade de quinoa aux légumes</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Une salade fraîche et nutritive parfaite pour le déjeuner.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Quinoa vegetable salad</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">A fresh and nutritious salad perfect for lunch.</p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-sm text-gray-500">
                             <span><i class="mr-1 fas fa-fire"></i>320 kcal</span>
-                            <span><i class="mr-1 fas fa-drumstick-bite"></i>12g protéines</span>
+                            <span><i class="mr-1 fas fa-drumstick-bite"></i>12g protein</span>
                         </div>
-                        <a href="{{ path('nutrition_food_add', { meal: 'lunch', name: 'Salade quinoa', calories: 320, protein: 12, carbs: 45, fats: 8, is_recipe: 1 }) }}" 
+                        <a href="{{ path('nutrition_food_add', { meal: 'lunch', name: 'Quinoa salad', calories: 320, protein: 12, carbs: 45, fats: 8, is_recipe: 1 }) }}" 
                            class="px-3 py-1 text-sm font-medium text-white bg-wellcare-500 rounded-lg hover:bg-wellcare-600">
-                            Ajouter
+                            Add
                         </a>
                     </div>
                 </div>
@@ -90,26 +90,26 @@
                 </div>
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-700 rounded-full">Petit-déjeuner</span>
+                        <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-700 rounded-full">Breakfast</span>
                         <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">10 min</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Omelette aux légumes</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Omelette moelleuse garnie de légumes frais.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Vegetable omelette</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Fluffy omelette filled with fresh vegetables.</p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-sm text-gray-500">
                             <span><i class="mr-1 fas fa-fire"></i>250 kcal</span>
-                            <span><i class="mr-1 fas fa-drumstick-bite"></i>18g protéines</span>
+                            <span><i class="mr-1 fas fa-drumstick-bite"></i>18g protein</span>
                         </div>
-                        <a href="{{ path('nutrition_food_add', { meal: 'breakfast', name: 'Omelette légumes', calories: 250, protein: 18, carbs: 5, fats: 18, is_recipe: 1 }) }}" 
+                        <a href="{{ path('nutrition_food_add', { meal: 'breakfast', name: 'Vegetable omelette', calories: 250, protein: 18, carbs: 5, fats: 18, is_recipe: 1 }) }}" 
                            class="px-3 py-1 text-sm font-medium text-white bg-wellcare-500 rounded-lg hover:bg-wellcare-600">
-                            Ajouter
+                            Add
                         </a>
                     </div>
                 </div>
             </div>
             {% endif %}
 
-            {# Recipe 3 - Saumon (dinner) #}
+            {# Recipe 3 - Salmon (dinner) #}
             {% if category == 'dinner' or not category %}
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                 <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
@@ -117,26 +117,26 @@
                 </div>
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 rounded-full">Dîner</span>
+                        <span class="px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 rounded-full">Dinner</span>
                         <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">25 min</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Saumon grillé aux asperges</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Poisson riche en oméga-3 avec légumes.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Grilled salmon with asparagus</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Omega-3 rich fish with vegetables.</p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-sm text-gray-500">
                             <span><i class="mr-1 fas fa-fire"></i>420 kcal</span>
-                            <span><i class="mr-1 fas fa-drumstick-bite"></i>35g protéines</span>
+                            <span><i class="mr-1 fas fa-drumstick-bite"></i>35g protein</span>
                         </div>
-                        <a href="{{ path('nutrition_food_add', { meal: 'dinner', name: 'Saumon asperges', calories: 420, protein: 35, carbs: 10, fats: 25, is_recipe: 1 }) }}" 
+                        <a href="{{ path('nutrition_food_add', { meal: 'dinner', name: 'Salmon asparagus', calories: 420, protein: 35, carbs: 10, fats: 25, is_recipe: 1 }) }}" 
                            class="px-3 py-1 text-sm font-medium text-white bg-wellcare-500 rounded-lg hover:bg-wellcare-600">
-                            Ajouter
+                            Add
                         </a>
                     </div>
                 </div>
             </div>
             {% endif %}
 
-            {# Recipe 4 - Toast avocat (snacks) #}
+            {# Recipe 4 - Avocado toast (snacks) #}
             {% if category == 'snacks' or not category %}
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                 <div class="h-48 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
@@ -144,26 +144,26 @@
                 </div>
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="px-2 py-1 text-xs font-medium bg-pink-100 text-pink-700 rounded-full">Colation</span>
+                        <span class="px-2 py-1 text-xs font-medium bg-pink-100 text-pink-700 rounded-full">Snack</span>
                         <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">5 min</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Toast avocat et oeuf</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Toast complet avec avocat et oeuf poché.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Avocado toast with egg</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Whole grain toast with avocado and poached egg.</p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-sm text-gray-500">
                             <span><i class="mr-1 fas fa-fire"></i>280 kcal</span>
-                            <span><i class="mr-1 fas fa-drumstick-bite"></i>14g protéines</span>
+                            <span><i class="mr-1 fas fa-drumstick-bite"></i>14g protein</span>
                         </div>
-                        <a href="{{ path('nutrition_food_add', { meal: 'snacks', name: 'Toast avocat', calories: 280, protein: 14, carbs: 25, fats: 14, is_recipe: 1 }) }}" 
+                        <a href="{{ path('nutrition_food_add', { meal: 'snacks', name: 'Avocado toast', calories: 280, protein: 14, carbs: 25, fats: 14, is_recipe: 1 }) }}" 
                            class="px-3 py-1 text-sm font-medium text-white bg-wellcare-500 rounded-lg hover:bg-wellcare-600">
-                            Ajouter
+                            Add
                         </a>
                     </div>
                 </div>
             </div>
             {% endif %}
 
-            {# Recipe 5 - Bowl poke (lunch) #}
+            {# Recipe 5 - Poke bowl (lunch) #}
             {% if category == 'lunch' or not category %}
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                 <div class="h-48 bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center">
@@ -171,19 +171,19 @@
                 </div>
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">Déjeuner</span>
+                        <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">Lunch</span>
                         <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">30 min</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Bowl poke thon</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Bol hawaïen avec poisson frais et riz.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Tuna poke bowl</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Hawaiian bowl with fresh fish and rice.</p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-sm text-gray-500">
                             <span><i class="mr-1 fas fa-fire"></i>450 kcal</span>
-                            <span><i class="mr-1 fas fa-drumstick-bite"></i>28g protéines</span>
+                            <span><i class="mr-1 fas fa-drumstick-bite"></i>28g protein</span>
                         </div>
-                        <a href="{{ path('nutrition_food_add', { meal: 'lunch', name: 'Bowl poke', calories: 450, protein: 28, carbs: 55, fats: 12, is_recipe: 1 }) }}" 
+                        <a href="{{ path('nutrition_food_add', { meal: 'lunch', name: 'Poke bowl', calories: 450, protein: 28, carbs: 55, fats: 12, is_recipe: 1 }) }}" 
                            class="px-3 py-1 text-sm font-medium text-white bg-wellcare-500 rounded-lg hover:bg-wellcare-600">
-                            Ajouter
+                            Add
                         </a>
                     </div>
                 </div>
@@ -201,16 +201,16 @@
                         <span class="px-2 py-1 text-xs font-medium bg-rose-100 text-rose-700 rounded-full">Dessert</span>
                         <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">10 min</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Smoothie bowl fruits rouges</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Smoothie crémeux garni de fruits frais.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Berry smoothie bowl</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Creamy smoothie topped with fresh fruit.</p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-sm text-gray-500">
                             <span><i class="mr-1 fas fa-fire"></i>180 kcal</span>
-                            <span><i class="mr-1 fas fa-drumstick-bite"></i>5g protéines</span>
+                            <span><i class="mr-1 fas fa-drumstick-bite"></i>5g protein</span>
                         </div>
                         <a href="{{ path('nutrition_food_add', { meal: 'snacks', name: 'Smoothie bowl', calories: 180, protein: 5, carbs: 35, fats: 3, is_recipe: 1 }) }}" 
                            class="px-3 py-1 text-sm font-medium text-white bg-wellcare-500 rounded-lg hover:bg-wellcare-600">
-                            Ajouter
+                            Add
                         </a>
                     </div>
                 </div>
@@ -222,20 +222,20 @@
         <div class="mt-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                 <i class="mr-2 text-wellcare-500 fas fa-lightbulb"></i>
-                Conseils pour cooking
+                Cooking tips
             </h2>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                    <h3 class="font-semibold text-green-700 dark:text-green-400 mb-2">🥗 Privilégiez les légumes</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Ajoutez des légumes à chaque repas pour plus de fibres et vitamines.</p>
+                    <h3 class="font-semibold text-green-700 dark:text-green-400 mb-2">🥗 Prioritize vegetables</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Add vegetables to every meal for more fiber and vitamins.</p>
                 </div>
                 <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                    <h3 class="font-semibold text-blue-700 dark:text-blue-400 mb-2">🥩 Protéines maigres</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Incluez des protéines à chaque repas: poulet, poisson, œufs, légumineuses.</p>
+                    <h3 class="font-semibold text-blue-700 dark:text-blue-400 mb-2">🥩 Lean proteins</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Include protein with every meal: chicken, fish, eggs, legumes.</p>
                 </div>
                 <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                    <h3 class="font-semibold text-purple-700 dark:text-purple-400 mb-2">🍳 Cuisson saine</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Préférez la vapeur, le four ou la poêle plutôt que la friture.</p>
+                    <h3 class="font-semibold text-purple-700 dark:text-purple-400 mb-2">🍳 Healthy cooking</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Prefer steaming, baking or pan cooking instead of frying.</p>
                 </div>
             </div>
         </div>

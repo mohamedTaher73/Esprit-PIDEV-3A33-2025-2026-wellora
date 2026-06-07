@@ -1,6 +1,6 @@
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Recommandations AI - WellCare Nutrition{% endblock %}
+{% block title %}AI Recommendations - WellCare Nutrition{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -21,15 +21,15 @@
                     </svg>
                 </a>
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Recommandations</h1>
-                    <p class="text-gray-600 dark:text-gray-400">Basées sur votre journée</p>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Recommendations</h1>
+                    <p class="text-gray-600 dark:text-gray-400">Based on your day</p>
                 </div>
             </div>
         </div>
 
         <!-- Progress Bars -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm mb-6">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-6">État actuel</h2>
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-6">Current status</h2>
             
             <!-- Calories -->
             {% set calPercent = (stats.calories / stats.targetCalories * 100)|round %}
@@ -48,7 +48,7 @@
             {% set proteinPercent = (stats.protein / stats.targetProtein * 100)|round %}
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-medium text-gray-700 dark:text-gray-300">🥩 Protéines</span>
+                    <span class="font-medium text-gray-700 dark:text-gray-300">🥩 Protein</span>
                     <span class="text-sm text-gray-500">{{ stats.protein }} / {{ stats.targetProtein }}g</span>
                 </div>
                 <div class="h-4 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -61,7 +61,7 @@
             {% set carbsPercent = (stats.carbs / stats.targetCarbs * 100)|round %}
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-medium text-gray-700 dark:text-gray-300">🍚 Glucides</span>
+                    <span class="font-medium text-gray-700 dark:text-gray-300">🍚 Carbohydrates</span>
                     <span class="text-sm text-gray-500">{{ stats.carbs }} / {{ stats.targetCarbs }}g</span>
                 </div>
                 <div class="h-4 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -74,7 +74,7 @@
             {% set fatsPercent = (stats.fats / stats.targetFats * 100)|round %}
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-medium text-gray-700 dark:text-gray-300">🥑 Lipides</span>
+                    <span class="font-medium text-gray-700 dark:text-gray-300">🥑 Fats</span>
                     <span class="text-sm text-gray-500">{{ stats.fats }} / {{ stats.targetFats }}g</span>
                 </div>
                 <div class="h-4 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -87,7 +87,7 @@
             {% set waterPercent = (stats.water / stats.targetWater * 100)|round %}
             <div>
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-medium text-gray-700 dark:text-gray-300">💧 Hydratation</span>
+                    <span class="font-medium text-gray-700 dark:text-gray-300">💧 Hydration</span>
                     <span class="text-sm text-gray-500">{{ stats.water }} / {{ stats.targetWater }}L</span>
                 </div>
                 <div class="h-4 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -99,31 +99,31 @@
 
         <!-- Recommendations -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm mb-6">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">💡 Conseils du jour</h2>
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">💡 Today's tips</h2>
             
             <div class="space-y-3">
                 {% if calPercent > 100 %}
                     <div class="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-xl">
                         <span class="text-xl">⚠️</span>
                         <div>
-                            <p class="font-medium text-red-800 dark:text-red-200">Calories dépassées</p>
-                            <p class="text-sm text-red-600 dark:text-red-300">Privilégiez les aliments légers pour le reste de la journée</p>
+                            <p class="font-medium text-red-800 dark:text-red-200">Calories exceeded</p>
+                            <p class="text-sm text-red-600 dark:text-red-300">Choose light foods for the rest of the day</p>
                         </div>
                     </div>
                 {% elseif calPercent >= 80 %}
                     <div class="flex items-start gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
                         <span class="text-xl">✅</span>
                         <div>
-                            <p class="font-medium text-emerald-800 dark:text-emerald-200">Bien parti!</p>
-                            <p class="text-sm text-emerald-600 dark:text-emerald-300">Vous êtes dans les limites de calories</p>
+                            <p class="font-medium text-emerald-800 dark:text-emerald-200">Good start!</p>
+                            <p class="text-sm text-emerald-600 dark:text-emerald-300">You are within your calorie limits</p>
                         </div>
                     </div>
                 {% else %}
                     <div class="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
                         <span class="text-xl">ℹ️</span>
                         <div>
-                            <p class="font-medium text-blue-800 dark:text-blue-200">Encore de la place</p>
-                            <p class="text-sm text-blue-600 dark:text-blue-300">Vous pouvez compléter avec une collation</p>
+                            <p class="font-medium text-blue-800 dark:text-blue-200">Still room left</p>
+                            <p class="text-sm text-blue-600 dark:text-blue-300">You can add a snack</p>
                         </div>
                     </div>
                 {% endif %}
@@ -132,8 +132,8 @@
                     <div class="flex items-start gap-3 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
                         <span class="text-xl">💪</span>
                         <div>
-                            <p class="font-medium text-orange-800 dark:text-orange-200">Augmentez les protéines</p>
-                            <p class="text-sm text-orange-600 dark:text-orange-300">Ajoutez de la viande, du poisson ou des œufs</p>
+                            <p class="font-medium text-orange-800 dark:text-orange-200">Increase protein intake</p>
+                            <p class="text-sm text-orange-600 dark:text-orange-300">Add meat, fish or eggs</p>
                         </div>
                     </div>
                 {% endif %}
@@ -142,8 +142,8 @@
                     <div class="flex items-start gap-3 p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded-xl">
                         <span class="text-xl">💧</span>
                         <div>
-                            <p class="font-medium text-cyan-800 dark:text-cyan-200">Hydratez-vous!</p>
-                            <p class="text-sm text-cyan-600 dark:text-cyan-300">Buvez au moins {{ ((stats.targetWater - stats.water)*1000)|round }}ml d'eau</p>
+                            <p class="font-medium text-cyan-800 dark:text-cyan-200">Stay hydrated!</p>
+                            <p class="text-sm text-cyan-600 dark:text-cyan-300">Drink at least {{ ((stats.targetWater - stats.water)*1000)|round }}ml of water</p>
                         </div>
                     </div>
                 {% endif %}
@@ -152,8 +152,8 @@
                     <div class="flex items-start gap-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl">
                         <span class="text-xl">⚖️</span>
                         <div>
-                            <p class="font-medium text-yellow-800 dark:text-yellow-200">Équilibre des macros</p>
-                            <p class="text-sm text-yellow-600 dark:text-yellow-300">Ajoutez des glucides, réduisez les lipides</p>
+                            <p class="font-medium text-yellow-800 dark:text-yellow-200">Macro balance</p>
+                            <p class="text-sm text-yellow-600 dark:text-yellow-300">Add carbohydrates, reduce fats</p>
                         </div>
                     </div>
                 {% endif %}
@@ -162,24 +162,24 @@
 
         <!-- Quick Actions -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm mb-6">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Actions rapides</h2>
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Quick actions</h2>
             
             <div class="grid grid-cols-2 gap-3">
                 <a href="{{ path('nutrition_food_add') }}" class="flex items-center gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
                     <span class="text-2xl">➕</span>
-                    <span class="font-medium text-emerald-800 dark:text-emerald-200">Ajouter un aliment</span>
+                    <span class="font-medium text-emerald-800 dark:text-emerald-200">Add food</span>
                 </a>
                 <a href="{{ path('nutrition_water_add') }}" class="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
                     <span class="text-2xl">💧</span>
-                    <span class="font-medium text-blue-800 dark:text-blue-200">Ajouter de l'eau</span>
+                    <span class="font-medium text-blue-800 dark:text-blue-200">Add water</span>
                 </a>
                 <a href="{{ path('nutrition_ai_assistant') }}" class="flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors">
                     <span class="text-2xl">🤖</span>
-                    <span class="font-medium text-purple-800 dark:text-purple-200">Demander à l'AI</span>
+                    <span class="font-medium text-purple-800 dark:text-purple-200">Ask AI</span>
                 </a>
                 <a href="{{ path('nutrition_dashboard') }}" class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                     <span class="text-2xl">📊</span>
-                    <span class="font-medium text-gray-800 dark:text-gray-200">Voir dashboard</span>
+                    <span class="font-medium text-gray-800 dark:text-gray-200">View dashboard</span>
                 </a>
             </div>
         </div>
@@ -190,10 +190,10 @@
                 💬 Assistant
             </a>
             <a href="{{ path('nutrition_ai_insights') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                📊 Analyses
+                📊 Insights
             </a>
             <a href="{{ path('nutrition_ai_history') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                📋 Historique
+                📋 History
             </a>
         </div>
     </div>

@@ -1,6 +1,6 @@
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Journal Alimentaire - WellCare Connect{% endblock %}
+{% block title %}Food Diary - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -16,16 +16,16 @@
                 <div>
                     <h1 class="flex items-center gap-3 text-2xl font-bold text-gray-900 dark:text-white">
                         <i class="text-3xl fas fa-book-open text-wellcare-500"></i>
-                        Journal Alimentaire
+                        Food Diary
                     </h1>
-                    <p class="mt-1 text-gray-600 dark:text-gray-400">Suivez et analysez votre alimentation quotidienne</p>
+                    <p class="mt-1 text-gray-600 dark:text-gray-400">Track and analyze your daily nutrition</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ path('nutrition_food_diary', { date: 'yesterday' }) }}" class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-gray-50">
                         <i class="fas fa-chevron-left"></i>
                     </a>
                     <span class="px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                        21/02/2026
+                        02/21/2026
                     </span>
                     <a href="{{ path('nutrition_food_diary', { date: 'tomorrow' }) }}" class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-700 dark:text-white hover:bg-gray-50">
                         <i class="fas fa-chevron-right"></i>
@@ -39,28 +39,28 @@
         {# Daily Summary #}
         <div class="grid grid-cols-1 gap-6 mb-8 md:grid-cols-4">
             <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Calories totales</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Calories</p>
                 <p class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ dailySummary.calories|default(0) }} <span class="text-sm font-normal text-gray-500">kcal</span></p>
                 <div class="w-full h-2 mt-3 bg-gray-200 rounded-full dark:bg-gray-700">
                     <div class="h-2 rounded-full bg-wellcare-500" style="width: {{ min(((dailySummary.calories|default(0) / dailySummary.calorieTarget|default(2000)) * 100), 100) }}%"></div>
                 </div>
             </div>
             <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Protéines</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Protein</p>
                 <p class="mt-1 text-2xl font-bold text-amber-600">{{ dailySummary.proteins|default(0) }} <span class="text-sm font-normal text-gray-500">g</span></p>
                 <div class="w-full h-2 mt-3 bg-gray-200 rounded-full dark:bg-gray-700">
                     <div class="h-2 rounded-full bg-amber-500" style="width: {{ min(((dailySummary.proteins|default(0) / dailySummary.proteinTarget|default(100)) * 100), 100) }}%"></div>
                 </div>
             </div>
             <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Glucides</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Carbohydrates</p>
                 <p class="mt-1 text-2xl font-bold text-green-600">{{ dailySummary.carbs|default(0) }} <span class="text-sm font-normal text-gray-500">g</span></p>
                 <div class="w-full h-2 mt-3 bg-gray-200 rounded-full dark:bg-gray-700">
                     <div class="h-2 bg-green-500 rounded-full" style="width: {{ min(((dailySummary.carbs|default(0) / dailySummary.carbTarget|default(250)) * 100), 100) }}%"></div>
                 </div>
             </div>
             <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Lipides</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Fats</p>
                 <p class="mt-1 text-2xl font-bold text-purple-600">{{ dailySummary.fats|default(0) }} <span class="text-sm font-normal text-gray-500">g</span></p>
                 <div class="w-full h-2 mt-3 bg-gray-200 rounded-full dark:bg-gray-700">
                     <div class="h-2 bg-purple-500 rounded-full" style="width: {{ min(((dailySummary.fats|default(0) / dailySummary.fatTarget|default(70)) * 100), 100) }}%"></div>
@@ -73,10 +73,10 @@
             {# Left Column - Meals #}
             <div class="space-y-6">
                 {% for mealType, mealData in {
-                    'breakfast': { icon: 'fa-mug-hot', color: 'orange', label: 'Petit-déjeuner', time: '07:00 - 09:00' },
-                    'lunch': { icon: 'fa-sun', color: 'yellow', label: 'Déjeuner', time: '12:00 - 14:00' },
-                    'dinner': { icon: 'fa-moon', color: 'indigo', label: 'Dîner', time: '19:00 - 21:00' },
-                    'snacks': { icon: 'fa-cookie-bite', color: 'pink', label: 'Colations', time: 'Tout au long de la journée' }
+                    'breakfast': { icon: 'fa-mug-hot', color: 'orange', label: 'Breakfast', time: '07:00 - 09:00' },
+                    'lunch': { icon: 'fa-sun', color: 'yellow', label: 'Lunch', time: '12:00 - 14:00' },
+                    'dinner': { icon: 'fa-moon', color: 'indigo', label: 'Dinner', time: '19:00 - 21:00' },
+                    'snacks': { icon: 'fa-cookie-bite', color: 'pink', label: 'Snacks', time: 'Throughout the day' }
                 } %}
                 <div class="overflow-hidden bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
                     <div class="p-4 bg-{{ mealData.color }}-50 dark:bg-{{ mealData.color }}-900/20 border-b border-{{ mealData.color }}-100 dark:border-{{ mealData.color }}-800/50">
@@ -94,7 +94,7 @@
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">{{ meals[mealType].calories|default(0) }} kcal</p>
                                 <button @click="$dispatch('add-meal', { meal: '{{ mealType }}' })" 
                                         class="text-xs text-wellcare-600 dark:text-wellcare-400 hover:text-wellcare-700">
-                                    <i class="mr-1 fas fa-plus"></i>Ajouter
+                                    <i class="mr-1 fas fa-plus"></i>Add
                                 </button>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                 <div class="flex items-center gap-4">
                                     <div class="text-right">
                                         <p class="text-sm font-medium text-gray-900 dark:text-white">{{ item.calories }} kcal</p>
-                                        <p class="text-xs text-gray-500">P: {{ item.proteins|default(0) }}g | G: {{ item.carbs|default(0) }}g | L: {{ item.fats|default(0) }}g</p>
+                                        <p class="text-xs text-gray-500">P: {{ item.proteins|default(0) }}g | C: {{ item.carbs|default(0) }}g | F: {{ item.fats|default(0) }}g</p>
                                     </div>
                                     <button @click="removeFood('{{ mealType }}', {{ loop.index0 }})" 
                                             class="text-red-500 transition-colors hover:text-red-600">
@@ -129,10 +129,10 @@
                         {% else %}
                         <div class="py-8 text-center text-gray-500 dark:text-gray-400">
                             <i class="mb-3 text-3xl opacity-50 fas fa-utensils"></i>
-                            <p class="text-sm">Aucun aliment enregistré</p>
+                            <p class="text-sm">No food recorded</p>
                             <button @click="$dispatch('add-meal', { meal: '{{ mealType }}' })" 
                                     class="mt-2 text-sm text-wellcare-600 dark:text-wellcare-400 hover:text-wellcare-700">
-                                Ajouter un aliment
+                                Add food
                             </button>
                         </div>
                         {% endif %}
@@ -145,7 +145,7 @@
             <div class="space-y-6">
                 {# Macro Distribution Chart #}
                 <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
-                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Répartition des macronutriments</h3>
+                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Macronutrient Distribution</h3>
                     <div class="h-64">
                         <canvas id="macroChart"></canvas>
                     </div>
@@ -153,7 +153,7 @@
 
                 {# Food Group Distribution #}
                 <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
-                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Groupes alimentaires</h3>
+                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Food Groups</h3>
                     <div class="space-y-4">
                         {% for group, data in foodGroups %}
                         <div>
@@ -173,7 +173,7 @@
                 <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
                     <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
                         <i class="mr-2 fas fa-exclamation-triangle text-amber-500"></i>
-                        Alertes nutritionnelles
+                        Nutrition Alerts
                     </h3>
                     <div class="space-y-3">
                         {% for alert in nutritionAlerts %}
@@ -192,7 +192,7 @@
 
                 {# Water Intake #}
                 <div class="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700">
-                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Hydratation</h3>
+                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Hydration</h3>
                     <div class="flex items-center justify-center mb-4">
                         <div class="relative w-32 h-32">
                             <svg class="w-32 h-32 transform -rotate-90">
@@ -203,7 +203,7 @@
                             </svg>
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
                                 <span class="text-2xl font-bold text-gray-900 dark:text-white">{{ water.intake|default(0) }}</span>
-                                <span class="text-xs text-gray-500">/ {{ water.target|default(8) }} verres</span>
+                                <span class="text-xs text-gray-500">/ {{ water.target|default(8) }} glasses</span>
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,7 @@ document.addEventListener('alpine:init', () => {
                 new Chart(macroCtx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Protéines', 'Glucides', 'Lipides'],
+                        labels: ['Protein', 'Carbohydrates', 'Fats'],
                         datasets: [{
                             data: [{{ macros.proteins|default(0) }}, {{ macros.carbs|default(0) }}, {{ macros.fats|default(0) }}],
                             backgroundColor: ['#f59e0b', '#22c55e', '#a855f7'],

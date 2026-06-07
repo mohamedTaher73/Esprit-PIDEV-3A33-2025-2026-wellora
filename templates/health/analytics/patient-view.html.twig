@@ -3,7 +3,7 @@
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Mon Analyse Santé'|trans }} - WellCare Connect{% endblock %}
+{% block title %}{{ 'My Health Analysis'|trans }} - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -20,15 +20,15 @@
                 <div>
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
                         <i class="mr-2 fa-solid fa-chart-line text-wellcare-500"></i>
-                        {{ 'Mon Analyse Santé'|trans }}
+                        {{ 'My Health Analysis'|trans }}
                     </h1>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                        {{ 'Évaluez vos risques de santé et suivez votre progression'|trans }}
+                        {{ 'Assess your health risks and track your progress'|trans }}
                     </p>
                     {% if start_date and end_date %}
                     <p class="mt-2 text-sm text-wellcare-600 dark:text-wellcare-400">
                         <i class="fa-solid fa-calendar-range mr-1"></i>
-                        {{ 'Période:'|trans }} {{ start_date }} - {{ end_date }}
+                        {{ 'Period:'|trans }} {{ start_date }} - {{ end_date }}
                     </p>
                     {% endif %}
                 </div>
@@ -37,9 +37,9 @@
                 <div class="flex items-center gap-3">
                     {% if journals|length > 0 %}
                     <div class="relative w-64">
-                        <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">{{ 'Sélectionner le journal'|trans }}</label>
+                        <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">{{ 'Select journal'|trans }}</label>
                         <select x-model="selectedJournalId" @change="updateJournal" class="w-full input">
-                            <option value="">{{ 'Tous les journaux'|trans }}</option>
+                            <option value="">{{ 'All journals'|trans }}</option>
                             {% for journal in journals %}
                             <option value="{{ journal.id }}">
                                 {% if journal.name %}{{ journal.name }}{% else %}Journal #{{ journal.id }}{% endif %}
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-sm font-medium opacity-90">{{ 'Score Santé Global'|trans }}</p>
+                        <p class="text-sm font-medium opacity-90">{{ 'Overall Health Score'|trans }}</p>
                         <p class="text-xs opacity-75" x-text="globalScoreDescription"></p>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
         {# Risk Metrics Grid #}
         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
             <i class="fa-solid fa-heart-pulse mr-2 text-wellcare-500"></i>
-            {{ 'Métriques de Risque'|trans }}
+            {{ 'Risk Metrics'|trans }}
         </h2>
         
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-8">
@@ -106,8 +106,8 @@
                             <i class="fa-solid fa-droplet text-red-500 text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Risque Glycémique'|trans }}</h3>
-                            <p class="text-xs text-gray-500">{{ 'Glycémie (g/L)'|trans }}</p>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Glycemic Risk'|trans }}</h3>
+                            <p class="text-xs text-gray-500">{{ 'Blood sugar (g/L)'|trans }}</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 rounded-full text-sm font-bold"
@@ -116,7 +116,7 @@
                 
                 <div class="grid grid-cols-3 gap-4 mb-4">
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Moyenne'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Average'|trans }}</p>
                         <p class="text-xl font-bold" :class="glycemicStatus.class" x-text="avgGlycemia.toFixed(2)"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -132,7 +132,7 @@
                 {# Score Bar #}
                 <div class="mb-2">
                     <div class="flex justify-between mb-1">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">{{ 'Score Glycémique'|trans }}</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">{{ 'Glycemic Score'|trans }}</span>
                         <span class="text-sm font-bold" :style="'color: ' + getScoreColor(glycemicScore)" x-text="glycemicScore"></span>
                     </div>
                     <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
@@ -142,7 +142,7 @@
                 </div>
                 
                 <div class="flex justify-between text-xs text-gray-500">
-                    <span>40 (🔴 Risque élevé)</span>
+                    <span>40 (🔴 High risk)</span>
                     <span>70</span>
                     <span>100 (🟢 Normal)</span>
                 </div>
@@ -160,8 +160,8 @@
                             <i class="fa-solid fa-heart text-red-500 text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Risque Cardiovasculaire'|trans }}</h3>
-                            <p class="text-xs text-gray-500">{{ 'Tension (mmHg)'|trans }}</p>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Cardiovascular Risk'|trans }}</h3>
+                            <p class="text-xs text-gray-500">{{ 'Blood pressure (mmHg)'|trans }}</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 rounded-full text-sm font-bold"
@@ -170,11 +170,11 @@
                 
                 <div class="grid grid-cols-3 gap-4 mb-4">
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Systolique'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Systolic'|trans }}</p>
                         <p class="text-xl font-bold" :class="bpStatus.class" x-text="avgSystolic"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Diastolique'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Diastolic'|trans }}</p>
                         <p class="text-xl font-bold" :class="bpStatus.class" x-text="avgDiastolic"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -191,7 +191,7 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 rounded bg-orange-500"></div>
-                        <span class="text-xs text-gray-600 dark:text-gray-400">120-139/80-89 - {{ 'Pré-hypertension'|trans }}</span>
+                        <span class="text-xs text-gray-600 dark:text-gray-400">120-139/80-89 - {{ 'Pre-hypertension'|trans }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 rounded bg-red-500"></div>
@@ -212,8 +212,8 @@
                             <i class="fa-solid fa-bed text-indigo-500 text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Risque Fatigue/Burnout'|trans }}</h3>
-                            <p class="text-xs text-gray-500">{{ 'Sommeil'|trans }}</p>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Fatigue/Burnout Risk'|trans }}</h3>
+                            <p class="text-xs text-gray-500">{{ 'Sleep'|trans }}</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 rounded-full text-sm font-bold"
@@ -222,11 +222,11 @@
                 
                 <div class="grid grid-cols-3 gap-4 mb-4">
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Heures moy.'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Avg hours'|trans }}</p>
                         <p class="text-xl font-bold" :class="sleepStatus.class" x-text="avgSleep.toFixed(1) + 'h'"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Qualité moy.'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Avg quality'|trans }}</p>
                         <p class="text-xl font-bold" :class="sleepStatus.class" x-text="avgSleepQuality + '/5'"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -237,10 +237,10 @@
                 
                 {# Sleep Score Formula #}
                 <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg mb-4">
-                    <p class="text-xs text-gray-500 mb-2">{{ 'Calcul du score'|trans }}:</p>
+                    <p class="text-xs text-gray-500 mb-2">{{ 'Score calculation'|trans }}:</p>
                     <div class="flex justify-between text-sm">
-                        <span>8h + qualité 5 = 100</span>
-                        <span>6h + qualité 3 = 60</span>
+                        <span>8h + quality 5 = 100</span>
+                        <span>6h + quality 3 = 60</span>
                         <span><5h = 30</span>
                     </div>
                 </div>
@@ -258,8 +258,8 @@
                             <i class="fa-solid fa-face-frown text-orange-500 text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Risque Symptomatique'|trans }}</h3>
-                            <p class="text-xs text-gray-500">{{ 'Intensité des symptômes'|trans }}</p>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Symptomatic Risk'|trans }}</h3>
+                            <p class="text-xs text-gray-500">{{ 'Symptom intensity'|trans }}</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 rounded-full text-sm font-bold"
@@ -268,11 +268,11 @@
                 
                 <div class="grid grid-cols-3 gap-4 mb-4">
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Nb symptômes'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Nb symptoms'|trans }}</p>
                         <p class="text-xl font-bold text-gray-900 dark:text-white" x-text="totalSymptoms"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Intensité moy.'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Avg intensity'|trans }}</p>
                         <p class="text-xl font-bold" :class="symptomStatus.class" x-text="avgIntensity.toFixed(1)"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -289,11 +289,11 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 rounded bg-orange-500"></div>
-                        <span class="text-xs text-gray-600 dark:text-gray-400">4-6 - {{ 'Pré-alerte'|trans }}</span>
+                        <span class="text-xs text-gray-600 dark:text-gray-400">4-6 - {{ 'Pre-alert'|trans }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 rounded bg-red-500"></div>
-                        <span class="text-xs text-gray-600 dark:text-gray-400">≥ 7 + 3 jours - {{ 'Alerte'|trans }}</span>
+                        <span class="text-xs text-gray-600 dark:text-gray-400">≥ 7 + 3 days - {{ 'Alert'|trans }}</span>
                     </div>
                 </div>
                 
@@ -306,7 +306,7 @@
         {# 5. Weight Risk & Combined Charts #}
         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
             <i class="fa-solid fa-scale-balanced mr-2 text-wellcare-500"></i>
-            {{ 'Poids & Variations'|trans }}
+            {{ 'Weight & Variations'|trans }}
         </h2>
         
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-8">
@@ -318,8 +318,8 @@
                             <i class="fa-solid fa-weight-scale text-blue-500 text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Risque Lié au Poids'|trans }}</h3>
-                            <p class="text-xs text-gray-500">{{ 'Variation et IMC'|trans }}</p>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ 'Weight-Related Risk'|trans }}</h3>
+                            <p class="text-xs text-gray-500">{{ 'Variation and BMI'|trans }}</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 rounded-full text-sm font-bold"
@@ -328,7 +328,7 @@
                 
                 <div class="grid grid-cols-4 gap-4 mb-4">
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'Poids actuel'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'Current weight'|trans }}</p>
                         <p class="text-xl font-bold text-gray-900 dark:text-white" x-text="currentWeight + ' kg'"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -337,7 +337,7 @@
                            x-text="(weightVariation >= 0 ? '+' : '') + weightVariation.toFixed(1) + ' kg'"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p class="text-xs text-gray-500">{{ 'IMC'|trans }}</p>
+                        <p class="text-xs text-gray-500">{{ 'BMI'|trans }}</p>
                         <p class="text-xl font-bold" :style="'color: ' + getScoreColor(weightScore)" x-text="bmi.toFixed(1)"></p>
                     </div>
                     <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -352,11 +352,11 @@
                 </div>
             </div>
 
-            {# Alertes #}
+            {# Alerts #}
             <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     <i class="fa-solid fa-triangle-exclamation text-yellow-500 mr-2"></i>
-                    {{ 'Alertes Actives'|trans }}
+                    {{ 'Active Alerts'|trans }}
                 </h3>
                 
                 <div class="space-y-3">
@@ -379,7 +379,7 @@
                     
                     <div x-show="activeAlerts.length === 0" class="p-4 text-center text-gray-500">
                         <i class="fa-solid fa-check-circle text-4xl text-green-500 mb-2"></i>
-                        <p>{{ 'Aucune alerte active'|trans }}</p>
+                        <p>{{ 'No active alerts'|trans }}</p>
                     </div>
                 </div>
             </div>
@@ -388,7 +388,7 @@
         {# Combined Trends #}
         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
             <i class="fa-solid fa-chart-line mr-2 text-wellcare-500"></i>
-            {{ 'Tendances Combinées'|trans }}
+            {{ 'Combined Trends'|trans }}
         </h2>
         
         <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
@@ -400,7 +400,7 @@
         {# Recommendations #}
         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
             <i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>
-            {{ 'Recommandations'|trans }}
+            {{ 'Recommendations'|trans }}
         </h2>
         
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -454,7 +454,7 @@ document.addEventListener('alpine:init', () => {
         sleepQuality: [4, 3, 5, 4, 2, 4, 5], // Default quality values
         weightData: {{ weight_data|default([72.5, 72.0, 71.8, 72.2, 71.5, 71.0, 70.8])|json_encode|raw }},
         symptomIntensity: {{ symptom_intensity|default([3, 4, 2, 5, 3, 6, 2])|json_encode|raw }},
-        chartLabels: {{ dates|default(['Jour 1', 'Jour 2', 'Jour 3', 'Jour 4', 'Jour 5', 'Jour 6', 'Jour 7'])|json_encode|raw }},
+        chartLabels: {{ dates|default(['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'])|json_encode|raw }},
         
         // Calculated averages from real data
         avgGlycemia: {{ avg_glycemia|default(0.98) }},
@@ -558,56 +558,56 @@ document.addEventListener('alpine:init', () => {
         },
         
         get glycemicStatus() {
-            if (this.avgGlycemia < 0.70) return { text: 'Hypoglycémie 🔴', class: 'text-red-500' };
+            if (this.avgGlycemia < 0.70) return { text: 'Hypoglycemia 🔴', class: 'text-red-500' };
             if (this.avgGlycemia <= 1.10) return { text: 'Normal 🟢', class: 'text-green-500' };
-            if (this.avgGlycemia <= 1.25) return { text: 'Pré-alerte 🟠', class: 'text-orange-500' };
-            return { text: 'Hyperglycémie 🔴', class: 'text-red-500' };
+            if (this.avgGlycemia <= 1.25) return { text: 'Pre-alert 🟠', class: 'text-orange-500' };
+            return { text: 'Hyperglycemia 🔴', class: 'text-red-500' };
         },
         
         get bpStatus() {
             if (this.avgSystolic >= 140 || this.avgDiastolic >= 90) return { text: 'Hypertension 🔴', class: 'text-red-500' };
-            if (this.avgSystolic >= 120 || this.avgDiastolic >= 80) return { text: 'Pré-hypertension 🟠', class: 'text-orange-500' };
+            if (this.avgSystolic >= 120 || this.avgDiastolic >= 80) return { text: 'Pre-hypertension 🟠', class: 'text-orange-500' };
             return { text: 'Normal 🟢', class: 'text-green-500' };
         },
         
         get sleepStatus() {
-            if (this.avgSleep < 5) return { text: 'Risque élevé 🔴', class: 'text-red-500' };
-            if (this.avgSleep < 6 || this.avgSleepQuality <= 2) return { text: 'Attention 🟠', class: 'text-orange-500' };
+            if (this.avgSleep < 5) return { text: 'High risk 🔴', class: 'text-red-500' };
+            if (this.avgSleep < 6 || this.avgSleepQuality <= 2) return { text: 'Caution 🟠', class: 'text-orange-500' };
             return { text: 'Normal 🟢', class: 'text-green-500' };
         },
         
         get symptomStatus() {
             const highDays = this.symptomIntensity.filter(i => i >= 7).length;
-            if (highDays >= 3 || this.avgIntensity >= 7) return { text: 'Alerte 🔴', class: 'text-red-500' };
-            if (this.avgIntensity >= 4) return { text: 'Pré-alerte 🟠', class: 'text-orange-500' };
+            if (highDays >= 3 || this.avgIntensity >= 7) return { text: 'Alert 🔴', class: 'text-red-500' };
+            if (this.avgIntensity >= 4) return { text: 'Pre-alert 🟠', class: 'text-orange-500' };
             return { text: 'Normal 🟢', class: 'text-green-500' };
         },
         
         get weightStatus() {
-            if (Math.abs(this.weightVariation) > 2) return { text: 'Variation anormale 🔴', class: 'text-red-500' };
-            if (this.bmi > 30) return { text: 'IMC élevé 🟠', class: 'text-orange-500' };
+            if (Math.abs(this.weightVariation) > 2) return { text: 'Abnormal variation 🔴', class: 'text-red-500' };
+            if (this.bmi > 30) return { text: 'High BMI 🟠', class: 'text-orange-500' };
             return { text: 'Normal 🟢', class: 'text-green-500' };
         },
         
         get globalScoreLabel() {
-            if (this.globalScore >= 80) return 'Bon équilibre 🟢';
-            if (this.globalScore >= 60) return 'À surveiller 🟠';
-            return 'Risque élevé 🔴';
+            if (this.globalScore >= 80) return 'Good balance 🟢';
+            if (this.globalScore >= 60) return 'To monitor 🟠';
+            return 'High risk 🔴';
         },
         
         get globalScoreDescription() {
-            if (this.globalScore >= 80) return '{{ 'Excellent état de santé'|trans }}';
-            if (this.globalScore >= 60) return '{{ 'Beberapa indicateurs à surveiller'|trans }}';
-            return '{{ 'Consultation recommandée'|trans }}';
+            if (this.globalScore >= 80) return '{{ 'Excellent health status'|trans }}';
+            if (this.globalScore >= 60) return '{{ 'Some indicators to monitor'|trans }}';
+            return '{{ 'Consultation recommended'|trans }}';
         },
         
         get scoreBreakdown() {
             return [
-                { name: '{{ 'Glycémie'|trans }}', score: this.glycemicScore, weight: 30, icon: 'fa-droplet', color: '#ef4444' },
-                { name: '{{ 'Tension'|trans }}', score: this.bpScore, weight: 25, icon: 'fa-heart', color: '#f97316' },
-                { name: '{{ 'Sommeil'|trans }}', score: this.sleepScore, weight: 20, icon: 'fa-bed', color: '#8b5cf6' },
-                { name: '{{ 'Poids'|trans }}', score: this.weightScore, weight: 15, icon: 'fa-weight-scale', color: '#3b82f6' },
-                { name: '{{ 'Symptômes'|trans }}', score: this.symptomScore, weight: 10, icon: 'fa-face-frown', color: '#22c55e' }
+                { name: '{{ 'Glycemia'|trans }}', score: this.glycemicScore, weight: 30, icon: 'fa-droplet', color: '#ef4444' },
+                { name: '{{ 'Blood pressure'|trans }}', score: this.bpScore, weight: 25, icon: 'fa-heart', color: '#f97316' },
+                { name: '{{ 'Sleep'|trans }}', score: this.sleepScore, weight: 20, icon: 'fa-bed', color: '#8b5cf6' },
+                { name: '{{ 'Weight'|trans }}', score: this.weightScore, weight: 15, icon: 'fa-weight-scale', color: '#3b82f6' },
+                { name: '{{ 'Symptoms'|trans }}', score: this.symptomScore, weight: 10, icon: 'fa-face-frown', color: '#22c55e' }
             ];
         },
         
@@ -616,8 +616,8 @@ document.addEventListener('alpine:init', () => {
             if (this.glycemicScore < 70) {
                 alerts.push({
                     id: 1,
-                    title: '{{ 'Risque glycémique'|trans }}',
-                    description: '{{ 'Glycémie en dehors de la plage normale'|trans }}',
+                    title: '{{ 'Glycemic risk'|trans }}',
+                    description: '{{ 'Blood sugar outside normal range'|trans }}',
                     severity: this.glycemicScore < 50 ? 'critical' : 'warning',
                     icon: 'fa-droplet'
                 });
@@ -625,8 +625,8 @@ document.addEventListener('alpine:init', () => {
             if (this.bpScore < 70) {
                 alerts.push({
                     id: 2,
-                    title: '{{ 'Tension élevée'|trans }}',
-                    description: '{{ 'Risque d\'hypertension détecté'|trans }}',
+                    title: '{{ 'High blood pressure'|trans }}',
+                    description: '{{ 'Hypertension risk detected'|trans }}',
                     severity: this.bpScore < 50 ? 'critical' : 'warning',
                     icon: 'fa-heart-pulse'
                 });
@@ -634,8 +634,8 @@ document.addEventListener('alpine:init', () => {
             if (this.sleepScore < 70) {
                 alerts.push({
                     id: 3,
-                    title: '{{ 'Sommeil insuffisant'|trans }}',
-                    description: '{{ 'Moins de 6h de sommeil par nuit'|trans }}',
+                    title: '{{ 'Insufficient sleep'|trans }}',
+                    description: '{{ 'Less than 6 hours of sleep per night'|trans }}',
                     severity: 'warning',
                     icon: 'fa-bed'
                 });
@@ -643,8 +643,8 @@ document.addEventListener('alpine:init', () => {
             if (Math.abs(this.weightVariation) > 2) {
                 alerts.push({
                     id: 4,
-                    title: '{{ 'Variation de poids'|trans }}',
-                    description: '{{ 'Variation de plus de 2kg en une semaine'|trans }}',
+                    title: '{{ 'Weight variation'|trans }}',
+                    description: '{{ 'Variation of more than 2kg in one week'|trans }}',
                     severity: 'warning',
                     icon: 'fa-scale-balanced'
                 });
@@ -658,10 +658,10 @@ document.addEventListener('alpine:init', () => {
             if (this.globalScore < 60) {
                 recs.push({
                     id: 1,
-                    title: '{{ 'Consultation médicale'|trans }}',
-                    description: '{{ 'Votre score de santé global est bas. Consultez un professionnel de santé.'|trans }}',
+                    title: '{{ 'Medical consultation'|trans }}',
+                    description: '{{ 'Your overall health score is low. Consult a healthcare professional.'|trans }}',
                     priority: 'high',
-                    priorityLabel: '{{ 'Priorité haute'|trans }}',
+                    priorityLabel: '{{ 'High priority'|trans }}',
                     icon: 'fa-user-doctor'
                 });
             }
@@ -669,10 +669,10 @@ document.addEventListener('alpine:init', () => {
             if (this.glycemicScore < 80) {
                 recs.push({
                     id: 2,
-                    title: '{{ 'Contrôle glycémique'|trans }}',
-                    description: '{{ 'Surveillez votre glycémie et adoptez une alimentation équilibrée.'|trans }}',
+                    title: '{{ 'Glycemic control'|trans }}',
+                    description: '{{ 'Monitor your blood sugar and adopt a balanced diet.'|trans }}',
                     priority: this.glycemicScore < 60 ? 'high' : 'medium',
-                    priorityLabel: '{{ 'Surveillance'|trans }}',
+                    priorityLabel: '{{ 'Monitor'|trans }}',
                     icon: 'fa-utensils'
                 });
             }
@@ -680,10 +680,10 @@ document.addEventListener('alpine:init', () => {
             if (this.bpScore < 80) {
                 recs.push({
                     id: 3,
-                    title: '{{ 'Gestion de la tension'|trans }}',
-                    description: '{{ 'Réduisez le sel, faites de l\'exercice régulièrement.'|trans }}',
+                    title: '{{ 'Blood pressure management'|trans }}',
+                    description: '{{ 'Reduce salt, exercise regularly.'|trans }}',
                     priority: this.bpScore < 60 ? 'high' : 'medium',
-                    priorityLabel: '{{ 'Mode de vie'|trans }}',
+                    priorityLabel: '{{ 'Lifestyle'|trans }}',
                     icon: 'fa-person-running'
                 });
             }
@@ -691,10 +691,10 @@ document.addEventListener('alpine:init', () => {
             if (this.sleepScore < 80) {
                 recs.push({
                     id: 4,
-                    title: '{{ 'Améliorer le sommeil'|trans }}',
-                    description: '{{ 'Ciblez 7-8h de sommeil par nuit avec une routine régulière.'|trans }}',
+                    title: '{{ 'Improve sleep'|trans }}',
+                    description: '{{ 'Aim for 7-8 hours of sleep per night with a regular routine.'|trans }}',
                     priority: 'medium',
-                    priorityLabel: '{{ 'Bien-être'|trans }}',
+                    priorityLabel: '{{ 'Wellness'|trans }}',
                     icon: 'fa-moon'
                 });
             }
@@ -702,10 +702,10 @@ document.addEventListener('alpine:init', () => {
             if (recs.length === 0) {
                 recs.push({
                     id: 5,
-                    title: '{{ 'Excellent travail !'|trans }}',
-                    description: '{{ 'Tous vos indicateurs sont dans les normes. Continuez ainsi.'|trans }}',
+                    title: '{{ 'Great job!'|trans }}',
+                    description: '{{ 'All your indicators are within normal range. Keep it up.'|trans }}',
                     priority: 'low',
-                    priorityLabel: '{{ 'Félicitations'|trans }}',
+                    priorityLabel: '{{ 'Congratulations'|trans }}',
                     icon: 'fa-trophy'
                 });
             }
@@ -728,7 +728,7 @@ document.addEventListener('alpine:init', () => {
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '{{ 'Glycémie (g/L)'|trans }}',
+                        label: '{{ 'Blood sugar (g/L)'|trans }}',
                         data: this.glycemicData,
                         borderColor: '#ef4444',
                         backgroundColor: 'rgba(239, 68, 68, 0.1)',
@@ -752,13 +752,13 @@ document.addEventListener('alpine:init', () => {
                     labels: labels,
                     datasets: [
                         {
-                            label: '{{ 'Systolique'|trans }}',
+                            label: '{{ 'Systolic'|trans }}',
                             data: this.bpSystolic,
                             borderColor: '#ef4444',
                             tension: 0.4
                         },
                         {
-                            label: '{{ 'Diastolique'|trans }}',
+                            label: '{{ 'Diastolic'|trans }}',
                             data: this.bpDiastolic,
                             borderColor: '#3b82f6',
                             tension: 0.4
@@ -778,14 +778,14 @@ document.addEventListener('alpine:init', () => {
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '{{ 'Heures'|trans }}',
+                        label: '{{ 'Hours'|trans }}',
                         data: this.sleepData,
                         backgroundColor: 'rgba(139, 92, 246, 0.7)',
                         borderColor: '#8b5cf6',
                         borderWidth: 1,
                         yAxisID: 'y'
                     }, {
-                        label: '{{ 'Qualité'|trans }}',
+                        label: '{{ 'Quality'|trans }}',
                         data: this.sleepQuality,
                         type: 'line',
                         borderColor: '#22c55e',
@@ -811,7 +811,7 @@ document.addEventListener('alpine:init', () => {
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '{{ 'Intensité'|trans }}',
+                        label: '{{ 'Intensity'|trans }}',
                         data: this.symptomIntensity,
                         backgroundColor: this.symptomIntensity.map(v => v <= 3 ? '#22c55e' : v <= 6 ? '#f97316' : '#ef4444'),
                         borderWidth: 0
@@ -831,7 +831,7 @@ document.addEventListener('alpine:init', () => {
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '{{ 'Poids (kg)'|trans }}',
+                        label: '{{ 'Weight (kg)'|trans }}',
                         data: this.weightData,
                         borderColor: '#3b82f6',
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -853,21 +853,21 @@ document.addEventListener('alpine:init', () => {
                     labels: labels,
                     datasets: [
                         {
-                            label: '{{ 'Glycémie'|trans }}',
+                            label: '{{ 'Blood sugar'|trans }}',
                             data: this.glycemicData.map(v => v * 100),
                             borderColor: '#ef4444',
                             tension: 0.4,
                             yAxisID: 'y'
                         },
                         {
-                            label: '{{ 'Tension syst.'|trans }}',
+                            label: '{{ 'Systolic BP'|trans }}',
                             data: this.bpSystolic,
                             borderColor: '#f97316',
                             tension: 0.4,
                             yAxisID: 'y1'
                         },
                         {
-                            label: '{{ 'Sommeil'|trans }}',
+                            label: '{{ 'Sleep'|trans }}',
                             data: this.sleepData,
                             borderColor: '#8b5cf6',
                             tension: 0.4,
@@ -880,8 +880,8 @@ document.addEventListener('alpine:init', () => {
                     maintainAspectRatio: false,
                     plugins: { legend: { position: 'bottom' } },
                     scales: {
-                        y: { position: 'left', title: { display: true, text: '{{ 'Glycémie'|trans }}' } },
-                        y1: { position: 'right', title: { display: true, text: '{{ 'Tension'|trans }}' }, grid: { drawOnChartArea: false } },
+                        y: { position: 'left', title: { display: true, text: '{{ 'Blood sugar'|trans }}' } },
+                        y1: { position: 'right', title: { display: true, text: '{{ 'Blood pressure'|trans }}' }, grid: { drawOnChartArea: false } },
                         y2: { display: false }
                     }
                 }

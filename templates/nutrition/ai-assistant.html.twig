@@ -1,6 +1,6 @@
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Assistant Nutritionnel AI - WellCare{% endblock %}
+{% block title %}AI Nutrition Assistant - WellCare{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -20,63 +20,63 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                     </svg>
                 </div>
-                <a href="{{ path('nutrition_dashboard') }}" class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg text-sm text-gray-600 dark:text-gray-300 transition-colors" title="Nouvelle conversation">
+                <a href="{{ path('nutrition_dashboard') }}" class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg text-sm text-gray-600 dark:text-gray-300 transition-colors" title="New conversation">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
                 </a>
             </div>
-            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Assistant Nutritionnel AI</h1>
-            <p class="text-gray-600 dark:text-gray-300">Obtenez des recommandations personnalisées basées sur vos objectifs</p>
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">AI Nutrition Assistant</h1>
+            <p class="text-gray-600 dark:text-gray-300">Get personalized recommendations based on your goals</p>
         </div>
 
         <!-- Quick Actions -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 mb-6">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Actions rapides</h2>
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Quick actions</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <button onclick="sendQuickMessage('recette déjeuner')" class="p-3 bg-emerald-100 dark:bg-emerald-900 hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('lunch recipe')" class="p-3 bg-emerald-100 dark:bg-emerald-900 hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">🍳</span>
-                    <span class="text-xs font-medium text-emerald-700 dark:text-emerald-300">Recettes</span>
+                    <span class="text-xs font-medium text-emerald-700 dark:text-emerald-300">Recipes</span>
                 </button>
-                <button onclick="sendQuickMessage('menu semaine')" class="p-3 bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('weekly menu')" class="p-3 bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">📅</span>
-                    <span class="text-xs font-medium text-blue-700 dark:text-blue-300">Menu semaine</span>
+                    <span class="text-xs font-medium text-blue-700 dark:text-blue-300">Weekly menu</span>
                 </button>
-                <button onclick="sendQuickMessage('perdre du poids')" class="p-3 bg-orange-100 dark:bg-orange-900 hover:bg-orange-200 dark:hover:bg-orange-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('lose weight')" class="p-3 bg-orange-100 dark:bg-orange-900 hover:bg-orange-200 dark:hover:bg-orange-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">⚖️</span>
-                    <span class="text-xs font-medium text-orange-700 dark:text-orange-300">Perte poids</span>
+                    <span class="text-xs font-medium text-orange-700 dark:text-orange-300">Weight loss</span>
                 </button>
-                <button onclick="sendQuickMessage('prise de muscle')" class="p-3 bg-purple-100 dark:bg-purple-900 hover:bg-purple-200 dark:hover:bg-purple-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('gain muscle')" class="p-3 bg-purple-100 dark:bg-purple-900 hover:bg-purple-200 dark:hover:bg-purple-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">💪</span>
-                    <span class="text-xs font-medium text-purple-700 dark:text-purple-300">Muscle</span>
+                    <span class="text-xs font-medium text-purple-700 dark:text-purple-300">Muscle gain</span>
                 </button>
-                <button onclick="sendQuickMessage('courses')" class="p-3 bg-yellow-100 dark:bg-yellow-900 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('shopping list')" class="p-3 bg-yellow-100 dark:bg-yellow-900 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">🛒</span>
-                    <span class="text-xs font-medium text-yellow-700 dark:text-yellow-300">Courses</span>
+                    <span class="text-xs font-medium text-yellow-700 dark:text-yellow-300">Shopping</span>
                 </button>
                 <a href="{{ path('nutrition_grocery_list_pdf') }}" class="p-3 bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 rounded-xl transition-colors text-center">
                     <span class="text-2xl mb-1 block">📄</span>
                     <span class="text-xs font-medium text-red-700 dark:text-red-300">PDF</span>
                 </a>
-                <button onclick="sendQuickMessage('poulet')" class="p-3 bg-cyan-100 dark:bg-cyan-900 hover:bg-cyan-200 dark:hover:bg-cyan-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('chicken')" class="p-3 bg-cyan-100 dark:bg-cyan-900 hover:bg-cyan-200 dark:hover:bg-cyan-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">ℹ️</span>
-                    <span class="text-xs font-medium text-cyan-700 dark:text-cyan-300">Info produit</span>
+                    <span class="text-xs font-medium text-cyan-700 dark:text-cyan-300">Product info</span>
                 </button>
-                <button onclick="sendQuickMessage('régime vegan')" class="p-3 bg-green-100 dark:bg-green-900 hover:bg-green-200 dark:hover:bg-green-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('vegan diet')" class="p-3 bg-green-100 dark:bg-green-900 hover:bg-green-200 dark:hover:bg-green-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">🌱</span>
-                    <span class="text-xs font-medium text-green-700 dark:text-green-300">Végan</span>
+                    <span class="text-xs font-medium text-green-700 dark:text-green-300">Vegan</span>
                 </button>
-                <button onclick="sendQuickMessage('régime keto')" class="p-3 bg-yellow-100 dark:bg-yellow-900 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('keto diet')" class="p-3 bg-yellow-100 dark:bg-yellow-900 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">🥑</span>
                     <span class="text-xs font-medium text-yellow-700 dark:text-yellow-300">Keto</span>
                 </button>
-                <button onclick="sendQuickMessage('sportif')" class="p-3 bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('athlete')" class="p-3 bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">🏃</span>
-                    <span class="text-xs font-medium text-red-700 dark:text-red-300">Sportif</span>
+                    <span class="text-xs font-medium text-red-700 dark:text-red-300">Athlete</span>
                 </button>
-                <button onclick="sendQuickMessage('eau')" class="p-3 bg-cyan-100 dark:bg-cyan-900 hover:bg-cyan-200 dark:hover:bg-cyan-800 rounded-xl transition-colors text-center cursor-pointer">
+                <button onclick="sendQuickMessage('water')" class="p-3 bg-cyan-100 dark:bg-cyan-900 hover:bg-cyan-200 dark:hover:bg-cyan-800 rounded-xl transition-colors text-center cursor-pointer">
                     <span class="text-2xl mb-1 block">💧</span>
-                    <span class="text-xs font-medium text-cyan-700 dark:text-cyan-300">Hydratation</span>
+                    <span class="text-xs font-medium text-cyan-700 dark:text-cyan-300">Hydration</span>
                 </button>
             </div>
         </div>
@@ -116,12 +116,12 @@
                                                                 </div>
                                                                 <div class="text-right ml-2">
                                                                     <p class="text-sm font-bold text-emerald-600">{{ meal.calories }} kcal</p>
-                                                                    <p class="text-xs text-gray-500">P:{{ meal.protein }}g G:{{ meal.carbs }}g L:{{ meal.fats }}g</p>
+                                                                    <p class="text-xs text-gray-500">P:{{ meal.protein }}g C:{{ meal.carbs }}g F:{{ meal.fats }}g</p>
                                                                 </div>
                                                             </div>
                                                             <div class="mt-2 flex gap-2">
                                                                 <button onclick="addMealToPlanner('{{ meal.name|escape('js') }}', {{ meal.calories }}, {{ meal.protein }}, {{ meal.carbs }}, {{ meal.fats }}, '{{ meal.description|escape('js') }}', '{{ meal.mealType|default('lunch') }}')" class="flex-1 px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium rounded-lg transition-colors">
-                                                                    ➕ Ajouter au planner
+                                                                    ➕ Add to planner
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -146,20 +146,20 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-800 dark:text-white">
-Bonjour! 🌟 Je suis votre assistant nutritionnel WellCare AI.
+Hello! 🌟 I'm your WellCare AI nutrition assistant.
 
-Je peux vous aider avec:
+I can help you with:
 
-🍳 <strong>Recettes</strong> - Suggestions personnalisées
-📅 <strong>Planification</strong> - Menus semaine  
-⚖️ <strong>Perte de poids</strong> - Plans adaptés
-💪 <strong>Muscle</strong> - Prise de masse
-🌱 <strong>Régimes spéciaux</strong> - Vegan, Keto...
-🏃 <strong>Sport</strong> - Nutrition athlete
-💧 <strong>Hydratation</strong> - Eau quotidienne
-📊 <strong>Calories</strong> - Guide nutritionnel
+🍳 <strong>Recipes</strong> - Personalized suggestions
+📅 <strong>Planning</strong> - Weekly menus  
+⚖️ <strong>Weight loss</strong> - Customized plans
+💪 <strong>Muscle gain</strong> - Mass building
+🌱 <strong>Special diets</strong> - Vegan, Keto...
+🏃 <strong>Sports</strong> - Athlete nutrition
+💧 <strong>Hydration</strong> - Daily water intake
+📊 <strong>Calories</strong> - Nutrition guide
 
-Tapez votre demande ci-dessous ou utilisez les actions rapides!
+Type your request below or use the quick actions!
                                     </p>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@ Tapez votre demande ci-dessous ou utilisez les actions rapides!
                         type="text" 
                         id="chat-input"
                         name="message" 
-                        placeholder="Tapez votre message..." 
+                        placeholder="Type your message..." 
                         required
                         autocomplete="off"
                         class="flex-1 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
@@ -219,16 +219,16 @@ Tapez votre demande ci-dessous ou utilisez les actions rapides!
         <!-- Navigation -->
         <div class="mt-6 flex flex-wrap justify-center gap-3">
             <a href="{{ path('nutrition_dashboard') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                <i class="mr-2 fas fa-arrow-left"></i>Tableau de bord
+                <i class="mr-2 fas fa-arrow-left"></i>Dashboard
             </a>
             <a href="{{ path('nutrition_meal_planner') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                <i class="mr-2 fas fa-calendar-alt"></i>Planificateur
+                <i class="mr-2 fas fa-calendar-alt"></i>Meal Planner
             </a>
             <a href="{{ path('nutrition_goals') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                <i class="mr-2 fas fa-bullseye"></i>Objectifs
+                <i class="mr-2 fas fa-bullseye"></i>Goals
             </a>
             <a href="{{ path('nutrition_food_diary') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                <i class="mr-2 fas fa-book"></i>Journal
+                <i class="mr-2 fas fa-book"></i>Food Diary
             </a>
         </div>
     </div>
@@ -305,12 +305,12 @@ function createAIMessage(response) {
                             </div>
                             <div class="text-right ml-2">
                                 <p class="text-sm font-bold text-emerald-600">${meal.calories} kcal</p>
-                                <p class="text-xs text-gray-500">P:${meal.protein}g G:${meal.carbs}g L:${meal.fats}g</p>
+                                <p class="text-xs text-gray-500">P:${meal.protein}g C:${meal.carbs}g F:${meal.fats}g</p>
                             </div>
                         </div>
                         <div class="mt-2 flex gap-2">
                             <button onclick="addMealToPlanner('${escapeHtml(meal.name)}', ${meal.calories}, ${meal.protein}, ${meal.carbs}, ${meal.fats}, '${escapeHtml(meal.description || '')}', '${meal.mealType || 'lunch'}')" class="flex-1 px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium rounded-lg transition-colors">
-                                ➕ Ajouter au planner
+                                ➕ Add to planner
                             </button>
                         </div>
                     </div>
@@ -368,16 +368,16 @@ async function sendMessage(message) {
             loadingIndicator.insertAdjacentHTML('beforebegin', createAIMessage(data));
         } else {
             // Show error message smoothly without reload
-            const errorMsg = createAIMessage({ message: 'Désolé, une erreur est survenue. Veuillez réessayer.' });
+            const errorMsg = createAIMessage({ message: 'Sorry, an error occurred. Please try again.' });
             loadingIndicator.insertAdjacentHTML('beforebegin', errorMsg);
-            showToast('❌ Erreur de connexion');
+            showToast('❌ Connection error');
         }
     } catch (error) {
         console.error('Error:', error);
         // Show error message smoothly without reload
-        const errorMsg = createAIMessage({ message: 'Désolé, une erreur de connexion est survenue. Veuillez vérifier votre connexion.' });
+        const errorMsg = createAIMessage({ message: 'Sorry, a connection error occurred. Please check your connection.' });
         loadingIndicator.insertAdjacentHTML('beforebegin', errorMsg);
-        showToast('❌ Erreur de connexion');
+        showToast('❌ Connection error');
     }
     
     loadingIndicator.classList.add('hidden');
@@ -410,13 +410,13 @@ async function addMealToPlanner(name, calories, protein, carbs, fats, descriptio
         });
         
         if (response.ok) {
-            showToast('✅ Repas ajouté au planificateur!');
+            showToast('✅ Meal added to planner!');
         } else {
-            showToast('❌ Erreur lors de l\'ajout');
+            showToast('❌ Error adding meal');
         }
     } catch (error) {
         console.error('Error:', error);
-        showToast('❌ Erreur lors de l\'ajout');
+        showToast('❌ Error adding meal');
     }
 }
 

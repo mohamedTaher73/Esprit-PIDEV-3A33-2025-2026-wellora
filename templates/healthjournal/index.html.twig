@@ -4,20 +4,20 @@
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Mes Journaux de Santé'|trans }} - WellCare Connect{% endblock %}
+{% block title %}{{ 'My Health Journals'|trans }} - WellCare Connect{% endblock %}
 
 {% block breadcrumb %}
     <li class="flex items-center">
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <a href="/dashboard" class="breadcrumb-link">{{ 'Tableau de bord'|trans }}</a>
+        <a href="/dashboard" class="breadcrumb-link">{{ 'Dashboard'|trans }}</a>
     </li>
     <li class="flex items-center">
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <span class="breadcrumb-current">{{ 'Mes Journaux'|trans }}</span>
+        <span class="breadcrumb-current">{{ 'My Journals'|trans }}</span>
     </li>
 {% endblock %}
 
@@ -32,10 +32,10 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold text-gray-900 dark:text-white">
-                        {{ 'Mes Journaux de Santé'|trans }}
+                        {{ 'My Health Journals'|trans }}
                     </h1>
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        {{ 'Gérez vos journaux de santé'|trans }}
+                        {{ 'Manage your health journals'|trans }}
                     </p>
                 </div>
             </div>
@@ -43,11 +43,11 @@
             <div class="flex items-center gap-2">
                 <a href="{{ path('app_healthjournal_compare') }}" class="btn-secondary">
                     <i class="fa-solid fa-scale-balanced mr-2"></i>
-                    {{ 'Comparer'|trans }}
+                    {{ 'Compare'|trans }}
                 </a>
                 <a href="{{ path('app_healthjournal_new') }}" class="btn-primary">
                     <i class="fa-solid fa-plus mr-2"></i>
-                    {{ 'Nouveau Journal'|trans }}
+                    {{ 'New Journal'|trans }}
                 </a>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <div class="relative flex-1 min-w-[200px]">
                 <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 <input type="text" name="search" id="search" value="{{ search|default('') }}" 
-                       placeholder="Rechercher..."
+                       placeholder="Search..."
                        class="w-full pl-10 pr-4 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
             </div>
             
@@ -76,9 +76,9 @@
                 <i class="fa-solid fa-sort text-gray-400"></i>
                 <select name="sortBy" id="sortBy" 
                         class="px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
-                    <option value="datedebut" {% if sortBy|default('datedebut') == 'datedebut' %}selected{% endif %}>Date début</option>
-                    <option value="datefin" {% if sortBy|default('datedebut') == 'datefin' %}selected{% endif %}>Date fin</option>
-                    <option value="name" {% if sortBy|default('datedebut') == 'name' %}selected{% endif %}>Nom</option>
+                    <option value="datedebut" {% if sortBy|default('datedebut') == 'datedebut' %}selected{% endif %}>Start date</option>
+                    <option value="datefin" {% if sortBy|default('datedebut') == 'datefin' %}selected{% endif %}>End date</option>
+                    <option value="name" {% if sortBy|default('datedebut') == 'name' %}selected{% endif %}>Name</option>
                 </select>
                 <select name="sortOrder" id="sortOrder" 
                         class="px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
@@ -89,7 +89,7 @@
             
             {# Apply Button #}
             <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-wellcare-600 rounded-lg hover:bg-wellcare-700 transition-colors">
-                <i class="fa-solid fa-check mr-1"></i>Appliquer
+                <i class="fa-solid fa-check mr-1"></i>Apply
             </button>
             
             {# Reset Button #}
@@ -102,18 +102,18 @@
     {# Loading Indicator #}
     <div id="loadingIndicator" class="hidden flex items-center justify-center py-8">
         <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-wellcare-600"></div>
-        <span class="ml-3 text-gray-500">{{ 'Recherche en cours...'|trans }}</span>
+        <span class="ml-3 text-gray-500">{{ 'Searching...'|trans }}</span>
     </div>
 
     {# Results Summary #}
     <div id="resultsSummary" class="mb-4 text-sm text-gray-500 dark:text-gray-400">
         {% if healthjournals|length > 0 %}
-            <span class="results-count">{{ healthjournals|length }}</span> résultat(s) trouvé(s)
+            <span class="results-count">{{ healthjournals|length }}</span> result(s) found
             {% if search|default('') or filterDate|default('') %}
-                <span class="text-xs text-wellcare-600">(filtré)</span>
+                <span class="text-xs text-wellcare-600">(filtered)</span>
             {% endif %}
         {% else %}
-            <span class="results-count">0</span> résultat(s)
+            <span class="results-count">0</span> result(s)
         {% endif %}
     </div>
 
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (filterSpan && isFiltered) {
             filterSpan.classList.add('text-wellcare-600');
-            filterSpan.textContent = '(filtré)';
+            filterSpan.textContent = '(filtered)';
         }
     }
     

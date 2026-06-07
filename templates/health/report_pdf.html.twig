@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapport de Santé - Wellora</title>
+    <title>Health Report - Wellora</title>
     <style>
         * {
             margin: 0;
@@ -273,8 +273,8 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>Rapport de Santé</h1>
-            <p class="subtitle">Wellora - Analyse complète de vos données de santé</p>
+            <h1>Health Report</h1>
+            <p class="subtitle">Wellora - Complete analysis of your health data</p>
         </div>
         
         <!-- Patient Info -->
@@ -284,15 +284,15 @@
                 <div class="info-value">{{ report.patientName }}</div>
             </div>
             <div class="info-item">
-                <div class="info-label">Date du Rapport</div>
-                <div class="info-value">{{ report.generatedAt|date('d/m/Y') }}</div>
+                <div class="info-label">Report Date</div>
+                <div class="info-value">{{ report.generatedAt|date('m/d/Y') }}</div>
             </div>
             <div class="info-item">
-                <div class="info-label">Période</div>
+                <div class="info-label">Period</div>
                 <div class="info-value">{{ report.periodString }}</div>
             </div>
             <div class="info-item">
-                <div class="info-label">Entrées</div>
+                <div class="info-label">Entries</div>
                 <div class="info-value">{{ report.totalEntries }}</div>
             </div>
         </div>
@@ -331,31 +331,31 @@
             </div>
             <div class="score-breakdown">
                 <div class="score-item">
-                    <div class="score-item-label">Glycémie</div>
+                    <div class="score-item-label">Glycemia</div>
                     <div class="score-item-value" style="color: {{ report.scores.glycemic >= 60 ? '#16a34a' : '#d97706' }}">
                         {{ report.scores.glycemic|number_format(0) }}
                     </div>
                 </div>
                 <div class="score-item">
-                    <div class="score-item-label">Tension</div>
+                    <div class="score-item-label">Blood Pressure</div>
                     <div class="score-item-value" style="color: {{ report.scores.bloodPressure >= 60 ? '#16a34a' : '#d97706' }}">
                         {{ report.scores.bloodPressure|number_format(0) }}
                     </div>
                 </div>
                 <div class="score-item">
-                    <div class="score-item-label">Sommeil</div>
+                    <div class="score-item-label">Sleep</div>
                     <div class="score-item-value" style="color: {{ report.scores.sleep >= 60 ? '#16a34a' : '#d97706' }}">
                         {{ report.scores.sleep|number_format(0) }}
                     </div>
                 </div>
                 <div class="score-item">
-                    <div class="score-item-label">Symptômes</div>
+                    <div class="score-item-label">Symptoms</div>
                     <div class="score-item-value" style="color: {{ report.scores.symptom >= 60 ? '#16a34a' : '#d97706' }}">
                         {{ report.scores.symptom|number_format(0) }}
                     </div>
                 </div>
                 <div class="score-item">
-                    <div class="score-item-label">Poids</div>
+                    <div class="score-item-label">Weight</div>
                     <div class="score-item-value" style="color: {{ report.scores.weight >= 60 ? '#16a34a' : '#d97706' }}">
                         {{ report.scores.weight|number_format(0) }}
                     </div>
@@ -370,33 +370,33 @@
             {% elseif report.riskLevel == 'high_risk' %}risk-high_risk
             {% else %}risk-stable{% endif %}">
             <div class="risk-title">
-                Niveau de Risque: {{ report.riskLevelLabel }}
+                Risk Level: {{ report.riskLevelLabel }}
             </div>
             <div style="color: #64748b; font-size: 12px;">
-                {% if report.riskLevel == 'excellent' %}Votre santé est excellente. Continuez vos bonnes habitudes !
-                {% elseif report.riskLevel == 'stable' %}Votre état de santé est stable.
-                {% elseif report.riskLevel == 'warning' %}Certains indicateurs nécessitent une attention particulière.
-                {% elseif report.riskLevel == 'high_risk' %}Une consultation médicale est recommandée.
-                {% else %}Données insuffisantes pour une évaluation complète.{% endif %}
+                {% if report.riskLevel == 'excellent' %}Your health is excellent. Keep up your good habits!
+                {% elseif report.riskLevel == 'stable' %}Your health condition is stable.
+                {% elseif report.riskLevel == 'warning' %}Some indicators require special attention.
+                {% elseif report.riskLevel == 'high_risk' %}Medical consultation is recommended.
+                {% else %}Insufficient data for complete evaluation.{% endif %}
             </div>
         </div>
         
         <!-- AI Prediction -->
         {% if report.hasPrediction() %}
         <div class="prediction-section">
-            <div class="prediction-label">Prédiction IA de Glycémie</div>
+            <div class="prediction-label">AI Blood Sugar Prediction</div>
             <div class="prediction-value">
                 {{ report.predictedGlycemia|number_format(2, '.', ',') }} g/L
             </div>
             <div style="font-size: 10px; color: #64748b; margin-top: 5px;">
-                Basé sur les tendances des 30 derniers jours
+                Based on trends from the last 30 days
             </div>
         </div>
         {% endif %}
         
         <!-- Recommendations -->
         <div class="recommendations-section">
-            <div class="recommendations-title">Recommandations</div>
+            <div class="recommendations-title">Recommendations</div>
             {% for line in report.recommendationText|split('\n\n') %}
             <div class="recommendation-item">
                 <span class="recommendation-bullet">•</span>
@@ -407,21 +407,21 @@
         
         <!-- Entries Table -->
         <div class="table-section">
-            <div class="table-title">Historique des Entrées</div>
+            <div class="table-title">Entry History</div>
             <table>
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Glycémie</th>
-                        <th>Poids</th>
-                        <th>Tension</th>
-                        <th>Sommeil</th>
+                        <th>Blood Sugar</th>
+                        <th>Weight</th>
+                        <th>Blood Pressure</th>
+                        <th>Sleep</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for entry in report.entries|slice(0, 15) %}
                     <tr>
-                        <td>{{ entry.date ? entry.date|date('d/m/Y') : 'N/A' }}</td>
+                        <td>{{ entry.date ? entry.date|date('m/d/Y') : 'N/A' }}</td>
                         <td>{{ entry.glycemie ? entry.glycemie|number_format(2, '.', ',') : 'N/A' }} g/L</td>
                         <td>{{ entry.poids ? entry.poids|number_format(1, '.', ',') : 'N/A' }} kg</td>
                         <td>{{ entry.tension|default('N/A') }}</td>
@@ -434,9 +434,9 @@
         
         <!-- Footer -->
         <div class="footer">
-            <p>Document généré automatiquement par Wellora</p>
-            <p>Ce rapport est fourni à titre informatif uniquement et ne remplace pas un avis médical professionnel.</p>
-            <p>Date de génération: {{ report.generatedAt|date('d/m/Y H:i') }}</p>
+            <p>Document automatically generated by Wellora</p>
+            <p>This report is provided for informational purposes only and does not replace professional medical advice.</p>
+            <p>Generation date: {{ report.generatedAt|date('m/d/Y H:i') }}</p>
         </div>
     </div>
 </body>

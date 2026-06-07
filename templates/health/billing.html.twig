@@ -3,7 +3,7 @@
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Facturation'|trans }} - WellCare Connect{% endblock %}
+{% block title %}{{ 'Billing'|trans }} - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -15,13 +15,13 @@
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <a href="/dashboard" class="breadcrumb-link">{{ 'Tableau de bord'|trans }}</a>
+        <a href="/dashboard" class="breadcrumb-link">{{ 'Dashboard'|trans }}</a>
     </li>
     <li class="flex items-center">
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <span class="breadcrumb-current">{{ 'Facturation'|trans }}</span>
+        <span class="breadcrumb-current">{{ 'Billing'|trans }}</span>
     </li>
 {% endblock %}
 
@@ -36,10 +36,10 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold text-gray-900 dark:text-white">
-                        {{ 'Facturation'|trans }}
+                        {{ 'Billing'|trans }}
                     </h1>
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        {{ 'Vos factures et paiements'|trans }}
+                        {{ 'Your invoices and payments'|trans }}
                     </p>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <i class="text-green-600 fa-solid fa-check-circle dark:text-green-400"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Payé'|trans }}</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Paid'|trans }}</p>
                     <p class="text-xl font-bold text-gray-900 dark:text-white">450 TND</p>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     <i class="text-yellow-600 fa-solid fa-clock dark:text-yellow-400"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'En attente'|trans }}</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Pending'|trans }}</p>
                     <p class="text-xl font-bold text-gray-900 dark:text-white">120 TND</p>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                     <i class="text-blue-600 fa-solid fa-file-invoice dark:text-blue-400"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Total Factures'|trans }}</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Total Invoices'|trans }}</p>
                     <p class="text-xl font-bold text-gray-900 dark:text-white">570 TND</p>
                 </div>
             </div>
@@ -86,7 +86,7 @@
     {# Invoices List #}
     <div class="overflow-hidden bg-white border border-gray-200 dark:bg-gray-900 rounded-2xl dark:border-gray-800">
         <div class="p-5 border-b border-gray-100 dark:border-gray-800">
-            <h2 class="font-semibold text-gray-900 dark:text-white">{{ 'Historique des Factures'|trans }}</h2>
+            <h2 class="font-semibold text-gray-900 dark:text-white">{{ 'Invoice History'|trans }}</h2>
         </div>
         
         <div class="overflow-x-auto">
@@ -94,7 +94,7 @@
                 <thead class="bg-gray-50 dark:bg-gray-800/50">
                     <tr>
                         <th class="px-5 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
-                            {{ 'N° Facture'|trans }}
+                            {{ 'Invoice #'|trans }}
                         </th>
                         <th class="px-5 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
                             {{ 'Date'|trans }}
@@ -103,10 +103,10 @@
                             {{ 'Description'|trans }}
                         </th>
                         <th class="px-5 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
-                            {{ 'Montant'|trans }}
+                            {{ 'Amount'|trans }}
                         </th>
                         <th class="px-5 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
-                            {{ 'Statut'|trans }}
+                            {{ 'Status'|trans }}
                         </th>
                         <th class="px-5 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
                             {{ 'Actions'|trans }}
@@ -119,10 +119,10 @@
                             #INV-2024-001
                         </td>
                         <td class="px-5 py-4 text-sm text-gray-600 dark:text-gray-400">
-                            15/01/2024
+                            01/15/2024
                         </td>
                         <td class="px-5 py-4 text-sm text-gray-900 dark:text-white">
-                            Consultation Dr. Sophie Martin
+                            Consultation with Dr. Sophie Martin
                         </td>
                         <td class="px-5 py-4 text-sm font-medium text-gray-900 dark:text-white">
                             50 TND
@@ -130,7 +130,7 @@
                         <td class="px-5 py-4">
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
                                 <i class="mr-1 fa-solid fa-check"></i>
-                                {{ 'Payé'|trans }}
+                                {{ 'Paid'|trans }}
                             </span>
                         </td>
                         <td class="px-5 py-4">
@@ -144,10 +144,10 @@
                             #INV-2024-002
                         </td>
                         <td class="px-5 py-4 text-sm text-gray-600 dark:text-gray-400">
-                            20/01/2024
+                            01/20/2024
                         </td>
                         <td class="px-5 py-4 text-sm text-gray-900 dark:text-white">
-                            Analyse de sang complète
+                            Complete blood analysis
                         </td>
                         <td class="px-5 py-4 text-sm font-medium text-gray-900 dark:text-white">
                             70 TND
@@ -155,7 +155,7 @@
                         <td class="px-5 py-4">
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
                                 <i class="mr-1 fa-solid fa-check"></i>
-                                {{ 'Payé'|trans }}
+                                {{ 'Paid'|trans }}
                             </span>
                         </td>
                         <td class="px-5 py-4">
@@ -169,10 +169,10 @@
                             #INV-2024-003
                         </td>
                         <td class="px-5 py-4 text-sm text-gray-600 dark:text-gray-400">
-                            01/02/2024
+                            02/01/2024
                         </td>
                         <td class="px-5 py-4 text-sm text-gray-900 dark:text-white">
-                            Consultation Dr. Ahmed Ben Ali
+                            Consultation with Dr. Ahmed Ben Ali
                         </td>
                         <td class="px-5 py-4 text-sm font-medium text-gray-900 dark:text-white">
                             120 TND
@@ -180,12 +180,12 @@
                         <td class="px-5 py-4">
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400">
                                 <i class="mr-1 fa-solid fa-clock"></i>
-                                {{ 'En attente'|trans }}
+                                {{ 'Pending'|trans }}
                             </span>
                         </td>
                         <td class="px-5 py-4">
                             <button class="text-xs btn-primary">
-                                {{ 'Payer'|trans }}
+                                {{ 'Pay'|trans }}
                             </button>
                         </td>
                     </tr>

@@ -1,6 +1,6 @@
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Prédiction IA - Wellora{% endblock %}
+{% block title %}AI Prediction - Wellora{% endblock %}
 
 {% block body %}
     <!-- Main Content Area with Sidebar -->
@@ -16,17 +16,17 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                             </svg>
                         </span>
-                        Prédiction IA de Glycémie
+                        AI Blood Sugar Prediction
                     </h1>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                        Analyse predictive basée sur vos données de santé avec Machine Learning
+                        Predictive analysis based on your health data using Machine Learning
                     </p>
                 </div>
                 <a href="{{ path('app_health_journal_accessible') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
                     <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
-                    Nouvelle Entrée
+                    New Entry
                 </a>
             </div>
         </div>
@@ -43,7 +43,7 @@
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                             </svg>
-                            Résultat de la Prédiction
+                            Prediction Result
                         </h2>
                     </div>
 
@@ -80,13 +80,13 @@
                                     <!-- Info Grid -->
                                     <div class="grid grid-cols-2 gap-4 mt-8 max-w-md mx-auto">
                                         <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                                            <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Entrées utilisées</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Entries used</p>
                                             <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">{{ prediction.entriesUsed }}</p>
                                         </div>
                                         <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                                            <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Confiance</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Confidence</p>
                                             <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">
-                                                {% if prediction.confidenceLevel == 'high' %}Haute{% elseif prediction.confidenceLevel == 'medium' %}Moyenne{% else %}Faible{% endif %}
+                                                {% if prediction.confidenceLevel == 'high' %}High{% elseif prediction.confidenceLevel == 'medium' %}Medium{% else %}Low{% endif %}
                                             </p>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div>
                                             <h3 class="text-lg font-medium text-amber-900 dark:text-amber-200">
-                                                Données insuffisantes
+                                                Insufficient data
                                             </h3>
                                             <p class="mt-2 text-amber-700 dark:text-amber-300">
                                                 {{ prediction.message }}
@@ -119,13 +119,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                                 <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                                    Aucun journal de santé trouvé
+                                    No health journal found
                                 </h3>
                                 <p class="text-gray-500 dark:text-gray-400 mb-4">
-                                    Créez d'abord un journal de santé pour commencer le suivi.
+                                    Create a health journal first to start tracking.
                                 </p>
                                 <a href="{{ path('app_health_journal_accessible') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors">
-                                    Créer une entrée
+                                    Create entry
                                 </a>
                             </div>
                         {% endif %}
@@ -138,7 +138,7 @@
                         <svg class="w-5 h-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        Comment fonctionne cette prédiction ?
+                        How does this prediction work?
                     </h3>
                     <div class="space-y-4">
                         <div class="flex gap-4">
@@ -146,8 +146,8 @@
                                 <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400">1</span>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">Collecte des données</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Le modèle utilise vos données historiques (sommeil, pression artérielle, poids)</p>
+                                <p class="font-medium text-gray-900 dark:text-white">Data collection</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">The model uses your historical data (sleep, blood pressure, weight)</p>
                             </div>
                         </div>
                         <div class="flex gap-4">
@@ -155,8 +155,8 @@
                                 <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400">2</span>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">Entraînement ML</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Un modèle de régression linéaire est entraîné sur vos données</p>
+                                <p class="font-medium text-gray-900 dark:text-white">ML training</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">A linear regression model is trained on your data</p>
                             </div>
                         </div>
                         <div class="flex gap-4">
@@ -164,8 +164,8 @@
                                 <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400">3</span>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">Prédiction</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">La glycémie future est prédite basée sur les 7 derniers jours</p>
+                                <p class="font-medium text-gray-900 dark:text-white">Prediction</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Future blood sugar is predicted based on the last 7 days</p>
                             </div>
                         </div>
                     </div>
@@ -180,26 +180,26 @@
                         <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                         </svg>
-                        Conseils
+                        Tips
                     </h3>
                     <ul class="space-y-3">
                         <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
                             <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <span>Enregistrez vos données quotidiennement</span>
+                            <span>Record your data daily</span>
                         </li>
                         <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
                             <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <span>Plus de données = prédiction plus précise</span>
+                            <span>More data = more accurate prediction</span>
                         </li>
                         <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
                             <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <span>Incluez sommeil et pression artérielle</span>
+                            <span>Include sleep and blood pressure</span>
                         </li>
                     </ul>
                 </div>
@@ -210,13 +210,13 @@
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
-                        Ajouter une entrée
+                        Add entry
                     </a>
                     <a href="{{ path('app_health_dashboard') }}" class="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-center font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                         </svg>
-                        Retour au tableau de bord
+                        Back to dashboard
                     </a>
                 </div>
             </div>

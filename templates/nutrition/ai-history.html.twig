@@ -1,6 +1,6 @@
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Historique AI - WellCare Nutrition{% endblock %}
+{% block title %}AI History - WellCare Nutrition{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -21,7 +21,7 @@
                     </svg>
                 </a>
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Historique des conversations</h1>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Conversation history</h1>
                     <p class="text-gray-600 dark:text-gray-400">{{ totalCount }} conversations</p>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                 </svg>
-                Tout effacer
+                Clear all
             </button>
         </div>
 
@@ -42,19 +42,19 @@
             <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
                 <a href="{{ path('nutrition_ai_insights') }}" class="block hover:opacity-80">
                     <div class="text-2xl font-bold text-blue-600">📊</div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Voir analyses</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">View insights</div>
                 </a>
             </div>
             <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
                 <a href="{{ path('nutrition_ai_recommendations') }}" class="block hover:opacity-80">
                     <div class="text-2xl font-bold text-purple-600">💡</div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Recommandations</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Recommendations</div>
                 </a>
             </div>
             <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
                 <a href="{{ path('nutrition_ai_assistant') }}" class="block hover:opacity-80">
                     <div class="text-2xl font-bold text-orange-600">💬</div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Nouvelle conversation</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">New conversation</div>
                 </a>
             </div>
         </div>
@@ -67,11 +67,11 @@
                         <h3 class="font-semibold text-gray-700 dark:text-gray-200">
                             {% set dateObj = date|date('Y-m-d') %}
                             {% if dateObj == 'now'|date('Y-m-d') %}
-                                Aujourd'hui
+                                Today
                             {% elseif dateObj == 'now'|date_modify('-1 day')|date('Y-m-d') %}
-                                Hier
+                                Yesterday
                             {% else %}
-                                {{ date|date('d MMM yyyy') }}
+                                {{ date|date('d M Y') }}
                             {% endif %}
                         </h3>
                     </div>
@@ -109,12 +109,12 @@
                                         <p class="text-sm text-gray-500 dark:text-gray-400 truncate mt-1">{{ conv.aiResponse|slice(0, 100) }}...</p>
                                     </div>
                                     <div class="flex items-center gap-2" onclick="event.stopPropagation()">
-                                        <a href="{{ path('nutrition_ai_star', {id: conv.id}) }}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors" title="{{ conv.isStarred ? 'Retirer des favoris' : 'Ajouter aux favoris' }}">
+                                        <a href="{{ path('nutrition_ai_star', {id: conv.id}) }}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors" title="{{ conv.isStarred ? 'Remove from favorites' : 'Add to favorites' }}">
                                             <svg class="w-5 h-5 {{ conv.isStarred ? 'text-yellow-500' : 'text-gray-400' }}" fill="{{ conv.isStarred ? 'currentColor' : 'none' }}" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
                                             </svg>
                                         </a>
-                                        <button onclick="showDeleteModal({{ conv.id }}, '{{ conv.userMessage|escape('js') }}')" class="p-2 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg transition-colors text-red-500" title="Supprimer">
+                                        <button onclick="showDeleteModal({{ conv.id }}, '{{ conv.userMessage|escape('js') }}')" class="p-2 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg transition-colors text-red-500" title="Delete">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                             </svg>
@@ -128,10 +128,10 @@
             {% else %}
                 <div class="text-center py-12">
                     <div class="text-6xl mb-4">💬</div>
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Aucune conversation</h3>
-                    <p class="text-gray-500 dark:text-gray-400 mb-4">Commencez à discuter avec l'AI!</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">No conversations</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-4">Start chatting with the AI!</p>
                     <a href="{{ path('nutrition_ai_assistant') }}" class="inline-flex items-center px-6 py-3 bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition-colors">
-                        Ouvrir l'assistant
+                        Open assistant
                     </a>
                 </div>
             {% endfor %}
@@ -148,18 +148,18 @@
                 <div class="mx-auto w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
                     <i class="text-3xl text-red-500 fas fa-exclamation-triangle"></i>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Confirmer la suppression</h3>
+                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Confirm deletion</h3>
                 <p class="mb-6 text-gray-600 dark:text-gray-400">
-                    Êtes-vous sûr de vouloir supprimer <span id="delete-item-name" class="font-semibold text-red-500"></span> ?
+                    Are you sure you want to delete <span id="delete-item-name" class="font-semibold text-red-500"></span>?
                 </p>
                 <div class="flex gap-3">
                     <button onclick="hideDeleteModal()" 
                             class="flex-1 px-4 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-                        Annuler
+                        Cancel
                     </button>
                     <a id="delete-confirm-btn" href="#"
                        class="flex-1 px-4 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600 text-center">
-                        Supprimer
+                        Delete
                     </a>
                 </div>
             </div>
@@ -176,18 +176,18 @@
                 <div class="mx-auto w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mb-4">
                     <i class="text-3xl text-orange-500 fas fa-trash-alt"></i>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Effacer tout l'historique</h3>
+                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Clear all history</h3>
                 <p class="mb-6 text-gray-600 dark:text-gray-400">
-                    Êtes-vous sûr de vouloir supprimer toutes les conversations ? Cette action est irréversible.
+                    Are you sure you want to delete all conversations? This action is irreversible.
                 </p>
                 <div class="flex gap-3">
                     <button onclick="hideClearAllModal()" 
                             class="flex-1 px-4 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-                        Annuler
+                        Cancel
                     </button>
                     <a href="{{ path('nutrition_dashboard') }}"
                        class="flex-1 px-4 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600 text-center">
-                        Tout effacer
+                        Clear all
                     </a>
                 </div>
             </div>
@@ -199,7 +199,7 @@
 let deleteUrl = '';
 
 function showDeleteModal(convId, itemName) {
-    document.getElementById('delete-item-name').textContent = itemName || 'cette conversation';
+    document.getElementById('delete-item-name').textContent = itemName || 'this conversation';
     document.getElementById('delete-confirm-btn').href = '/nutrition/ai-delete/' + convId;
     document.getElementById('delete-modal').classList.remove('hidden');
 }

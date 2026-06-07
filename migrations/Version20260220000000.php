@@ -18,8 +18,8 @@ final class Version20260220000000 extends AbstractMigration
     {
         // Create professional_verification table
         $this->addSql('CREATE TABLE professional_verification (
-            id INT AUTO_INCREMENT NOT NULL,
-            professional_id INT NOT NULL,
+            id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+            professional_id VARCHAR(36) NOT NULL,
             license_number VARCHAR(255) DEFAULT NULL,
             specialty VARCHAR(255) DEFAULT NULL,
             diploma_path VARCHAR(500) DEFAULT NULL,
@@ -36,7 +36,7 @@ final class Version20260220000000 extends AbstractMigration
             INDEX IDX_PROFESSIONAL (professional_id),
             INDEX IDX_STATUS (status),
             INDEX IDX_CREATED_AT (created_at),
-            FOREIGN KEY (professional_id) REFERENCES users(id) ON DELETE CASCADE
+            FOREIGN KEY (professional_id) REFERENCES users(uuid) ON DELETE CASCADE
         ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
     }
 

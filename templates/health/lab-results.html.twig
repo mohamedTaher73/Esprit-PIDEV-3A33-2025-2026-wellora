@@ -3,7 +3,7 @@
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Résultats de Laboratoire'|trans }} - WellCare Connect{% endblock %}
+{% block title %}{{ 'Laboratory Results'|trans }} - WellCare Connect{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -15,13 +15,13 @@
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <a href="/dashboard" class="breadcrumb-link">{{ 'Tableau de bord'|trans }}</a>
+        <a href="/dashboard" class="breadcrumb-link">{{ 'Dashboard'|trans }}</a>
     </li>
     <li class="flex items-center">
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <span class="breadcrumb-current">{{ 'Résultats de Laboratoire'|trans }}</span>
+        <span class="breadcrumb-current">{{ 'Laboratory Results'|trans }}</span>
     </li>
 {% endblock %}
 
@@ -36,10 +36,10 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold text-gray-900 dark:text-white">
-                        {{ 'Résultats de Laboratoire'|trans }}
+                        {{ 'Laboratory Results'|trans }}
                     </h1>
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        {{ 'Vos analyses et résultats d\'examens'|trans }}
+                        {{ 'Your test results and analyses'|trans }}
                     </p>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                                     {{ result.name }}
                                 </h3>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">
-                                    {{ 'Examen de laboratoire'|trans }}
+                                    {{ 'Laboratory test'|trans }}
                                 </p>
                             </div>
                         </div>
@@ -69,9 +69,9 @@
                             <button type="button" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-wellcare-600 hover:bg-wellcare-700 shadow-sm" onclick="document.getElementById('lab-upload-{{ result.id }}').click()">
                                 <i class="mr-1 fa-solid fa-upload"></i>
                                 {% if result.resultFile %}
-                                    {{ 'Remplacer PDF'|trans }}
+                                    {{ 'Replace PDF'|trans }}
                                 {% else %}
-                                    {{ 'Uploader PDF'|trans }}
+                                    {{ 'Upload PDF'|trans }}
                                 {% endif %}
                             </button>
                         </div>
@@ -83,11 +83,11 @@
                         <div class="p-4 rounded-xl bg-gray-50/70 dark:bg-gray-800/60">
                             <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Date'|trans }}</p>
                             <p class="text-sm font-medium text-gray-900 dark:text-white">
-                                {{ result.date ? result.date|date('d/m/Y') : '-' }}
+                                {{ result.date ? result.date|date('m/d/Y') : '-' }}
                             </p>
                         </div>
                         <div class="p-4 rounded-xl bg-gray-50/70 dark:bg-gray-800/60">
-                            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Statut'|trans }}</p>
+                            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Status'|trans }}</p>
                             <span class="inline-flex items-center mt-1 px-2.5 py-1 text-xs font-medium rounded-full
                                 {% if result.status in ['termine', 'terminé', 'done', 'completed'] %}
                                     text-green-700 bg-green-100 dark:bg-green-900/30 dark:text-green-400
@@ -97,56 +97,56 @@
                                     text-yellow-700 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-400
                                 {% endif %}
                             ">
-                                {{ result.status|default('prescrit')|capitalize }}
+                                {{ result.status|default('prescribed')|capitalize }}
                             </span>
                         </div>
                         <div class="p-4 rounded-xl bg-gray-50/70 dark:bg-gray-800/60">
-                            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Fichier'|trans }}</p>
+                            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'File'|trans }}</p>
                             {% if result.resultFile %}
                                 {% set fileName = result.resultFile|split('/')|last %}
                                 <a class="inline-flex items-center mt-1 text-sm text-wellcare-600 hover:text-wellcare-700 dark:text-wellcare-400 dark:hover:text-wellcare-300"
                                    href="{{ asset(result.resultFile) }}" target="_blank" rel="noopener">
                                     <i class="mr-2 fa-solid fa-file-pdf"></i>
-                                    {{ 'Télécharger PDF'|trans }}
+                                    {{ 'Download PDF'|trans }}
                                 </a>
                                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ fileName }}</p>
                             {% else %}
-                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'Aucun fichier'|trans }}</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'No file'|trans }}</p>
                             {% endif %}
                         </div>
                     </div>
 
                     <div>
-                        <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Résultat'|trans }}</p>
+                        <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Result'|trans }}</p>
                         <div class="p-4 mt-2 text-sm text-gray-800 bg-gray-50/70 rounded-xl dark:bg-gray-800/60 dark:text-gray-200">
-                            {{ result.result ? result.result : 'Résultat en attente'|trans }}
+                            {{ result.result ? result.result : 'Result pending'|trans }}
                         </div>
                     </div>
 
                     <div>
-                        <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Analyse du médecin'|trans }}</p>
+                        <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Doctor analysis'|trans }}</p>
                         <div class="p-4 mt-2 text-sm text-gray-800 bg-gray-50/70 rounded-xl dark:bg-gray-800/60 dark:text-gray-200">
-                            {{ result.doctorAnalysis ? result.doctorAnalysis : 'En attente d\'analyse'|trans }}
+                            {{ result.doctorAnalysis ? result.doctorAnalysis : 'Analysis pending'|trans }}
                         </div>
                     </div>
 
                     <div>
-                        <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Traitement proposé'|trans }}</p>
+                        <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Proposed treatment'|trans }}</p>
                         <div class="p-4 mt-2 text-sm text-gray-800 bg-gray-50/70 rounded-xl dark:bg-gray-800/60 dark:text-gray-200">
-                            {{ result.doctorTreatment ? result.doctorTreatment : 'En attente de traitement'|trans }}
+                            {{ result.doctorTreatment ? result.doctorTreatment : 'Treatment pending'|trans }}
                         </div>
                     </div>
 
                     {% if result.resultFile %}
                         <div>
-                            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'Aperçu PDF'|trans }}</p>
+                            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ 'PDF Preview'|trans }}</p>
                             <div class="mt-2 overflow-hidden border border-gray-200 rounded-xl dark:border-gray-800 shadow-sm">
                                 <iframe src="{{ asset(result.resultFile) }}" class="w-full h-64 bg-white" title="PDF preview"></iframe>
                             </div>
                             <div class="mt-2">
                                 <a class="text-sm text-wellcare-600 hover:text-wellcare-700 dark:text-wellcare-400 dark:hover:text-wellcare-300"
                                    href="{{ asset(result.resultFile) }}" target="_blank" rel="noopener">
-                                    {{ 'Voir en plein écran'|trans }}
+                                    {{ 'View full screen'|trans }}
                                 </a>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                 <form method="post" action="{{ path('health_lab_results_delete_file', { id: result.id }) }}">
                                     <button type="submit" class="px-4 py-2 text-sm font-medium text-red-600 bg-red-100 rounded-lg hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400">
                                         <i class="mr-1 fa-solid fa-trash"></i>
-                                        {{ 'Supprimer fichier'|trans }}
+                                        {{ 'Delete file'|trans }}
                                     </button>
                                 </form>
                             {% endif %}
@@ -174,7 +174,7 @@
             <div class="p-8 text-center bg-white border border-gray-200 dark:bg-gray-900 rounded-2xl dark:border-gray-800">
                 <i class="mb-4 text-4xl text-gray-300 fa-solid fa-flask-vial dark:text-gray-700"></i>
                 <p class="text-gray-500 dark:text-gray-400">
-                    {{ 'Aucun résultat de laboratoire trouvé'|trans }}
+                    {{ 'No laboratory results found'|trans }}
                 </p>
             </div>
         {% endfor %}

@@ -358,12 +358,15 @@ class AppointmentController extends AbstractController
         error_log('Current user ID: ' . ($currentUser ? $currentUser->getUuid() : 'null'));
         error_log('Is Patient instance: ' . ($currentUser instanceof Patient ? 'yes' : 'no'));
         
-        if ($currentUser instanceof Patient) {
-            $consultation->setPatient($currentUser);
-            error_log('Patient set successfully: ' . $currentUser->getFullName());
-        } else {
-            error_log('WARNING: Current user is NOT a Patient - appointment will not be linked to patient!');
+        if (!$currentUser instanceof Patient) {
+            return $this->json([
+                'success' => false,
+                'message' => 'Only patients can create appointments'
+            ], 403);
         }
+        
+        $consultation->setPatient($currentUser);
+        error_log('Patient set successfully: ' . $currentUser->getFullName());
         
         // Set the doctor if doctorId is provided
         if (!empty($data['doctorId'])) {

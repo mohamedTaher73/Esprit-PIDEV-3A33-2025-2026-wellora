@@ -4,20 +4,20 @@
 
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}{{ 'Mes Entrées de Santé'|trans }} - WellCare Connect{% endblock %}
+{% block title %}{{ 'My Health Entries'|trans }} - WellCare Connect{% endblock %}
 
 {% block breadcrumb %}
     <li class="flex items-center">
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <a href="/dashboard" class="breadcrumb-link">{{ 'Tableau de bord'|trans }}</a>
+        <a href="/dashboard" class="breadcrumb-link">{{ 'Dashboard'|trans }}</a>
     </li>
     <li class="flex items-center">
         <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        <span class="breadcrumb-current">{{ 'Mes Entrées'|trans }}</span>
+        <span class="breadcrumb-current">{{ 'My Entries'|trans }}</span>
     </li>
 {% endblock %}
 
@@ -32,10 +32,10 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold text-gray-900 dark:text-white">
-                        {{ 'Mes Entrées de Santé'|trans }}
+                        {{ 'My Health Entries'|trans }}
                     </h1>
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        {{ 'Gérez vos données de santé'|trans }}
+                        {{ 'Manage your health data'|trans }}
                     </p>
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="flex items-center gap-2">
                 <a href="{{ path('app_health_journal_accessible') }}" class="btn-primary">
                     <i class="fa-solid fa-plus mr-2"></i>
-                    {{ 'Nouvelle Entrée'|trans }}
+                    {{ 'New Entry'|trans }}
                 </a>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="relative flex-1 min-w-[200px]">
                 <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 <input type="text" name="search" id="search" value="{{ search|default('') }}" 
-                       placeholder="{{ 'Rechercher par poids...'|trans }}"
+                       placeholder="{{ 'Search by weight...'|trans }}"
                        class="w-full pl-10 pr-4 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
             </div>
             
@@ -73,8 +73,8 @@
                 <select name="sortBy" id="sortBy" 
                         class="px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
                     <option value="date" {% if sortBy|default('date') == 'date' %}selected{% endif %}>{{ 'Date'|trans }}</option>
-                    <option value="poids" {% if sortBy|default('date') == 'poids' %}selected{% endif %}>{{ 'Poids'|trans }}</option>
-                    <option value="glycemie" {% if sortBy|default('date') == 'glycemie' %}selected{% endif %}>{{ 'Glycémie'|trans }}</option>
+                    <option value="poids" {% if sortBy|default('date') == 'poids' %}selected{% endif %}>{{ 'Weight'|trans }}</option>
+                    <option value="glycemie" {% if sortBy|default('date') == 'glycemie' %}selected{% endif %}>{{ 'Glycemia'|trans }}</option>
                 </select>
                 <select name="sortOrder" id="sortOrder" 
                         class="px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-wellcare-500 focus:border-wellcare-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
@@ -85,7 +85,7 @@
             
             {# Apply Button #}
             <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-wellcare-600 rounded-lg hover:bg-wellcare-700 transition-colors">
-                <i class="fa-solid fa-check mr-1"></i>{{ 'Appliquer'|trans }}
+                <i class="fa-solid fa-check mr-1"></i>{{ 'Apply'|trans }}
             </button>
             
             {# Reset Button #}
@@ -98,15 +98,15 @@
     {# Loading Indicator #}
     <div id="loadingIndicator" class="hidden flex items-center justify-center py-8">
         <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-wellcare-600"></div>
-        <span class="ml-3 text-gray-500">{{ 'Recherche en cours...'|trans }}</span>
+        <span class="ml-3 text-gray-500">{{ 'Searching...'|trans }}</span>
     </div>
 
     {# Results Summary #}
     <div id="resultsSummary" class="mb-4 text-sm text-gray-500 dark:text-gray-400">
         {% if healthentries|length > 0 %}
-            <span class="results-count">{{ healthentries|length }}</span> résultat(s) trouvé(s)
+            <span class="results-count">{{ healthentries|length }}</span> result(s) found
         {% else %}
-            <span class="results-count">0</span> résultat(s)
+            <span class="results-count">0</span> result(s)
         {% endif %}
     </div>
 

@@ -1,6 +1,6 @@
 {% extends 'layouts/app.html.twig' %}
 
-{% block title %}Analyses AI - WellCare Nutrition{% endblock %}
+{% block title %}AI Insights - WellCare Nutrition{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -21,8 +21,8 @@
                     </svg>
                 </a>
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Analyses AI</h1>
-                    <p class="text-gray-600 dark:text-gray-400">Statistiques de vos conversations</p>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">AI Insights</h1>
+                    <p class="text-gray-600 dark:text-gray-400">Conversation statistics</p>
                 </div>
             </div>
         </div>
@@ -35,16 +35,16 @@
             </div>
             <div class="bg-white dark:bg-gray-800 rounded-2xl p-6">
                 <div class="text-4xl font-bold text-blue-600 mb-1">{{ starredCount }}</div>
-                <div class="text-gray-500 dark:text-gray-400">Sauvegardées</div>
+                <div class="text-gray-500 dark:text-gray-400">Saved</div>
             </div>
             <div class="bg-white dark:bg-gray-800 rounded-2xl p-6">
                 <div class="text-4xl font-bold text-purple-600 mb-1">{{ topIntents|length }}</div>
-                <div class="text-gray-500 dark:text-gray-400">Sujets différents</div>
+                <div class="text-gray-500 dark:text-gray-400">Different topics</div>
             </div>
             <div class="bg-white dark:bg-gray-800 rounded-2xl p-6">
                 <a href="{{ path('nutrition_ai_history') }}" class="block hover:opacity-80">
                     <div class="text-4xl font-bold text-orange-600 mb-1">📋</div>
-                    <div class="text-gray-500 dark:text-gray-400">Voir historique</div>
+                    <div class="text-gray-500 dark:text-gray-400">View history</div>
                 </a>
             </div>
         </div>
@@ -52,26 +52,26 @@
         <!-- Intent Distribution -->
         <div class="grid md:grid-cols-2 gap-6 mb-8">
             <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Sujets les plus demandés</h2>
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Most requested topics</h2>
                 <div class="space-y-3">
                     {% set intentLabels = {
-                        'recipe': 'Recettes',
-                        'meal_plan': 'Planification',
-                        'weight_loss': 'Perte de poids',
-                        'muscle': 'Muscle',
-                        'vegan': 'Végan',
+                        'recipe': 'Recipes',
+                        'meal_plan': 'Meal planning',
+                        'weight_loss': 'Weight loss',
+                        'muscle': 'Muscle gain',
+                        'vegan': 'Vegan',
                         'keto': 'Keto',
-                        'sport': 'Sport',
-                        'water': 'Hydratation',
+                        'sport': 'Sports',
+                        'water': 'Hydration',
                         'calories': 'Calories',
-                        'protein': 'Protéines',
-                        'carbs': 'Glucides',
-                        'fats': 'Lipides',
-                        'fiber': 'Fibres',
-                        'greeting': 'Salutation',
-                        'help': 'Aide',
-                        'default': 'Autre',
-                        'unknown': 'Non classé'
+                        'protein': 'Protein',
+                        'carbs': 'Carbs',
+                        'fats': 'Fats',
+                        'fiber': 'Fiber',
+                        'greeting': 'Greeting',
+                        'help': 'Help',
+                        'default': 'Other',
+                        'unknown': 'Uncategorized'
                     } %}
                     {% for intent, count in intentCounts %}
                         {% if count > 0 %}
@@ -115,7 +115,7 @@
 
             <!-- Weekly Activity -->
             <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Activité récente</h2>
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Recent activity</h2>
                 <div class="space-y-2">
                     {% for week, count in weeklyActivity|reverse|slice(0, 8) %}
                         <div class="flex items-center gap-3">
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                     {% else %}
-                        <p class="text-gray-500 dark:text-gray-400 text-center py-4">Pas assez de données</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-center py-4">Not enough data</p>
                     {% endfor %}
                 </div>
             </div>
@@ -136,14 +136,14 @@
 
         <!-- Starred Conversations -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Conversations sauvegardées</h2>
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Saved conversations</h2>
             <div class="space-y-3">
                 {% for conv in starredConversations %}
                     <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm text-gray-500">{{ conv.createdAt|date('d MMM yyyy') }}</span>
+                            <span class="text-sm text-gray-500">{{ conv.createdAt|date('d M Y') }}</span>
                             <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 text-xs rounded">
-                                {% if conv.intent %}{{ intentLabels[conv.intent] ?? conv.intent }}{% else %}Non classé{% endif %}
+                                {% if conv.intent %}{{ intentLabels[conv.intent] ?? conv.intent }}{% else %}Uncategorized{% endif %}
                             </span>
                         </div>
                         <p class="text-gray-800 dark:text-white font-medium">{{ conv.userMessage }}</p>
@@ -152,8 +152,8 @@
                 {% else %}
                     <div class="text-center py-8">
                         <div class="text-4xl mb-2">⭐</div>
-                        <p class="text-gray-500 dark:text-gray-400">Aucune conversation sauvegardée</p>
-                        <p class="text-sm text-gray-400">Cliquez sur l'étoile dans vos conversations pour les sauvegarder</p>
+                        <p class="text-gray-500 dark:text-gray-400">No saved conversations</p>
+                        <p class="text-sm text-gray-400">Click the star in your conversations to save them</p>
                     </div>
                 {% endfor %}
             </div>
@@ -165,10 +165,10 @@
                 💬 Assistant
             </a>
             <a href="{{ path('nutrition_ai_history') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                📋 Historique
+                📋 History
             </a>
             <a href="{{ path('nutrition_ai_recommendations') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:shadow-md transition-all dark:hover:bg-gray-700">
-                💡 Recommandations
+                💡 Recommendations
             </a>
         </div>
     </div>
