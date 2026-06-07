@@ -1,7 +1,12 @@
 # wellora
 
-## Overview
-*This project was developed as part of the PIDEV -3A33 at **Esprit School of Engineering** (Academic Year 2025-2026).*
+## 📌 Description
+
+Wellora est une plateforme web de santé et de bien-être développée dans le cadre du projet PIDEV à l’ESPRIT School of Engineering (2025–2026).  
+Elle permet aux utilisateurs de gérer leur santé de manière globale à travers plusieurs modules : sport, nutrition, consultation médicale, parcours de santé et journal de santé.
+
+L’objectif du projet est de centraliser les services liés au bien-être dans une seule application intelligente et interactive.
+
 
 ## Features
 ### 👥 Module Utilisateurs (Mohamed Taher Zeidi)
@@ -103,3 +108,13 @@ git clone [URL du dépôt]
 cd [nom du projet]
 npm install
 npm start
+
+### ▶️ Lancement du projet
+symfony server:start
+
+###🔐 Variables d’environnement
+Créer un fichier .env base sur .env.exemple
+
+###🎥 Démo
+Vidéo : https://www.youtube.com/watch?v=KJHGk0WjhiQ
+Déploiement : (à ajouter)
